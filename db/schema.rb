@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405080837) do
+ActiveRecord::Schema.define(version: 20160405081617) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "accounts", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.integer  "kibokan_id",                         null: false
+    t.string   "email",              default: "",    null: false
+    t.string   "password_digest",    default: "",    null: false
+    t.boolean  "confirmed_email",    default: false
+    t.string   "confirmation_token"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "accounts", ["email"], name: "index_accounts_on_email", using: :btree
+  add_index "accounts", ["kibokan_id"], name: "index_accounts_on_kibokan_id", using: :btree
 
 end
