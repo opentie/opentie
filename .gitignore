@@ -16,4 +16,5 @@
 *.sw[a-z]
 *~
 
-/public/assets/
+/public/assets/javascripts/
+/public/assets/stylesheets/
