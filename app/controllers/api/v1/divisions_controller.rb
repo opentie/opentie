@@ -1,3 +1,3 @@
-class DivisionsController < ApplicationController
+class Api::V1::DivisionsController < ApplicationController
 
 end

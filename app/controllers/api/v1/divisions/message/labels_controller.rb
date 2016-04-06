@@ -1,3 +1,3 @@
-class LabelsController < ApplicationController
+class Api::V1::Divisions::Message::LabelsController < ApplicationController
 
 end

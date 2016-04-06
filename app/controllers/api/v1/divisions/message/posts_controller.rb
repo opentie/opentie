@@ -1,3 +1,3 @@
-class PostsController < ApplicationController
+class Api::V1::Divisions::Message::PostsController < ApplicationController
 
 end
