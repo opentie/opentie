@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :api, format: 'json' do
     namespace :v1 do
 
-      resources :accounts, only: [:new, :create]
+      resource :account, only: [:new, :create, :edit, :update]
 
       namespace :auth do
         resources :passwords, only: [:create, :update]
