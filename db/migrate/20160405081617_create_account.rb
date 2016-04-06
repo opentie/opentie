@@ -2,10 +2,8 @@ class CreateAccount < ActiveRecord::Migration
   def change
     create_table :accounts, id: :uuid do |t|
       t.integer :kibokan_id,            null: false
-      t.string  :email,                 null: false, default: ""
+      t.string  :email,                              default: nil
       t.string  :password_digest,       null: false, default: ""
-      t.boolean :confirmed,                          default: false
-      t.string  :confirmation_code
       t.timestamps                      null: false
     end
 
