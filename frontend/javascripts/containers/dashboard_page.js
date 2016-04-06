@@ -5,7 +5,9 @@ import { browserHistory } from 'react-router';
 export default class DashboardPage extends Component {
   render() {
     return (
-      <p>hoge</p>
+      <div className="col-xs-12">
+        <p>hoge</p>
+      </div>
     );
   }
 }

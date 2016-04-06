@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import Navbar from '../components/navbar';
+import Breadcrumb from '../components/breadcrumb';
 
 export default class App extends Component {
   constructor(props) {
@@ -20,11 +22,16 @@ export default class App extends Component {
 
   render() {
     const { children, inputValue } = this.props;
+    //children.type
     return (
       <div>
-        hey
-        <hr />
-        {children}
+        <Navbar />
+        <Breadcrumb />
+        <div className="container-fluid">
+          <div className="row">
+            {children}
+          </div>
+        </div>
       </div>
     );
   }
