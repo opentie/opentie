@@ -38,4 +38,15 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Don't care if the mailer can't send.  # Don't care if the mailer can't send.
+  email_settings = YAML::load(File.open("#{Rails.root.to_s}/config/email.yml"))
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = {
+    host: email_settings[Rails.env][:address],
+    port: email_settings[Rails.env][:port]
+  }
+  #config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :letter_opener_web
+  config.action_mailer.smtp_settings = email_settings[Rails.env] unless email_settings[Rails.env].nil?
 end

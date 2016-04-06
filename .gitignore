@@ -15,3 +15,6 @@
 /vendor/
 *.sw[a-z]
 *~
+
+# email
+/config/email.yml
