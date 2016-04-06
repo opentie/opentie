@@ -1,0 +1,3 @@
+class SubSchemataController < ApplicationController
+
+end

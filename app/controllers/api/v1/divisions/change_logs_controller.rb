@@ -1,0 +1,3 @@
+class ChangeLogsController < ApplicationController
+
+end

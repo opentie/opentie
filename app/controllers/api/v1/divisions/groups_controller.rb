@@ -1,0 +1,3 @@
+class GroupssController < ApplicationController
+
+end
