@@ -1,51 +1,36 @@
 class ApplicationController < ActionController::Base
+  require 'auth'
+  include AuthLogic
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  def session
-    env[Rack::Session::Abstract::ENV_SESSION_KEY]
+  class NotAuthorizedException < StandardError; end
+
+  unless Rails.env.development?
+    rescue_from Exception,                      with: :handle_500
+    rescue_from ActionController::RoutingError, with: :handle_404
+    rescue_from ActiveRecord::RecordNotFound,   with: :handle_404
+    rescue_from NotAuthorizedException,         with: :handle_401
   end
 
-  def account_signed_in?
-    !current_account.nil? && confirmed_password? && confirmed_email?
+  def handle_500(exception = nil)
+    logger.info "Rendering 500 with exception: #{exception.message}" if exception
+    render json: { error: '500 error' }, status: 500
   end
 
-  def account_signed_in_with_not_included_confirm?
-    !current_account.nil?
+  def handle_404(exception = nil)
+    logger.info "Rendering 404 with exception: #{exception.message}" if exception
+    render json: { error: '404 error' }, status: 404
   end
 
-  def sign_in!(account)
-    session[:account_id] = account.id
-    session[:expires_at] = Time.zone.now + 180.minutes
-    true
+  def handle_404(exception = nil)
+    logger.info "Rendering 401 with exception: #{exception.message}" if exception
+    render json: { error: '401 error' }, status: 401
   end
 
-  def revoke!
-    session.destroy
-  end
-
-  def confirmed_password?
-    return false if current_account.nil?
-    current_account.password_recovery_tokens.empty?
-  end
-
-  def confirmed_email?
-    return false if current_account.nil?
-    current_account.email_recovery_tokens.empty?
-  end
-
-  def current_account
-    unless session_available?
-      session.destroy
-      return nil
-    end
-    session[:expires_at] = Time.zone.now + 180.minutes
-    Account.find_by(id: session[:account_id])
-  end
-
-  def session_available?
-    return if session[:expires_at].nil?
-    session[:expires_at] > Time.zone.now
+  def render_redirect
+    render json: { error: '301 error' }, status: 301
   end
 end
