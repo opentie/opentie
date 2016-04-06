@@ -1,61 +1,46 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :groups,
-        only: [:show, :edit, :new, :create, :update] do
+      resources :groups, only: [:show, :new, :create] do
 
-        resources :sub_schemata,
-          controller: 'groups/sub_shcemata',
-          only: [:index, :show] do
+        scope module: :groups do
 
-          resource :request,
-            controller: 'groups/sub_schemata/request',
-            only: [:show, :new, :edit, :create, :update, :destroy]
-        end
+          resources :sub_schemata, only: [:index, :show] do
 
-        resources :topics,
-          controller: 'groups/topics',
-          only: [:index, :show, :new, :edit, :create, :update] do
+            resource :request
+          end
 
-          resource :post,
-            controller: 'groups/topics/post',
-            only: [:new, :edit, :create, :update]
+          namespace :message do
+            resources :topics, only: [:index, :show, :new, :create] do
+
+              resources :posts, only: :create
+            end
+          end
         end
       end
 
-      resources :divisions,
-        only: [:show, :edit, :new, :create, :update] do
-        resources :group_schemata,
-          controller: 'divisions/group_schemata',
-          only: [:index, :show, :new, :edit, :create, :update] do
+      resources :divisions, except: [:index, :destroy] do
 
-          resources :groups,
-            controller: 'divisions/group_schemata/groups',
-            only: [:index, :show, :edit, :update] do
+        scope module: :divisions do
 
-            resources :change_logs,
-              controller: 'divisions/group_schemata/groups/change_logs',
-              only: [:index]
+          resources :group_schemata, except: :destroy do
+
+            resources :groups, only: [:index, :show, :edit, :update] do
+
+              resources :change_logs, only: :index
+            end
+
+            resources :sub_schemata
           end
 
-          resources :sub_schemata,
-            controller: 'divisions/group_schemata/sub_schemata',
-            only: [:index, :show, :new, :edit, :create, :update, :destroy]
-        end
+          namespace :message do
+            resources :topics, except: [:destroy, :edit] do
 
-        namespace :message,
-          path: 'message' do
-          resources :topics,
-            only: [:index, :show, :new, :edit, :create, :update] do
+              resources :posts, only: :create
+            end
 
-            resource :post,
-              controller: 'topics/post',
-              only: [:new, :edit, :create, :udpate]
+            resources :labels, except: :show
           end
-
-          resources :labels,
-            controller: 'labels',
-            only: [:index, :new, :edit, :update, :create, :destroy]
         end
       end
     end
