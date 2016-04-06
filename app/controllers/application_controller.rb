@@ -7,29 +7,35 @@ class ApplicationController < ActionController::Base
     env[Rack::Session::Abstract::ENV_SESSION_KEY]
   end
 
-  def user_signed_in?
-    !current_user.nil? && confirmed_code?
+  def account_signed_in?
+    !current_account.nil? && confirmed_password? && confirmed_email?
   end
 
-  def user_signed_in_with_not_included_confirm?
-    !current_user.nil?
+  def account_signed_in_with_not_included_confirm?
+    !current_account.nil?
   end
 
-  def authenticate_account!(account)
+  def sign_in!(account)
     session[:account_id] = account.id
     session[:expires_at] = Time.zone.now + 180.minutes
+    true
   end
 
   def revoke!
     session.destroy
   end
 
-  def confirmed_code?
-    return false if current_user.nil?
-    current_user.confirmed
+  def confirmed_password?
+    return false if current_account.nil?
+    current_account.password_recovery_tokens.empty?
   end
 
-  def current_user
+  def confirmed_email?
+    return false if current_account.nil?
+    current_account.email_recovery_tokens.empty?
+  end
+
+  def current_account
     unless session_available?
       session.destroy
       return nil
