@@ -1,12 +1,12 @@
 import React from 'react';
-import { Route } from 'react-router';
-import App from './containers/app';
-import DashboardPage from './containers/dashboard_page';
-import GroupShowPage from './containers/group_show_page';
+import { Route, IndexRoute } from 'react-router';
+import C from './containers';
 
 export default (
-  <Route path="/" component={App}>
-    <IndexRoute component={DashboardPage} />
-    <Route path="groups/:group_id" component={GroupShowPage} />
+  <Route path="/" component={C.App}>
+    <IndexRoute component={C.DashboardPage} />
+    <Route path="accounts/new" component={C.AccountsNewPage} />
+    <Route path="groups/new" component={C.GroupsNewPage} />
+    <Route path="groups/:group_id" component={C.GroupsShowPage} />
   </Route>
 );

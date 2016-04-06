@@ -63,16 +63,10 @@ function build_stylesheets() {
     register $!
 }
 
-function build_javascripts_index() {
-    `npm bin`/create-index $(join_path $JAVASCRIPTS_DIR "containers")
-    `npm bin`/create-index $(join_path $JAVASCRIPTS_DIR "components")
-}
-
 #-------------------------------------------------------------------------------
 
 npm install
 
-build_javascripts_index
 build_javascripts
 build_stylesheets
 

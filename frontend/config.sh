@@ -16,3 +16,10 @@ BROWSERIFY_OPTS="-t [ babelify --presets [ es2015 react ] ]"
 function join_path() {
     bash -c 'IFS=/; echo "$*"' -- $*
 }
+
+function Camelize() {
+    IFS='_' read -a snake_str
+    for c in ${snake_str[*]}; do
+        echo -n ${c^}
+    done
+}
