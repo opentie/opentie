@@ -29,11 +29,13 @@ ActiveRecord::Schema.define(version: 20160406101042) do
   add_index "accounts", ["kibokan_id"], name: "index_accounts_on_kibokan_id", using: :btree
 
   create_table "recovery_tokens", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string  "token",                      null: false
-    t.uuid    "account_id",                 null: false
-    t.boolean "resetted",   default: false
-    t.string  "type",       default: ""
-    t.string  "substitute", default: ""
+    t.string   "token",                      null: false
+    t.uuid     "account_id",                 null: false
+    t.boolean  "is_active",  default: false
+    t.string   "type",       default: ""
+    t.string   "substitute", default: ""
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "recovery_tokens", ["token"], name: "index_recovery_tokens_on_token", using: :btree
