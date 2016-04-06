@@ -2,23 +2,7 @@
 
 set -ue
 
-#-------------------------------------------------------------------------------
-
-SOURCE_DIR="."
-DESTINATION_DIR="../public/assets"
-JAVASCRIPTS_DIR="javascripts"
-STYLESHEETS_DIR="stylesheets"
-
-JS_ENTRY_FILE="index.js"
-JS_BUNDLED_FILE="bundle.js"
-SASS_ENTRY_FILE="style.scss"
-CSS_BUNDLED_FILE="style.css"
-
-NODE_SASS_OPTS="--include-path ./node_modules/bootstrap-sass/assets/stylesheets"
-BROWSERIFY_OPTS="-t [ babelify --presets [ es2015 react ] ]"
-
-#-------------------------------------------------------------------------------
-
+source config.sh
 cd $(dirname $0)
 
 while getopts wsp:h OPT
@@ -32,10 +16,6 @@ do
             ;;
     esac
 done
-
-function join_path() {
-    bash -c 'IFS=/; echo "$*"' -- $*
-}
 
 PIDS=()
 function cleanup() {
@@ -83,10 +63,16 @@ function build_stylesheets() {
     register $!
 }
 
+function build_javascripts_index() {
+    `npm bin`/create-index $(join_path $JAVASCRIPTS_DIR "containers")
+    `npm bin`/create-index $(join_path $JAVASCRIPTS_DIR "components")
+}
+
 #-------------------------------------------------------------------------------
 
 npm install
 
+build_javascripts_index
 build_javascripts
 build_stylesheets
 
