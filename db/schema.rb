@@ -11,23 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405081617) do
+ActiveRecord::Schema.define(version: 20160406101042) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
   create_table "accounts", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.integer  "kibokan_id",                        null: false
-    t.string   "email",             default: "",    null: false
-    t.string   "password_digest",   default: "",    null: false
-    t.boolean  "confirmed",         default: false
-    t.string   "confirmation_code", default: ""
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.integer  "kibokan_id",                   null: false
+    t.string   "email"
+    t.string   "password_digest", default: "", null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   add_index "accounts", ["email"], name: "index_accounts_on_email", using: :btree
   add_index "accounts", ["kibokan_id"], name: "index_accounts_on_kibokan_id", using: :btree
+
+  create_table "recovery_tokens", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string  "token",                      null: false
+    t.uuid    "account_id",                 null: false
+    t.boolean "resetted",   default: false
+    t.string  "type",       default: ""
+    t.string  "substitute", default: ""
+  end
+
+  add_index "recovery_tokens", ["token"], name: "index_recovery_tokens_on_token", using: :btree
+  add_index "recovery_tokens", ["type"], name: "index_recovery_tokens_on_type", using: :btree
 
 end
