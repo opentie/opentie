@@ -32,6 +32,8 @@ group :assets do
 end
 
 group :development, :test do
+  # need letter_opener_web
+  gem 'jquery-rails'
   gem 'letter_opener_web'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
