@@ -1,0 +1,3 @@
+class PasswordRecoveryToken < RecoveryToken
+
+end
