@@ -41,10 +41,6 @@ module AuthLogic
 
   private
 
-  def authenticate_user!
-    account_signed_in?
-  end
-
   def session_available?
     return if session[:expires_at].nil?
     session[:expires_at] > Time.zone.now
