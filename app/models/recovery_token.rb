@@ -1,10 +1,7 @@
 class RecoveryToken < ActiveRecord::Base
   belongs_to :account
 
-  def is_valid?
-    # token is valid for 1 hour and one time
-    (created_at > 1.hour.ago) && (! resetted_password)
-  end
+  default_scope ->{ where(is_active: true).where(created_at: 1.hour.ago...Time.now) }
 
   private
 
