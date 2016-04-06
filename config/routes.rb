@@ -1,6 +1,20 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+
+      resources :accounts, only: [:new, :create]
+
+      namespace :auth do
+        resources :passwords, only: [:create, :update]
+
+        resources :sessions, only: [] do
+          collection do
+            post :sign_in
+            post :sign_out
+          end
+        end
+      end
+
       resources :groups, only: [:show, :new, :create] do
 
         scope module: :groups do
