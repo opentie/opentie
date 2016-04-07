@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def authenticate_user!
+  def authenticate_account!
     render_unauthorized unless account_signed_in?
   end
 end

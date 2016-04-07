@@ -1,6 +1,6 @@
 class Api::V1::Auth::SessionsController < ApplicationController
 
-  before_action :authenticate_user!, only: :sign_out
+  before_action :authenticate_account!, only: :sign_out
 
   def sign_in
     password = params[:password]
