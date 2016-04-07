@@ -2,12 +2,17 @@ Rails.application.routes.draw do
   namespace :api, format: 'json' do
     namespace :v1 do
 
-      resources :accounts, only: [:new, :create]
+      resource :account, only: [:new, :create, :edit, :update] do
+
+        scope module: :account do
+
+          resource :password, only: [:create, :update]
+        end
+      end
 
       namespace :auth do
-        resources :passwords, only: [:create, :update]
-
         resources :sessions, only: [] do
+
           collection do
             post :sign_in
             post :sign_out
