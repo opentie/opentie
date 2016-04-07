@@ -3,6 +3,14 @@ class RecoveryToken < ActiveRecord::Base
 
   default_scope ->{ where(is_active: true).where(created_at: 1.hour.ago...Time.now) }
 
+  def enable
+    update(is_active: true)
+  end
+
+  def disable
+    update(is_active: false)
+  end
+
   private
 
   def self.generate_token
