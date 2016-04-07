@@ -2,7 +2,7 @@ module AuthLogic
   extend ActiveSupport::Concern
 
   def account_signed_in?
-    !current_account.nil? && confirmed_password?
+    !current_account.nil? && confirmed_email_first_time?
   end
 
   def account_signed_in_with_not_included_confirm?
@@ -20,14 +20,19 @@ module AuthLogic
     true
   end
 
-  def confirmed_password?
+  def confirmed_reset_password?
     return false if current_account.nil?
     current_account.password_recovery_tokens.empty?
   end
 
-  def confirmed_email?
+  def confirmed_reset_email?
     return false if current_account.nil?
     current_account.email_recovery_tokens.empty?
+  end
+
+  def confirmed_email_first_time?
+    return false if current_account.nil?
+    !current_account.email.nil?
   end
 
   def current_account
