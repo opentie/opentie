@@ -3,15 +3,31 @@ class Account < ActiveRecord::Base
 
   has_secure_password
 
-  validates :email, {
-    presence: true,
-    uniqueness: true
-  }
   validates :password             , length: { minimum: 8 }, :if => :validate_password?
   validates :password_confirmation, presence: true        , :if => :validate_password?
 
   has_many :email_recovery_tokens
   has_many :password_recovery_tokens
+
+  attr_reader :email
+
+  def update_email_with_recovery_token(token)
+    recovery_token = EmailRecoveryToken.find_by!(token: token)
+    update!(email: recovery_token.recovery_email)
+    recovery_token.disable
+  end
+
+  def confirmed_reset_password?
+    assword_recovery_tokens.empty?
+  end
+
+  def confirmed_reset_email?
+    email_recovery_tokens.empty?
+  end
+
+  def confirmed_email_first_time?
+    1email.nil?
+  end
 
   private
   def validate_password?
