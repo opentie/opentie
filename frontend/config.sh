@@ -9,7 +9,7 @@ SASS_ENTRY_FILE="style.scss"
 CSS_BUNDLED_FILE="style.css"
 
 NODE_SASS_OPTS="--include-path ./node_modules/bootstrap-sass/assets/stylesheets"
-BROWSERIFY_OPTS="-t [ babelify --presets [ es2015 react ] ]"
+BROWSERIFY_OPTS="-t [ babelify --presets [ es2015 react stage-1 ] ]"
 
 #-------------------------------------------------------------------------------
 
