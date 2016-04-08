@@ -4,10 +4,11 @@ Rails.application.routes.draw do
 
       resource :account, only: [:new, :create, :edit, :update] do
 
-        scope module: :account do
-
-          resource :password, only: [:create, :update]
+        collection do
+          post :email_confirm
         end
+
+        resource :password, only: [:create, :update]
       end
 
       namespace :auth do
