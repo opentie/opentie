@@ -1,7 +1,7 @@
 class RecoveryToken < ActiveRecord::Base
   belongs_to :account
 
-  default_scope ->{ where(is_active: true).where(created_at: 1.hour.ago...Time.now) }
+  default_scope ->{ where(is_active: true) }
 
   def enable
     update(is_active: true)
