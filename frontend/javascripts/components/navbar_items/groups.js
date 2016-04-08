@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Link, IndexLink } from 'react-router';
-import Glyphicon from './glyphicon';
+import Glyphicon from '../glyphicon';
 
-export default class Navbar extends Component {
+export default class GroupNavbarItem extends Component {
   render() {
     const { groupId } = this.props;
-
+    console.log(groupId);
     return (
       <ul className="nav navbar-nav">
         <li>

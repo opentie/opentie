@@ -1,37 +1,21 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import Navbar from '../components/navbar';
 import Breadcrumb from '../components/breadcrumb';
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleDismissClick = this.handleDismissClick.bind(this);
-  }
-
-  handleDismissClick(e) {
-    this.props.resetErrorMessage();
-    e.preventDefault();
-  }
-
-  handleChange(nextValue) {
-    browserHistory.push(`/${nextValue}`);
-  }
+  static propTypes = {
+    navbar: PropTypes.element.isRequired,
+    main: PropTypes.element.isRequired,
+  };
 
   render() {
-    const { children, inputValue } = this.props;
-    //children.type
+    const { main, navbar } = this.props;
+
     return (
       <div>
-        <Navbar />
+        {navbar}
         <Breadcrumb />
-        <div className="container-fluid">
-          <div className="row">
-            {children}
-          </div>
-        </div>
+        {main}
       </div>
     );
   }
