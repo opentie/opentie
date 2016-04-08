@@ -26,7 +26,7 @@ class Account < ActiveRecord::Base
   end
 
   def confirmed_email_first_time?
-    1email.nil?
+    !email.nil?
   end
 
   private
