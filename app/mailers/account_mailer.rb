@@ -10,4 +10,14 @@ class AccountMailer < ApplicationMailer
 
     mail to: email, subject: "#{@project_name}のパスワードリセット"
   end
+
+  def regist_email(email, name, token)
+    @account_name = name
+    @account_email = email
+
+    @project_name = "opentie" # FIXME
+    @confirm_url = "/account/email_confirm?token=#{token}" # FIXME
+
+    mail to: email, subject: "#{@project_name}にこのメールアドレスでアカウント登録されました"
+  end
 end
