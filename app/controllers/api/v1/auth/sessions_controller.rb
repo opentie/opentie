@@ -6,7 +6,7 @@ class Api::V1::Auth::SessionsController < ApplicationController
     password = params[:password]
     email = params[:email]
 
-    account = Account.find_by(email: email)
+    account = Account.find_by!(email: email)
 
     render_unauthorized unless account.authenticate(password)
     sign_in!(account)
