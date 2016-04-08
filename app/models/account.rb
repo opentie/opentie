@@ -9,8 +9,6 @@ class Account < ActiveRecord::Base
   has_many :email_recovery_tokens
   has_many :password_recovery_tokens
 
-  attr_reader :email
-
   def update_email_with_recovery_token(token)
     recovery_token = EmailRecoveryToken.find_by!(token: token)
     update!(email: recovery_token.recovery_email)
