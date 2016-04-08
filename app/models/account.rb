@@ -8,6 +8,10 @@ class Account < ActiveRecord::Base
 
   has_many :email_recovery_tokens
   has_many :password_recovery_tokens
+  has_many :roles
+  has_many :delegates
+  has_many :divisions, through: :roles
+  has_many :groups, through: :delegates
 
   def update_email_with_recovery_token(token)
     recovery_token = EmailRecoveryToken.find_by!(token: token)
