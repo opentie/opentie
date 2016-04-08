@@ -39,4 +39,4 @@ function create_index() {
     popd > /dev/null
 }
 
-create_index ${1:-.}
+create_index ${1:-./javascripts/containers}

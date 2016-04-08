@@ -16,8 +16,9 @@ export default (
         <IndexRoute component={Containers.GroupsShowPage} />
         <Route path="sub_schemata/" component={Containers.Groups.SubSchemataIndexPage} />
         <Route path="sub_schemata/:sub_schemata_id" component={Containers.Groups.SubSchemataShowPage} />
-
-        <Route path="messsage/topics" component={Containers.Groups.Message.TopicsIndexPage} />
+        <Route path="message" component={Containers.Groups.MessageLayout}>
+          <Route path="topics" component={Containers.Groups.Message.TopicsIndexPage} />
+        </Route>
       </Route>
     </Route>
   </Route>
