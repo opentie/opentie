@@ -9,10 +9,12 @@ class ApplicationController < ActionController::Base
   require 'auth'
   include AuthLogic
 
-  rescue_from Exception,                      with: :handle_500
-  rescue_from ActionController::RoutingError, with: :handle_404
-  rescue_from ActiveRecord::RecordNotFound,   with: :handle_404
-  rescue_from ActiveRecord::RecordInvalid,    with: :handle_400
+  unless Rails.env.development?
+    rescue_from Exception,                      with: :handle_500
+    rescue_from ActionController::RoutingError, with: :handle_404
+    rescue_from ActiveRecord::RecordNotFound,   with: :handle_404
+    rescue_from ActiveRecord::RecordInvalid,    with: :handle_400
+  end
 
   def handle_500(exception = nil)
     logger.info "Rendering 500 with exception: #{exception.message}" if exception
