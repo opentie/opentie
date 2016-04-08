@@ -1,4 +1,4 @@
-class Api::V1::Account::PasswordController < ApplicationController
+class Api::V1::Account::PasswordsController < ApplicationController
 
   before_action :authenticate_account!, only: :update
 
