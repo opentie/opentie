@@ -32,7 +32,7 @@ module AuthLogic
   private
 
   def session_available?
-    return if session[:expires_at].nil?
+    return false if session[:expires_at].nil?
     session[:expires_at] > Time.zone.now
   end
 
