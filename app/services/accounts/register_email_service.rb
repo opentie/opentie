@@ -4,7 +4,8 @@ module Accounts
     attr_accessor :current_account, :email
 
     def initialize(current_account, email)
-      @current_user = current_account, @token = email
+      @current_account = current_account
+      @email = email
     end
 
     def execute
@@ -13,7 +14,7 @@ module Accounts
 
       account_name = "sample_name" #current_account.get_name_from_kibokan
 
-      AccountMailer.regist_email(email, account_name, token).deliver
+      AccountMailer.regist_email(email, account_name, email).deliver_now
     end
  end
 end
