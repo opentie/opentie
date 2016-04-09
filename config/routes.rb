@@ -41,6 +41,10 @@ Rails.application.routes.draw do
 
       resources :divisions, except: [:index, :destroy] do
 
+        collection do
+          post :invitation
+        end
+
         scope module: :divisions do
 
           resources :group_schemata, except: :destroy do
