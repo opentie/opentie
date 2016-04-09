@@ -15,15 +15,14 @@ class Account < ActiveRecord::Base
 
   def self.create_with_kibokan(params)
     account = new(
-      params[:password],
-      params[:password_confirmation]
+      password: params[:password],
+      password_confirmation: params[:password_confirmation]
     )
 
     # no match password
     raise ActiveRecord::RecordInvalid unless account.valid?
 
-    email = params[:email]
-    params[:email] = nil
+    params[:kibokan][:email] = nil
     # sync kibokan FIXME
     kibokan_id = (0...100).to_a.sample # delete later
 
