@@ -25,5 +25,10 @@ module Opentie
 
     # Application timezone
     config.time_zone = 'Tokyo'
+
+    # set spec framework
+    config.generators do |g|
+      g.test_framework = "rspec"
+    end
   end
 end
