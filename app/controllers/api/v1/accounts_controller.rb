@@ -5,12 +5,16 @@ class Api::V1::AccountsController < ApplicationController
   def new
     # return schema from mongodb
     # FIXME
+    render json: { result: true }
   end
 
   def create
-    account = Account.create_with_kibokan(params)
-    email = params[:email]
+    register_attributes = params.slice(
+      :password, :password_confirmation, :kibokan
+    ).symbolize_keys
 
+    account = Account.create_with_kibokan(register_attributes)
+    email = params[:kibokan][:email]
     Accounts::RegisterEmailService.new(account, email).execute
 
     render json: { result: true }
@@ -19,6 +23,7 @@ class Api::V1::AccountsController < ApplicationController
   def edit
     # return schema from mongodb
     # FIXME
+    render json: { result: true }
   end
 
   def email_confirm
