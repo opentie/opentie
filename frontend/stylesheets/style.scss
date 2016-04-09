@@ -1,0 +1,77 @@
+@import "icons";
+@import "custom";
+@import "bootstrap";
+
+[class^="openticon-"],
+[class*=" openticon-"] {
+  position: relative;
+  top: 2px;
+}
+
+.glyphicon {
+  position: relative;
+  top: 3px;
+}
+
+.navbar-right {
+  margin-right: 0;
+}
+
+#nav-logo {
+  margin-right: 1em;
+}
+
+.navbar-default {
+  .navbar-nav > li > a {
+    text-align: center;
+
+    text-shadow: 0 1px 1px rgba(#fff, 0.5);
+
+    font-size: $navbar-font-size;
+    line-height: $navbar-line-height-computed;
+
+    padding-left: 16px;
+    padding-right: 16px;
+
+    &.active {
+      &,
+      &:hover,
+      &:focus {
+        color: $navbar-default-link-active-color;
+        background-color: $navbar-default-link-active-bg;
+        text-shadow: 0 1px 1px rgba(#000, 0.1);
+      }
+    }
+
+    &.disabled {
+      &,
+      &:hover,
+      &:focus {
+        text-shadow: 0 -1px 0px darken($navbar-default-link-disabled-color, 10%);
+        color: $navbar-default-link-disabled-color;
+        background-color: $navbar-default-link-disabled-bg;
+      }
+    }
+  }
+}
+
+
+.btn-group-vertical.btn-block {
+  label.btn {
+    text-align: left;
+  }
+}
+
+.list-group.radio > label.list-group-item {
+  padding-left: 35px;
+  margin-bottom: -1px;
+}
+
+.breadcrumb-toplevel {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+body {
+  padding-top: 46px;
+}
