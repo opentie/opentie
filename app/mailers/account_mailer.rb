@@ -6,7 +6,7 @@ class AccountMailer < ApplicationMailer
     @account_name = name
     @account_email = email
 
-    @project_name = application_name
+    @service_name = service_name
     @organization_name = organization_name
     @organization_mail = organization_mail
     @organization_tel = organization_tel
@@ -33,7 +33,7 @@ class AccountMailer < ApplicationMailer
 
   private
 
-  def application_name
+  def service_name
     Rails.application.config.global_config.service_name
   end
 
