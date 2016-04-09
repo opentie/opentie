@@ -13,21 +13,21 @@ class AccountMailer < ApplicationMailer
 
     @confirm_url = "/account/password_reset_form?token=#{token}" # FIXME
 
-    mail to: email, subject: "#{@project_name}のパスワードリセット"
+    mail to: email, subject: "#{@service_name}のパスワードリセット"
   end
 
   def regist_email(email, name, token)
     @account_name = name
     @account_email = email
 
-    @project_name = application_name
+    @service_name = service_name
     @organization_name = organization_name
     @organization_mail = organization_mail
     @organization_tel = organization_tel
 
     @confirm_url = "/account/email_confirm?token=#{token}" # FIXME
 
-    mail to: email, subject: "#{@project_name}へこのメールアドレスでアカウント登録されました"
+    mail to: email, subject: "#{@service_name}へこのメールアドレスでアカウント登録されました"
   end
 
   private
