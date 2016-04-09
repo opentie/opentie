@@ -53,6 +53,7 @@ group :development, :test do
   gem 'spring'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'database_cleaner', github: 'bmabey/database_cleaner'
   gem 'guard'
   gem 'guard-rspec'
   gem 'spring-commands-rspec'

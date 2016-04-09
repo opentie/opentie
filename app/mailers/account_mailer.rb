@@ -24,7 +24,6 @@ class AccountMailer < ApplicationMailer
     @organization_name = organization_name
     @organization_mail = organization_mail
     @organization_tel = organization_tel
-    binding.pry
 
     @confirm_url = "/account/email_confirm?token=#{token}" # FIXME
 

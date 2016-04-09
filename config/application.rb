@@ -23,7 +23,14 @@ module Opentie
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
+    config.web_console.development_only = false
+
     # Application timezone
     config.time_zone = 'Tokyo'
+
+    # set spec framework
+    config.generators do |g|
+      g.test_framework = "rspec"
+    end
   end
 end
