@@ -23,7 +23,7 @@ RSpec.describe EmailRecoveryToken, type: :models do
 
     it "change email" do
       recovery_token = EmailRecoveryToken.create_new_token(account, @new_email)
-      account.update_email_with_recovery_token(recovery_token.token)
+      Accounts::UpdateEmailService.new(account, recovery_token).execute
       expect(account.email).to eq(@new_email)
     end
   end
