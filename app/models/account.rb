@@ -13,10 +13,27 @@ class Account < ActiveRecord::Base
   has_many :divisions, through: :roles
   has_many :groups, through: :delegates
 
-  def update_email_with_recovery_token(token)
-    recovery_token = EmailRecoveryToken.find_by!(token: token)
-    update!(email: recovery_token.recovery_email)
-    recovery_token.disable
+  def self.create_with_kibokan(params)
+    account = new(
+      params[:password],
+      params[:password_confirmation]
+    )
+
+    # no match password
+    raise ActiveRecord::RecordInvalid unless account.valid?
+
+    email = params[:email]
+    params[:email] = nil
+    # sync kibokan FIXME
+    kibokan_id = (0...100).to_a.sample # delete later
+
+    account.kibokan_id = kibokan_id
+    account.save
+    account
+  end
+
+  def update_with_kibokan(params)
+    # FIXME
   end
 
   def confirmed_reset_password?

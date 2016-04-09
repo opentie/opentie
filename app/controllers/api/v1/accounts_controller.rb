@@ -8,26 +8,10 @@ class Api::V1::AccountsController < ApplicationController
   end
 
   def create
-    account = Account.new(
-      password: params[:password],
-      password_confirmation: params[:password_confirmation],
-    )
+    account = Account.create_with_kibokan(params)
+    email = params[:email]
 
-    # no match password
-    raise ActiveRecord::RecordInvalid unless account.valid?
-
-    columns = params[:form][:columns] # FIXME
-    email = columns[:email]
-    columns[:email] = nil # do not save yet
-
-    # request that save column to mongodb # FIXME
-    kibokan_id = (0..100).to_a.sample
-
-    account.kibokan_id = kibokan_id
-    account.save!
-
-    recovery_token = EmailRecoveryToken.create_new_token(account, email)
-    send_regist_mail(email, recovery_token.token)
+    Accounts::RegisterEmailService.new(account, email).execute
 
     render json: { result: true }
   end
@@ -39,33 +23,24 @@ class Api::V1::AccountsController < ApplicationController
 
   def email_confirm
     token = params[:email_set_token]
-    account = EmailRecoveryToken.find_by!(token: token).account
-    account.update_email_with_recovery_token(token)
+
+    recovery_token = EmailRecoveryToken.find_by!(token: token)
+    account = recovery_token.account
+
+    Accounts::UpdateEmailService.new(account, recovery_token).execute
 
     sign_in!(account)
     render json: { result: true }
   end
 
   def update
-    columns = params[:form][:columns] # FIXME
-    if columns[:email] != current_account.email
-      recovery_token =
-        EmailRecoveryToken.create_new_token(current_account, columns[:email])
-      send_regist_mail(columns[:email], recovery_token.token)
-      columns[:email] = current_account.email
+    if params[:email] != current_account.email
+      Accounts::RegisterEmailService(current_account, parama[:email])
+      params[:email] = current_account.email
     end
 
-    # update mongodata with column
-    # FIXME
+    current_account.update_with_kibokan(params)
 
     render json: { result: true }
-  end
-
-  private
-
-  def send_regist_mail(email, token)
-    # get account name from mongodb
-    name = "sample_name"
-    AccountMailer.regist_email(email, name, token).deliver
   end
 end
