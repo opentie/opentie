@@ -32,5 +32,8 @@ module Opentie
     config.generators do |g|
       g.test_framework = "rspec"
     end
+
+    # autoload paths
+    config.autoload_paths += %W(#{config.root}/app/services)
   end
 end
