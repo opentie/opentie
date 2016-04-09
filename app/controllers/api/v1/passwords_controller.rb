@@ -10,7 +10,7 @@ class Api::V1::Account::PasswordsController < ApplicationController
     # Fetch from modngodb # FIXME
     name = "sample_name"
 
-    token = PasswordRecoveryToken.create_new_token(account.id)
+    token = PasswordRecoveryToken.create_new_token(account)
 
     AccountMailer.reset_password(email, name, token).deliver
   end

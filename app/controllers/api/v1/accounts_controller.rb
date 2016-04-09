@@ -26,7 +26,7 @@ class Api::V1::AccountsController < ApplicationController
     account.kibokan_id = kibokan_id
     account.save!
 
-    token = EmailRecoveryToken.create_new_token(account.id, email)
+    token = EmailRecoveryToken.create_new_token(account, email)
     send_regist_mail(email, token)
 
     render json: { result: true }
@@ -49,7 +49,7 @@ class Api::V1::AccountsController < ApplicationController
   def update
     columns = params[:form][:columns] # FIXME
     if columns[:email] != current_account.email
-      token = EmailRecoveryToken.create_new_token(current_account.id, columns[:email])
+      token = EmailRecoveryToken.create_new_token(current_account, columns[:email])
       send_regist_mail(columns[:email], token)
       columns[:email] = current_account.email
     end
