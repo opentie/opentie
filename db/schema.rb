@@ -18,11 +18,12 @@ ActiveRecord::Schema.define(version: 20160408135854) do
   enable_extension "uuid-ossp"
 
   create_table "accounts", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.integer  "kibokan_id",                   null: false
+    t.integer  "kibokan_id",                      null: false
     t.string   "email"
-    t.string   "password_digest", default: "", null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.string   "password_digest", default: "",    null: false
+    t.boolean  "is_admin",        default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   add_index "accounts", ["email"], name: "index_accounts_on_email", using: :btree
