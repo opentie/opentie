@@ -1,0 +1,23 @@
+$theme-color: #f0ad4e;
+
+//$border-radius-base:        0;
+//$border-radius-large:       0;
+//$border-radius-small:       0;
+
+$body-bg: #fafafa;
+
+$navbar-margin-bottom: 0;
+
+$navbar-height:                    46px;
+$navbar-default-border:            transparent;
+
+$navbar-default-bg:                        $theme-color;
+$navbar-default-link-color:                darken($navbar-default-bg, 20%);;
+$navbar-default-link-hover-color:          $navbar-default-link-color;
+$navbar-default-link-hover-bg:             transparent;
+$navbar-default-link-active-color:         #fff;
+$navbar-default-link-active-bg:            darken($navbar-default-bg, 6.5%);
+$navbar-default-link-disabled-color:       desaturate($navbar-default-link-color, 100%);
+$navbar-default-link-disabled-bg:          transparent;
+
+@import "bootstrap/variables";
