@@ -1,15 +1,16 @@
 class EmailRecoveryToken < RecoveryToken
+  belongs_to :account
 
   def self.create_new_token(account, email)
     raise ActiveRecord::RecordInvalid if email.empty?
-    recovery_token = new(token: generate_token, account: account, substitute: email)
 
-    account.email_recovery_tokens.each do |token|
+    where(account: account).each do |token|
       token.disable
     end
 
+    recovery_token = new(token: generate_token, account: account, substitute: email)
     recovery_token.save!
-    recovery_token.token
+    recovery_token
   end
 
   def recovery_email
