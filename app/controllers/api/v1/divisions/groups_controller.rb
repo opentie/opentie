@@ -1,3 +1,3 @@
-class Api::V1::Divisions::GroupssController < ApplicationController
+class Api::V1::Divisions::GroupsController < ApplicationController
 
 end
