@@ -10,13 +10,20 @@ RSpec.describe EmailRecoveryToken, type: :models do
 
     it "create change email token" do
       expect do
-        @token = EmailRecoveryToken.create_new_token(account, @new_email)
+        EmailRecoveryToken.create_new_token(account, @new_email)
+      end.to change { account.email_recovery_tokens.count }.by(1)
+    end
+
+    it "do not conflict token" do
+      expect do
+        EmailRecoveryToken.create_new_token(account, @new_email)
+        EmailRecoveryToken.create_new_token(account, @new_email)
       end.to change { account.email_recovery_tokens.count }.by(1)
     end
 
     it "change email" do
-      token = EmailRecoveryToken.create_new_token(account, @new_email)
-      account.update_email_with_recovery_token(token)
+      recovery_token = EmailRecoveryToken.create_new_token(account, @new_email)
+      account.update_email_with_recovery_token(recovery_token.token)
       expect(account.email).to eq(@new_email)
     end
   end
