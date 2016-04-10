@@ -42,9 +42,9 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :divisions, except: [:index, :destroy] do
+      resources :divisions, only: [:new, :create, :show] do
 
-        collection do
+        member do
           post :invitation
         end
 
