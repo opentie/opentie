@@ -14,7 +14,9 @@ module Accounts
 
       account_name = "sample_name" #current_account.get_name_from_kibokan
 
-      AccountMailer.regist_email(email, account_name, email).deliver_now
+      AccountMailer.regist_email(
+        email, account_name, recovery_token.token
+      ).deliver_now
     end
  end
 end
