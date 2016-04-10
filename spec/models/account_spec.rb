@@ -64,9 +64,8 @@ RSpec.describe Account, type: :models do
 
       expect(account.confirmed_reset_password?).to eq(false)
 
-      Accounts::UpdatePasswordService.
-        new(account, recovery_token).
-        execute("password", "password")
+      Accounts::UpdatePasswordService.new(account).
+        execute(recovery_token.token, "password", "password")
 
       expect(account.confirmed_reset_password?).to eq(true)
     end

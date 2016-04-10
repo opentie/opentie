@@ -20,9 +20,8 @@ RSpec.describe PasswordRecoveryToken, type: :models do
     it "change password" do
       recovery_token = PasswordRecoveryToken.create_new_token(account)
 
-      Accounts::UpdatePasswordService.
-        new(account, recovery_token).
-        execute("new-password", "new-password")
+      Accounts::UpdatePasswordService.new(account).
+        execute(recovery_token.token, "new-password", "new-password")
 
       expect(account.authenticate("new-password")).to eq(account)
     end
