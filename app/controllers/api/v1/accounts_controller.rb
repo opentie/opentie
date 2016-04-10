@@ -40,7 +40,7 @@ class Api::V1::AccountsController < ApplicationController
 
   def update
     if params[:email] != current_account.email
-      Accounts::RegisterEmailService(current_account, parama[:email])
+      Accounts::RegisterEmailService.new(current_account, params[:email]).execute
       params[:email] = current_account.email
     end
 
