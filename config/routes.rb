@@ -8,7 +8,10 @@ Rails.application.routes.draw do
           post :email_confirm
         end
 
-        resource :password, only: [:create, :update]
+        scope module: :account do
+
+          resource :password, only: [:create, :update]
+        end
       end
 
       namespace :auth do
