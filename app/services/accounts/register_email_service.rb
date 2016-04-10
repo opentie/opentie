@@ -1,14 +1,13 @@
 module Accounts
   class RegisterEmailService
 
-    attr_accessor :current_account, :email
+    attr_accessor :current_account
 
-    def initialize(current_account, email)
+    def initialize(current_account)
       @current_account = current_account
-      @email = email
     end
 
-    def execute
+    def execute(email)
       recovery_token =
         EmailRecoveryToken.create_new_token(current_account, email)
 
