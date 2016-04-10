@@ -39,8 +39,4 @@ module AuthLogic
   def update_session_period
     session[:expires_at] = Time.zone.now + 180.minutes
   end
-
-  def session
-    env[Rack::Session::Abstract::ENV_SESSION_KEY]
-  end
 end
