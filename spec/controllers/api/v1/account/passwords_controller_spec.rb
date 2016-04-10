@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::PasswordsController, type: :controller do
+RSpec.describe Api::V1::Account::PasswordsController, type: :controller do
 
   describe "Create new password" do
     before do
