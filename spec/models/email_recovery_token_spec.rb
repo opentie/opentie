@@ -1,30 +1,43 @@
 require 'rails_helper'
 
 RSpec.describe EmailRecoveryToken, type: :models do
-  before do
-    @new_email = "new@email.com"
-  end
 
-  describe "Change email flow" do
-    let(:account) { FactoryGirl.create(:account) }
+  let(:account) { FactoryGirl.create(:account) }
+  let(:email) { "new-opentie@example.com" }
 
+  describe "Useful methods" do
     it "create change email token" do
       expect do
-        EmailRecoveryToken.create_new_token(account, @new_email)
+        create_new_token
       end.to change { account.email_recovery_tokens.count }.by(1)
     end
 
     it "do not conflict token" do
       expect do
-        EmailRecoveryToken.create_new_token(account, @new_email)
-        EmailRecoveryToken.create_new_token(account, @new_email)
+        create_new_token
+        create_new_token
       end.to change { account.email_recovery_tokens.count }.by(1)
     end
+  end
 
-    it "change email" do
-      recovery_token = EmailRecoveryToken.create_new_token(account, @new_email)
-      Accounts::UpdateEmailService.new(account).execute(recovery_token.token)
-      expect(account.email).to eq(@new_email)
+  describe "Primitive methods" do
+    it "swith disable" do
+      expect do
+        recovery_token = create_new_token
+        recovery_token.disable
+      end.to change { account.email_recovery_tokens.count }.by(0)
     end
+
+    it "swith enable" do
+      expect do
+        recovery_token = create_new_token
+        recovery_token.disable
+        recovery_token.enable
+      end.to change { account.email_recovery_tokens.count }.by(1)
+    end
+  end
+
+  def create_new_token
+    EmailRecoveryToken.create_new_token(account, email)
   end
 end
