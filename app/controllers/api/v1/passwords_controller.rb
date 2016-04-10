@@ -2,34 +2,26 @@ class Api::V1::PasswordsController < ApplicationController
 
   before_action :authenticate_account!, only: :update
 
-  # Request that reset password
   def create
-    email = params[:email]
-    account = Account.find_by(email: email)
+    account = Account.find_by!(email: params[:email])
 
-    # Fetch from modngodb # FIXME
-    name = "sample_name"
+    Accounts::RestorePasswordService.new(account).execute
 
-    recovery_token = PasswordRecoveryToken.create_new_token(account)
-
-    AccountMailer.reset_password(email, name, recovery_token.token).deliver
+    render json: { result: true }
   end
 
-  # Update password
   def update
-    token = params[:token]
-    new_password = params[:password]
-    new_password_conf = params[:password_confirmation]
+    token = params[:passwrod_reset_token]
+    recovery_token = PasswordRecoveryToken.find_by!(token: token)
 
-    recovery_token =
-      current_account.password_recovery_tokens.find_by!(token: token)
+    password = params[:password]
+    password_confirmation = params[:password_confirmation]
 
-    current_account.update!(
-      password: new_password,
-      password_confirmation: new_password_conf
-    )
+    Accounts::UpdatePasswordService.
+      new(current_account, recovery_token).
+      execute(password, password_confirmation)
 
-    recovery_token.disable
+    sign_out!
 
     render json: { result: true }
   end
