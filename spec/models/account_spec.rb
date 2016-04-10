@@ -80,7 +80,7 @@ RSpec.describe Account, type: :models do
 
       expect(account.confirmed_reset_email?).to eq(false)
 
-      Accounts::UpdateEmailService.new(account, recovery_token).execute
+      Accounts::UpdateEmailService.new(account).execute(recovery_token.token)
 
       expect(account.confirmed_reset_email?).to eq(true)
     end
@@ -98,7 +98,7 @@ RSpec.describe Account, type: :models do
       recovery_token =
         EmailRecoveryToken.create_new_token(account, "opentie@example.com")
 
-      Accounts::UpdateEmailService.new(account, recovery_token).execute
+      Accounts::UpdateEmailService.new(account).execute(recovery_token.token)
 
       expect(account.confirmed_email_first_time?).to eq(true)
     end
