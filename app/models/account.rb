@@ -37,7 +37,7 @@ class Account < ActiveRecord::Base
   end
 
   def confirmed_reset_password?
-    assword_recovery_tokens.empty?
+    password_recovery_tokens.empty?
   end
 
   def confirmed_reset_email?
