@@ -63,16 +63,16 @@ ActiveRecord::Schema.define(version: 20160410125331) do
 
   add_index "groups", ["kibokan_id"], name: "index_groups_on_kibokan_id", using: :btree
 
-  create_table "invitaion_tokens", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "token",                      null: false
-    t.uuid     "account_id",                 null: false
-    t.boolean  "is_active",  default: false
-    t.string   "email",                      null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+  create_table "invitation_tokens", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "token",                       null: false
+    t.uuid     "division_id",                 null: false
+    t.boolean  "is_active",   default: false
+    t.string   "email",                       null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
-  add_index "invitaion_tokens", ["token"], name: "index_invitaion_tokens_on_token", using: :btree
+  add_index "invitation_tokens", ["token"], name: "index_invitation_tokens_on_token", using: :btree
 
   create_table "password_recovery_tokens", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "token",                      null: false
