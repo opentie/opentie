@@ -8,7 +8,7 @@ class EmailRecoveryToken < RecoveryToken
       token.disable
     end
 
-    recovery_token = new(token: generate_token, account: account, substitute: email)
+    recovery_token = new(account: account, substitute: email)
     recovery_token.save!
     recovery_token
   end

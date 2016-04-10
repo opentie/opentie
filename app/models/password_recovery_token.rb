@@ -7,7 +7,7 @@ class PasswordRecoveryToken < RecoveryToken
       token.disable
     end
 
-    recovery_token = new(token: generate_token, account: account)
+    recovery_token = new(account: account)
     recovery_token.save!
     recovery_token
   end
