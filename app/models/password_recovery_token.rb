@@ -1,4 +1,8 @@
-class PasswordRecoveryToken < RecoveryToken
+class PasswordRecoveryToken < ActiveRecord::Base
+  require 'token'
+  include Token
+
+  belongs_to :account
 
   default_scope ->{ where(created_at: 1.hour.ago...Time.now) }
 
