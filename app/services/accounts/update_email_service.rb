@@ -11,7 +11,7 @@ module Accounts
       recovery_token =
         current_account.email_recovery_tokens.find_by!(token: token)
 
-      new_email = recovery_token.recovery_email
+      new_email = recovery_token.email
       current_account.update!(email: new_email)
 
       recovery_token.disable
