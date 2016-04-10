@@ -12,12 +12,11 @@ class Api::V1::Auth::SessionsController < ApplicationController
     end
 
     sign_in!(account)
-
-    render json: { status: 200 }
+    render_ok
   end
 
   def sign_out
     sign_out!
-    render json: { status: 200 }
+    render_ok
   end
 end
