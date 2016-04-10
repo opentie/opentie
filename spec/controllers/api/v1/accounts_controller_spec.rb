@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'api/v1/auth/sessions_controller'
 
 RSpec.describe Api::V1::AccountsController, type: :controller do
   describe "GET /api/v1/account" do
@@ -15,11 +16,12 @@ RSpec.describe Api::V1::AccountsController, type: :controller do
 
   describe "GET /api/v1/account/edit" do
     before do
-      xhr :get, :edit
+      account = FactoryGirl.create(:account)
+      sign_in!(account)
     end
 
     it '200 OK' do
-      pending "yet login"
+      xhr :get, :edit
       expect(response).to be_success
       expect(response.status).to eq(200)
     end
@@ -83,20 +85,30 @@ RSpec.describe Api::V1::AccountsController, type: :controller do
       end.to change { EmailRecoveryToken.all.count }.by(-1)
     end
 
-    it 'login?'
+    it 'login?' do
+      xhr :post, :email_confirm, email_set_token: @recovery_token.token
+      expect(current_account).to eq(@account)
+    end
   end
 
   describe "PUT /api/v1/account" do
     before do
+      account = FactoryGirl.create(:account)
+      sign_in!(account)
+
       @params = { email: "changed-opentie@example.com"}
     end
 
     it '200 OK' do
-      pending 'yet login'
       xhr :put, :update, @params
       expect(response).to be_success
       expect(response.status).to eq(200)
     end
-  end
 
+    it 'increse and decrese column of email_recovery_tokens' do
+      expect do
+        xhr :put, :update, @params
+      end.to change { EmailRecoveryToken.all.count }.by(1)
+    end
+  end
 end
