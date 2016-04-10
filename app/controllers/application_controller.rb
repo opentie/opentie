@@ -40,6 +40,18 @@ class ApplicationController < ActionController::Base
     render json: { error: '301 Redirect' }, status: 301
   end
 
+  def account_signed_in?
+    !current_account.nil? && current_account.confirmed_email_first_time?
+  end
+
+  def account_signed_in_with_not_included_confirm?
+    !current_account.nil?
+  end
+
+  def authenticate_account!
+    render_unauthorized unless account_signed_in?
+  end
+
   private
 
   def check_xhr
@@ -48,7 +60,4 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def authenticate_account!
-    render_unauthorized unless account_signed_in?
-  end
 end

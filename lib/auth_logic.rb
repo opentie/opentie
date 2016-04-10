@@ -1,14 +1,6 @@
 module AuthLogic
   extend ActiveSupport::Concern
 
-  def account_signed_in?
-    !current_account.nil? && current_account.confirmed_email_first_time?
-  end
-
-  def account_signed_in_with_not_included_confirm?
-    !current_account.nil?
-  end
-
   def sign_in!(account)
     session[:account_id] = account.id
     update_session_period
