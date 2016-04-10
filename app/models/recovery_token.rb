@@ -1,6 +1,7 @@
 class RecoveryToken < ActiveRecord::Base
   belongs_to :account
 
+  before_validation :generate_token
   default_scope ->{ where(is_active: true) }
 
   def enable
@@ -13,7 +14,7 @@ class RecoveryToken < ActiveRecord::Base
 
   private
 
-  def self.generate_token
-    SecureRandom.urlsafe_base64(50)
+  def generate_token
+    self.token = SecureRandom.urlsafe_base64(50)
   end
 end
