@@ -7,6 +7,7 @@ class Account < ActiveRecord::Base
   validates :password             , length: { minimum: 8 }, if: :validate_password?
   validates :password_confirmation, presence: true        , if: :validate_password?
 
+  has_many :recovery_tokens
   has_many :email_recovery_tokens
   has_many :password_recovery_tokens
   has_many :roles
