@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   before_action :check_xhr
 
   # authentication methods
-  require 'auth'
   include AuthLogic
 
   unless Rails.env.development?

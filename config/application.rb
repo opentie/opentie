@@ -35,5 +35,6 @@ module Opentie
 
     # autoload paths
     config.autoload_paths += %W(#{config.root}/app/services)
+    config.autoload_paths += %W(#{config.root}/lib)
   end
 end
