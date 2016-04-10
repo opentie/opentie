@@ -1,5 +1,4 @@
 class Account < ActiveRecord::Base
-  class ConfirmationCodeInvaldError < StandardError; end
 
   has_secure_password
 
