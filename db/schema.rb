@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408135854) do
+ActiveRecord::Schema.define(version: 20160410125331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,24 +46,43 @@ ActiveRecord::Schema.define(version: 20160408135854) do
     t.datetime "updated_at",              null: false
   end
 
+  create_table "email_recovery_tokens", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "token",                      null: false
+    t.uuid     "account_id",                 null: false
+    t.boolean  "is_active",  default: false
+    t.string   "email",                      null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "email_recovery_tokens", ["token"], name: "index_email_recovery_tokens_on_token", using: :btree
+
   create_table "groups", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.integer "kibokan_id", null: false
   end
 
   add_index "groups", ["kibokan_id"], name: "index_groups_on_kibokan_id", using: :btree
 
-  create_table "recovery_tokens", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "invitaion_tokens", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "token",                      null: false
     t.uuid     "account_id",                 null: false
     t.boolean  "is_active",  default: false
-    t.string   "type",       default: ""
-    t.string   "substitute", default: ""
+    t.string   "email",                      null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
 
-  add_index "recovery_tokens", ["token"], name: "index_recovery_tokens_on_token", using: :btree
-  add_index "recovery_tokens", ["type"], name: "index_recovery_tokens_on_type", using: :btree
+  add_index "invitaion_tokens", ["token"], name: "index_invitaion_tokens_on_token", using: :btree
+
+  create_table "password_recovery_tokens", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "token",                      null: false
+    t.uuid     "account_id",                 null: false
+    t.boolean  "is_active",  default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "password_recovery_tokens", ["token"], name: "index_password_recovery_tokens_on_token", using: :btree
 
   create_table "roles", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "account_id",                     null: false
