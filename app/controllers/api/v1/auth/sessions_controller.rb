@@ -8,7 +8,7 @@ class Api::V1::Auth::SessionsController < ApplicationController
 
     account = Account.find_by!(email: email)
 
-    render_unauthorized unless account.authenticate(password)
+    render_unauthorized and return unless account.authenticate(password)
     sign_in!(account)
 
     render json: { status: 200 }
