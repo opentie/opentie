@@ -17,5 +17,5 @@ module Accounts
         email, account_name, recovery_token.token
       ).deliver_now
     end
- end
+  end
 end
