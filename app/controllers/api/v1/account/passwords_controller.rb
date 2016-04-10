@@ -1,4 +1,4 @@
-class Api::V1::PasswordsController < ApplicationController
+class Api::V1::Account::PasswordsController < ApplicationController
 
   before_action :authenticate_account!, only: :update
 
@@ -12,14 +12,13 @@ class Api::V1::PasswordsController < ApplicationController
 
   def update
     token = params[:passwrod_reset_token]
-    recovery_token = PasswordRecoveryToken.find_by!(token: token)
 
     password = params[:password]
     password_confirmation = params[:password_confirmation]
 
     Accounts::UpdatePasswordService.
-      new(current_account, recovery_token).
-      execute(password, password_confirmation)
+      new(current_account).
+      execute(token, password, password_confirmation)
 
     sign_out!
 
