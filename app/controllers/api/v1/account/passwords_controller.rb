@@ -7,7 +7,7 @@ class Api::V1::Account::PasswordsController < ApplicationController
 
     Accounts::RestorePasswordService.new(account).execute
 
-    render json: { result: true }
+    render_ok
   end
 
   def update
@@ -21,7 +21,6 @@ class Api::V1::Account::PasswordsController < ApplicationController
       execute(token, password, password_confirmation)
 
     sign_out!
-
-    render json: { result: true }
+    render_ok
   end
 end
