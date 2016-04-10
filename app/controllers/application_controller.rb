@@ -40,6 +40,11 @@ class ApplicationController < ActionController::Base
     render json: { error: '301 Redirect' }, status: 301
   end
 
+  def render_ok(params = {})
+    logger.info "Rendering 200 OK"
+    render json: params, status: 200
+  end
+
   def account_signed_in?
     !current_account.nil? && current_account.confirmed_email_first_time?
   end
