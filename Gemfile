@@ -22,6 +22,9 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'redis-namespace'
 
+# message tags
+gem 'acts-as-taggable-on'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
