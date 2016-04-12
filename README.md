@@ -1,4 +1,5 @@
 # opentie
+[![Circle CI](https://circleci.com/gh/opentie/opentie/tree/master.svg?style=svg)](https://circleci.com/gh/opentie/opentie/tree/master)
 
 ## How to work
 
