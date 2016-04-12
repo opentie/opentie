@@ -25,7 +25,11 @@ module Opentie
 
     config.web_console.development_only = false
 
-    config.active_job.queue_adapter = :sidekiq
+    if Rails.env.test?
+      config.active_job.queue_adapter = :inline
+    else
+      config.active_job.queue_adapter = :sidekiq
+    end
 
     # Application timezone
     config.time_zone = 'Tokyo'
