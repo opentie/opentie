@@ -1,7 +1,20 @@
 # opentie
 [![Circle CI](https://circleci.com/gh/opentie/opentie/tree/master.svg?style=svg)](https://circleci.com/gh/opentie/opentie/tree/master)
 
+## require
+- redis-server
+
 ## How to work
+
+- Set email.yml in config.
+
+- Launch sidekiq.
+```
+bundle exec sidekiq -C config/sidekiq.yml
+```
+
+- Launch server
+
 
 ### nginx config example
 
