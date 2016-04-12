@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412080539) do
+ActiveRecord::Schema.define(version: 20160412085908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,18 @@ ActiveRecord::Schema.define(version: 20160412080539) do
 
   add_index "password_recovery_tokens", ["token"], name: "index_password_recovery_tokens_on_token", using: :btree
 
+  create_table "posts", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "body",       default: ""
+    t.uuid     "topic_id",                null: false
+    t.uuid     "group_id",                null: false
+    t.uuid     "author_id",               null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "posts", ["group_id"], name: "index_posts_on_group_id", using: :btree
+  add_index "posts", ["topic_id"], name: "index_posts_on_topic_id", using: :btree
+
   create_table "roles", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "account_id",                     null: false
     t.uuid     "division_id",                    null: false
@@ -114,5 +126,25 @@ ActiveRecord::Schema.define(version: 20160412080539) do
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+
+  create_table "topics", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "name",                     null: false
+    t.string   "description", default: ""
+    t.uuid     "proposer_id",              null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "topics", ["id"], name: "index_topics_on_id", using: :btree
+  add_index "topics", ["proposer_id"], name: "index_topics_on_proposer_id", using: :btree
+
+  create_table "topics_groups", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "group_id",   null: false
+    t.uuid     "topic_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "topics_groups", ["group_id", "topic_id"], name: "index_topics_groups_on_group_id_and_topic_id", using: :btree
 
 end
