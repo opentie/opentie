@@ -17,6 +17,11 @@ gem 'bcrypt-ruby', '3.1.2'
 # account authorization
 gem 'cancancan'
 
+# job queue
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'redis-namespace'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
