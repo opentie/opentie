@@ -1,4 +1,4 @@
-class Api::V1::Auth::SessionsController < ApplicationController
+class Api::V1::SessionsController < ApplicationController
 
   before_action :authenticate_account!, only: :sign_out
 
