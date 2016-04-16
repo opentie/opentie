@@ -29,10 +29,27 @@ RSpec.describe Group, type: :models do
         create_topic(group)
       end.to change { group.proposal_topics.count }.by(1)
     end
+
+    it "has_many posts" do
+      topic = create_topic(group)
+      expect do
+        create_post(topic)
+      end.to change { group.posts.count }.by(1)
+    end
   end
 
   def create_delegate
     Delegate.create(account: account, group: group)
+  end
+
+  def create_post(topic)
+    Post.create(
+      FactoryGirl.attributes_for(:post).merge({
+        author: account,
+        topic: topic,
+        group: group
+      })
+    )
   end
 
   def create_topic(proposer)
