@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Accounts::UpdatePasswordService, type: :services do
+RSpec.describe UpdatePasswordService, type: :services do
   let(:account) { FactoryGirl.create(:account) }
 
   before do
@@ -13,7 +13,7 @@ RSpec.describe Accounts::UpdatePasswordService, type: :services do
 
   describe "initialize" do
     it "new" do
-      expect(@service.class).to eq(Accounts::UpdatePasswordService)
+      expect(@service.class).to eq(UpdatePasswordService)
     end
   end
 
@@ -32,7 +32,7 @@ RSpec.describe Accounts::UpdatePasswordService, type: :services do
   end
 
   def create_update_password_service(account)
-    Accounts::UpdatePasswordService.new(account)
+    UpdatePasswordService.new(account)
   end
 
   def create_token

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Accounts::RegisterEmailService, type: :services do
+RSpec.describe RegisterEmailService, type: :services do
   let(:account) { FactoryGirl.create(:account) }
 
   before do
@@ -9,7 +9,7 @@ RSpec.describe Accounts::RegisterEmailService, type: :services do
 
   describe "initialize" do
     it "new" do
-      expect(@service.class).to eq(Accounts::RegisterEmailService)
+      expect(@service.class).to eq(RegisterEmailService)
     end
   end
 
@@ -28,6 +28,6 @@ RSpec.describe Accounts::RegisterEmailService, type: :services do
   end
 
   def create_register_email_service(account)
-    Accounts::RegisterEmailService.new(account)
+    RegisterEmailService.new(account)
   end
 end

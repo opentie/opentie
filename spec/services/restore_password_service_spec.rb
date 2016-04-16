@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Accounts::RestorePasswordService, type: :services do
+RSpec.describe RestorePasswordService, type: :services do
   let(:account) { FactoryGirl.create(:account) }
 
   before do
@@ -9,7 +9,7 @@ RSpec.describe Accounts::RestorePasswordService, type: :services do
 
   describe "initialize" do
     it "new" do
-      expect(@service.class).to eq(Accounts::RestorePasswordService)
+      expect(@service.class).to eq(RestorePasswordService)
     end
   end
 
@@ -28,6 +28,6 @@ RSpec.describe Accounts::RestorePasswordService, type: :services do
   end
 
   def create_restore_password_service(account)
-    Accounts::RestorePasswordService.new(account)
+    RestorePasswordService.new(account)
   end
 end
