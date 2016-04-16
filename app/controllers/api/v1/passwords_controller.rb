@@ -5,7 +5,7 @@ class Api::V1::PasswordsController < ApplicationController
   def create
     account = Account.find_by!(email: params[:email])
 
-    Accounts::RestorePasswordService.new(account).execute
+    RestorePasswordService.new(account).execute
 
     render_ok
   end
@@ -16,8 +16,7 @@ class Api::V1::PasswordsController < ApplicationController
     password = params[:password]
     password_confirmation = params[:password_confirmation]
 
-    Accounts::UpdatePasswordService.
-      new(current_account).
+    UpdatePasswordService.new(current_account).
       execute(token, password, password_confirmation)
 
     sign_out!

@@ -16,7 +16,7 @@ class Api::V1::AccountsController < ApplicationController
     account = Account.create_with_kibokan(register_attributes)
 
     email = params[:kibokan][:email]
-    Accounts::RegisterEmailService.new(account).execute(email)
+    RegisterEmailService.new(account).execute(email)
 
     render_ok
   end
@@ -32,7 +32,7 @@ class Api::V1::AccountsController < ApplicationController
     token = params[:email_set_token]
     account = EmailRecoveryToken.find_by!(token: token).account
 
-    Accounts::UpdateEmailService.new(account).execute(token)
+    UpdateEmailService.new(account).execute(token)
 
     sign_in!(account)
     render_ok
@@ -40,7 +40,7 @@ class Api::V1::AccountsController < ApplicationController
 
   def update
     if params[:email] != current_account.email
-      Accounts::RegisterEmailService.new(current_account).execute(params[:email])
+      RegisterEmailService.new(current_account).execute(params[:email])
       params[:email] = current_account.email
     end
 

@@ -64,7 +64,7 @@ RSpec.describe Account, type: :models do
 
       expect(account.confirmed_reset_password?).to eq(false)
 
-      Accounts::UpdatePasswordService.new(account).
+      UpdatePasswordService.new(account).
         execute(recovery_token.token, "password", "password")
 
       expect(account.confirmed_reset_password?).to eq(true)
@@ -80,7 +80,7 @@ RSpec.describe Account, type: :models do
 
       expect(account.confirmed_reset_email?).to eq(false)
 
-      Accounts::UpdateEmailService.new(account).execute(recovery_token.token)
+      UpdateEmailService.new(account).execute(recovery_token.token)
 
       expect(account.confirmed_reset_email?).to eq(true)
     end
@@ -98,7 +98,7 @@ RSpec.describe Account, type: :models do
       recovery_token =
         EmailRecoveryToken.create_new_token(account, "opentie@example.com")
 
-      Accounts::UpdateEmailService.new(account).execute(recovery_token.token)
+      UpdateEmailService.new(account).execute(recovery_token.token)
 
       expect(account.confirmed_email_first_time?).to eq(true)
     end
