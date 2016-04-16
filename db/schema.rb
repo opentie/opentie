@@ -57,6 +57,15 @@ ActiveRecord::Schema.define(version: 20160412085908) do
 
   add_index "email_recovery_tokens", ["token"], name: "index_email_recovery_tokens_on_token", using: :btree
 
+  create_table "group_topics", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "group_id",   null: false
+    t.uuid     "topic_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "group_topics", ["group_id", "topic_id"], name: "index_group_topics_on_group_id_and_topic_id", using: :btree
+
   create_table "groups", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.integer "kibokan_id", null: false
   end
@@ -128,23 +137,15 @@ ActiveRecord::Schema.define(version: 20160412085908) do
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "topics", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "name",                     null: false
-    t.string   "description", default: ""
-    t.uuid     "proposer_id",              null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "title",                      null: false
+    t.string   "description",   default: ""
+    t.uuid     "proposer_id",                null: false
+    t.string   "proposer_type",              null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "topics", ["id"], name: "index_topics_on_id", using: :btree
-  add_index "topics", ["proposer_id"], name: "index_topics_on_proposer_id", using: :btree
-
-  create_table "topics_groups", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "group_id",   null: false
-    t.uuid     "topic_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "topics_groups", ["group_id", "topic_id"], name: "index_topics_groups_on_group_id_and_topic_id", using: :btree
+  add_index "topics", ["proposer_id", "proposer_type"], name: "index_topics_on_proposer_id_and_proposer_type", using: :btree
 
 end
