@@ -95,11 +95,12 @@ ActiveRecord::Schema.define(version: 20160412085908) do
 
   create_table "posts", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "body",       default: ""
-    t.uuid     "topic_id",                null: false
-    t.uuid     "group_id",                null: false
-    t.uuid     "author_id",               null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.uuid     "topic_id",                   null: false
+    t.uuid     "author_id",                  null: false
+    t.uuid     "group_id",                   null: false
+    t.boolean  "is_draft",   default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "posts", ["group_id"], name: "index_posts_on_group_id", using: :btree
