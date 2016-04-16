@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::Auth::SessionsController, type: :controller do
+RSpec.describe Api::V1::SessionsController, type: :controller do
   describe "Sign in" do
     before do
       FactoryGirl.create(:account)

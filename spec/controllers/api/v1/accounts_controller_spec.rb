@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'api/v1/auth/sessions_controller'
+require 'api/v1/sessions_controller'
 
 RSpec.describe Api::V1::AccountsController, type: :controller do
   describe "GET /api/v1/account" do
