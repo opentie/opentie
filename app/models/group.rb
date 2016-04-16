@@ -5,5 +5,7 @@ class Group < ActiveRecord::Base
   has_many :group_topics
   has_many :topics, through: :group_topics
 
+  has_many :posts
+
   has_many :proposal_topics, class_name: "Topic", as: :proposer
 end

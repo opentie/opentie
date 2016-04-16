@@ -13,6 +13,8 @@ class Account < ActiveRecord::Base
   has_many :divisions, through: :roles
   has_many :groups, through: :delegates
 
+  has_one :post
+
   def self.create_with_kibokan(params)
     account = new(
       password: params[:password],
