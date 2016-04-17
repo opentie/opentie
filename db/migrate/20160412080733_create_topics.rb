@@ -9,7 +9,6 @@ class CreateTopics < ActiveRecord::Migration
       t.timestamps                  null: false
     end
 
-    add_index :topics, :id
     add_index :topics, [:proposer_id, :proposer_type]
   end
 end

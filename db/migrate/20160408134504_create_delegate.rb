@@ -7,7 +7,6 @@ class CreateDelegate < ActiveRecord::Migration
       t.timestamps           null: false
     end
 
-    add_index :delegates, :group_id
-    add_index :delegates, :account_id
+    add_index :delegates, [:group_id, :account_id], unique: true
   end
 end
