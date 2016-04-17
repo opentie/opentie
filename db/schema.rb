@@ -138,13 +138,15 @@ ActiveRecord::Schema.define(version: 20160412085908) do
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "topics", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "title",                      null: false
+    t.string   "title",                         null: false
     t.string   "description",   default: ""
-    t.uuid     "account_id",                 null: false
-    t.uuid     "proposer_id",                null: false
-    t.string   "proposer_type",              null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.uuid     "account_id",                    null: false
+    t.uuid     "proposer_id",                   null: false
+    t.string   "proposer_type",                 null: false
+    t.boolean  "is_draft",      default: false
+    t.datetime "sended_at"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   add_index "topics", ["proposer_id", "proposer_type"], name: "index_topics_on_proposer_id_and_proposer_type", using: :btree
