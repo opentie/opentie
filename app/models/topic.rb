@@ -6,4 +6,7 @@ class Topic < ActiveRecord::Base
   belongs_to :account
   belongs_to :proposer, polymorphic: true
 
+  scope :draft, -> { where(is_draft: true) }
+  scope :published, -> { where(is_draft: false) }
+
 end
