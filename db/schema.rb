@@ -37,8 +37,7 @@ ActiveRecord::Schema.define(version: 20160412085908) do
     t.datetime "updated_at",                    null: false
   end
 
-  add_index "delegates", ["account_id"], name: "index_delegates_on_account_id", using: :btree
-  add_index "delegates", ["group_id"], name: "index_delegates_on_group_id", using: :btree
+  add_index "delegates", ["group_id", "account_id"], name: "index_delegates_on_group_id_and_account_id", unique: true, using: :btree
 
   create_table "divisions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name",       default: "", null: false
@@ -65,8 +64,7 @@ ActiveRecord::Schema.define(version: 20160412085908) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "group_topics", ["group_id", "topic_id"], name: "index_group_topics_on_group_id_and_topic_id", using: :btree
-  add_index "group_topics", ["last_read_at"], name: "index_group_topics_on_last_read_at", using: :btree
+  add_index "group_topics", ["group_id", "topic_id"], name: "index_group_topics_on_group_id_and_topic_id", unique: true, using: :btree
 
   create_table "groups", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.integer "kibokan_id", null: false
@@ -117,8 +115,7 @@ ActiveRecord::Schema.define(version: 20160412085908) do
     t.datetime "updated_at",                     null: false
   end
 
-  add_index "roles", ["account_id"], name: "index_roles_on_account_id", using: :btree
-  add_index "roles", ["division_id"], name: "index_roles_on_division_id", using: :btree
+  add_index "roles", ["account_id", "division_id"], name: "index_roles_on_account_id_and_division_id", unique: true, using: :btree
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -150,7 +147,6 @@ ActiveRecord::Schema.define(version: 20160412085908) do
     t.datetime "updated_at",                 null: false
   end
 
-  add_index "topics", ["id"], name: "index_topics_on_id", using: :btree
   add_index "topics", ["proposer_id", "proposer_type"], name: "index_topics_on_proposer_id_and_proposer_type", using: :btree
 
 end
