@@ -58,13 +58,15 @@ ActiveRecord::Schema.define(version: 20160412085908) do
   add_index "email_recovery_tokens", ["token"], name: "index_email_recovery_tokens_on_token", using: :btree
 
   create_table "group_topics", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "group_id",   null: false
-    t.uuid     "topic_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.uuid     "group_id",     null: false
+    t.uuid     "topic_id",     null: false
+    t.datetime "last_read_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   add_index "group_topics", ["group_id", "topic_id"], name: "index_group_topics_on_group_id_and_topic_id", using: :btree
+  add_index "group_topics", ["last_read_at"], name: "index_group_topics_on_last_read_at", using: :btree
 
   create_table "groups", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.integer "kibokan_id", null: false
@@ -94,17 +96,18 @@ ActiveRecord::Schema.define(version: 20160412085908) do
   add_index "password_recovery_tokens", ["token"], name: "index_password_recovery_tokens_on_token", using: :btree
 
   create_table "posts", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "body",       default: ""
-    t.uuid     "topic_id",                   null: false
-    t.uuid     "author_id",                  null: false
-    t.uuid     "group_id",                   null: false
-    t.boolean  "is_draft",   default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "body",           default: ""
+    t.uuid     "author_id",                      null: false
+    t.uuid     "division_id",                    null: false
+    t.uuid     "group_topic_id",                 null: false
+    t.boolean  "is_draft",       default: false
+    t.datetime "sended_at"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
-  add_index "posts", ["group_id"], name: "index_posts_on_group_id", using: :btree
-  add_index "posts", ["topic_id"], name: "index_posts_on_topic_id", using: :btree
+  add_index "posts", ["group_topic_id"], name: "index_posts_on_group_topic_id", using: :btree
+  add_index "posts", ["is_draft"], name: "index_posts_on_is_draft", using: :btree
 
   create_table "roles", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "account_id",                     null: false
@@ -140,6 +143,7 @@ ActiveRecord::Schema.define(version: 20160412085908) do
   create_table "topics", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "title",                      null: false
     t.string   "description",   default: ""
+    t.uuid     "account_id",                 null: false
     t.uuid     "proposer_id",                null: false
     t.string   "proposer_type",              null: false
     t.datetime "created_at",                 null: false
