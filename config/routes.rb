@@ -30,11 +30,11 @@ Rails.application.routes.draw do
           end
 
 
-          resources :topics, only: [:index, :show, :new, :create] do
+          resources :topics do
 
             scope module: :topics do
 
-              resources :posts, only: :create
+              resources :posts, only: [:new, :create, :edit, :update]
             end
           end
         end
@@ -59,15 +59,15 @@ Rails.application.routes.draw do
             resources :sub_schemata
           end
 
-          resources :topics, except: [:destroy, :edit] do
+          resources :topics do
 
             scope module: :topics do
 
-              resources :posts, only: :create
+              resources :posts, only: [:new, :create, :edit, :update]
             end
           end
 
-          resources :tags, except: :show
+          resources :tags, except: [:show, :edit, :update]
         end
       end
     end
