@@ -140,7 +140,7 @@ ActiveRecord::Schema.define(version: 20160412085908) do
   create_table "topics", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "title",                         null: false
     t.string   "description",   default: ""
-    t.uuid     "account_id",                    null: false
+    t.uuid     "author_id",                     null: false
     t.uuid     "proposer_id",                   null: false
     t.string   "proposer_type",                 null: false
     t.boolean  "is_draft",      default: false
