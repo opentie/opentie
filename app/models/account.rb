@@ -8,10 +8,14 @@ class Account < ActiveRecord::Base
 
   has_many :email_recovery_tokens
   has_many :password_recovery_tokens
-  has_many :roles
-  has_many :delegates
+
+  has_many :roles, dependent: :destroy
   has_many :divisions, through: :roles
+
+  has_many :delegates, dependent: :destroy
   has_many :groups, through: :delegates
+
+  has_many :topics
 
   has_one :post
 

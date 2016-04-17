@@ -2,11 +2,12 @@ class Topic < ActiveRecord::Base
 
   acts_as_taggable
 
-  has_many :group_topics
-  has_many :groups, through: :group_topics
+  has_many :group_topics, dependent: :destroy
+  has_many :groups, -> { uniq }, through: :group_topics
 
   has_many :posts
 
+  belongs_to :account
   belongs_to :proposer, polymorphic: true
 
   def add_groups(target_groups)
