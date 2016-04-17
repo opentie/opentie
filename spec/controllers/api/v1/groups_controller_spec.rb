@@ -1,5 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::GroupsController, type: :controller do
+module Api::V1
+  RSpec.describe GroupsController, type: :controller do
 
+  end
 end

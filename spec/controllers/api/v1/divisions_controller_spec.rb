@@ -1,5 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::DivisionsController, type: :controller do
+module Api::V1
+  RSpec.describe DivisionsController, type: :controller do
 
+  end
 end
