@@ -7,15 +7,15 @@ module Topics
       @proposer = proposer
     end
 
-    def execute(params, author, group_ids)
-      groups = Group.where(kibokan_id: group_ids)
+    def execute(params, author, is_draft, group_ids)
+      groups = Group.where(kibokan_id: group_ids).to_a
 
       groups << @proposer if @proposer.class == Group
 
       topic = @proposer.proposal_topics.
         new(params.merge({ groups: groups.uniq, author: author }))
-      topic.sended_at = Time.now unless params[:is_draft]
 
+      topic.publish unless is_draft
       topic.save!
       topic
     end
