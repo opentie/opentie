@@ -65,7 +65,7 @@ RSpec.describe Group, type: :models do
     Topic.create(
       FactoryGirl.attributes_for(:topic).merge({
         proposer: proposer,
-        account_id: account.id
+        author: account
       })
     )
   end

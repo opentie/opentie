@@ -32,7 +32,7 @@ RSpec.describe Division, type: :models do
     Topic.create(
       FactoryGirl.attributes_for(:topic).merge({
         proposer: proposer,
-        account: account
+        author: account
       })
     )
   end
