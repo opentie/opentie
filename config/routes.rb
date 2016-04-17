@@ -67,7 +67,7 @@ Rails.application.routes.draw do
             end
           end
 
-          resources :labels, except: :show
+          resources :tags, except: :show
         end
       end
     end
