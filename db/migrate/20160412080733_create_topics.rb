@@ -6,7 +6,7 @@ class CreateTopics < ActiveRecord::Migration
       t.uuid       :author_id,      null: false
       t.uuid       :proposer_id,    null: false
       t.string     :proposer_type,  null: false
-      t.boolean    :is_draft,                   default: false
+      t.boolean    :is_draft,                   default: true
       t.timestamp  :sended_at
       t.timestamps                  null: false
     end
