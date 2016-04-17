@@ -1,3 +1,5 @@
-class Api::V1::Divisions::GroupSchemataController < ApplicationController
+module Api::V1::Divisions
+  class GroupSchemataController < Api::V1::Divisions::BaseController
 
+  end
 end

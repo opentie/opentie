@@ -1,3 +1,4 @@
-class Api::V1::Groups::TopicsController < ApplicationController
-
+module Api::V1::Groups
+  class TopicsController < Api::V1::Groups::Topics::BaseController
+  end
 end

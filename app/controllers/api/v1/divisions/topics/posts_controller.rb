@@ -1,2 +1,5 @@
-class Api::V1::Divisions::Topics::PostsController < ApplicationController
+module Api::V1::Divisions::Topics
+  class PostsController < Api::V1::Divisions::Topics::BaseController
+
+  end
 end

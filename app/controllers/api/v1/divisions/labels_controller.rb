@@ -1,3 +1,5 @@
-class Api::V1::Divisions::LabelsController < ApplicationController
+module Api::V1::Divisions
+  class LabelsController < Api::V1::Divisions::BaseController
 
+  end
 end

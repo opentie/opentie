@@ -1,3 +1,4 @@
-class Api::V1::Groups::SubSchemataController < ApplicationController
-
+module Api::V1::Groups
+  class SubSchemataController < Api::V1::Groups::BaseController
+  end
 end

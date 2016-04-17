@@ -1,3 +1,4 @@
-class Api::V1::Groups::RequestsController < ApplicationController
-
+module Api::V1::Groups
+  class RequestsController < Api::V1::Groups::BaseController
+  end
 end
