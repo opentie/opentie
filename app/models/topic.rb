@@ -9,4 +9,9 @@ class Topic < ActiveRecord::Base
   scope :draft, -> { where(is_draft: true) }
   scope :published, -> { where(is_draft: false) }
 
+  def add_groups(groups)
+    groups.each do |g|
+      self.groups << g
+    end
+  end
 end
