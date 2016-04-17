@@ -16,8 +16,7 @@ class Account < ActiveRecord::Base
   has_many :groups, through: :delegates
 
   has_many :topics
-
-  has_one :post
+  has_many :posts
 
   def self.create_with_kibokan(params)
     account = new(

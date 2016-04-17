@@ -1,5 +1,6 @@
+require 'token'
+
 class PasswordRecoveryToken < ActiveRecord::Base
-  require 'token'
   include Token
 
   belongs_to :account

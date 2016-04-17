@@ -1,5 +1,7 @@
+require 'token'
+
 class InvitationToken < ActiveRecord::Base
-  require 'token'
+
   include Token
 
   belongs_to :division
