@@ -14,4 +14,17 @@ class Topic < ActiveRecord::Base
       self.groups << g
     end
   end
+
+  def publish
+    raise ActiveRecord::RecordInvalid unless self.is_draft
+    self.update(is_draft: false, sended_at: Time.now)
+  end
+
+  def publish?
+    !is_draft
+  end
+
+  def draft?
+    is_draft
+  end
 end
