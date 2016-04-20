@@ -15,13 +15,13 @@ class Topic < ActiveRecord::Base
     end
   end
 
-  def publish
-    raise ActiveRecord::RecordInvalid unless self.is_draft
+  def publish!
+    return if published?
     self.update(is_draft: false, sended_at: Time.now)
   end
 
-  def publish?
-    !is_draft
+  def published?
+    !is_draft && !sended_at.nil?
   end
 
   def draft?
