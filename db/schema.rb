@@ -117,11 +117,11 @@ ActiveRecord::Schema.define(version: 20160412085908) do
 
   add_index "roles", ["account_id", "division_id"], name: "index_roles_on_account_id_and_division_id", unique: true, using: :btree
 
-  create_table "taggings", force: :cascade do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
+  create_table "taggings", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "tag_id"
+    t.uuid     "taggable_id"
     t.string   "taggable_type"
-    t.integer  "tagger_id"
+    t.uuid     "tagger_id"
     t.string   "tagger_type"
     t.string   "context",       limit: 128
     t.datetime "created_at"
@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(version: 20160412085908) do
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
   add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
 
-  create_table "tags", force: :cascade do |t|
+  create_table "tags", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string  "name"
     t.integer "taggings_count", default: 0
   end
