@@ -27,7 +27,7 @@ module Api::V1::Divisions
     end
 
     def create
-      Topics::CreateService.
+      CreateTopicService.
         new(@division, current_account).
         execute(project_params)
 
@@ -43,7 +43,7 @@ module Api::V1::Divisions
     end
 
     def update
-      Topics::UpdateService.
+      UpdateUpdateService.
         new(@topic).
         execute(project_params)
 
