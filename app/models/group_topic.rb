@@ -4,6 +4,8 @@ class GroupTopic < ActiveRecord::Base
 
   validates :topic_id, uniqueness: { scope: :group_id }
 
+  has_many :posts
+
   belongs_to :group
   belongs_to :topic
 end
