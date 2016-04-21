@@ -6,9 +6,10 @@ module Api::V1
     def division
       unless @division
         id = params[:division_id] || params[:id]
-        @division = Division.find!(id)
+        @division = Division.find(id)
       end
 
+      render_not_found unless @division
       @division
     end
   end

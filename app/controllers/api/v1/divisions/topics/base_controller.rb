@@ -11,9 +11,10 @@ module Api::V1::Divisions
           :groups,
           :group_topics,
           group_topics: [:posts, :labels]
-        ).find!(id)
+        ).find(id)
       end
 
+      render_not_found unless @topic
       @topic
     end
   end
