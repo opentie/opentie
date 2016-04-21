@@ -2,12 +2,12 @@ module Api::V1::Divisions
   class TopicsController < Api::V1::Divisions::Topics::BaseController
 
     before_action :division
-    before_action :tag,           except: [:new, :create]
-    before_action :post,          except: [:new, :create]
-    prepend_before_action :topic, except: [:new, :create]
+    before_action :tag,           except: [:new, :create, :index]
+    before_action :post,          except: [:new, :create, :index]
+    prepend_before_action :topic, except: [:new, :create, :index]
 
     def index
-      topics = Topic.published.all.to_a
+      topics = Topic.published.all
 
       render_ok({
         topics: topics
@@ -76,8 +76,11 @@ module Api::V1::Divisions
 
     def project_params
       params.require(:topic).permit(
-        :title, :description, :is_draft, :group_ids, :tag_list
-      )
+        :title, :description, :is_draft
+      ).merge({
+        group_ids: params[:group_ids],
+        tag_list: params[:tag_list]
+      })
     end
   end
 end
