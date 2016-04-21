@@ -61,7 +61,7 @@ unless Rails.env.production?
 
   puts "Create topic..."
   ActiveRecord::Base.transaction do
-    Topics::CreateService.new(Division.first, Account.first).execute({
+    CreateTopicService.new(Division.first, Account.first).execute({
       title: "title",
       description: "des",
       group_ids: Group.select(:kibokan_id).all,
