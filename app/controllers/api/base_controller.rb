@@ -31,6 +31,11 @@ class Api::BaseController < ApplicationController
     render json: { error: '401 Unauthorized' }, status: 401
   end
 
+  def render_not_found
+    logger.info "Rendering 404"
+    render json: { error: '404 Not Found' }, status: 404
+  end
+
   def render_redirect
     logger.info "Rendering 301"
     render json: { error: '301 Redirect' }, status: 301
