@@ -4,7 +4,14 @@ module Api::V1::Divisions
     def topic
       unless @topic
         id = params[:topic_id] || params[:id]
-        @topic = Topic.find!(id)
+
+        # caching here
+        @topic =
+          Topic.includes(
+          :groups,
+          :group_topics,
+          group_topics: [:posts, :labels]
+        ).find!(id)
       end
 
       @topic
