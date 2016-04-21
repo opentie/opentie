@@ -8,6 +8,7 @@ import DevTools from './dev_tools';
 import DivisionsEditPage from './divisions_edit_page';
 import DivisionsNewPage from './divisions_new_page';
 import DivisionsShowPage from './divisions_show_page';
+import GroupLayout from './group_layout';
 import GroupsNewPage from './groups_new_page';
 import GroupsShowPage from './groups_show_page';
 import Root from './root';
@@ -26,6 +27,7 @@ export default {
   DivisionsEditPage,
   DivisionsNewPage,
   DivisionsShowPage,
+  GroupLayout,
   GroupsNewPage,
   GroupsShowPage,
   Root,

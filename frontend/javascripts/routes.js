@@ -10,7 +10,7 @@ export default (
       <IndexRoute component={Containers.DashboardPage} />
       <Route path="account/new" component={Containers.AccountsNewPage} />
     </Route>
-    <Route path="groups" components={{ navbar: GroupsNavbar, main: Containers.ToplevelLayout }}>
+    <Route path="groups" components={{ navbar: GroupsNavbar, main: Containers.GroupLayout }}>
       <Route path="new" component={Containers.GroupsNewPage} />
       <Route path=":group_id">
         <IndexRoute component={Containers.GroupsShowPage} />

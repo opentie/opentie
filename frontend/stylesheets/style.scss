@@ -8,9 +8,11 @@
   top: 2px;
 }
 
-.glyphicon {
-  position: relative;
-  top: 3px;
+.navbar {
+  .glyphicon {
+    position: relative;
+    top: 3px;
+  }
 }
 
 .navbar-right {
@@ -74,4 +76,70 @@
 
 body {
   padding-top: 46px;
+}
+
+
+$table-view-item-height: 42px;
+$table-view-caption-height: 24px;
+
+.table-view {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: $line-height-computed;
+
+  > .table-view-caption,
+  > .table-view-item {
+    display: block;
+    padding: 0 8px;
+    border-top: 1px solid $table-border-color;
+    margin: 0;
+
+    &:last-child {
+      border-bottom: 1px solid $table-border-color;
+    }
+  }
+
+  > .table-view-caption {
+    height: $table-view-caption-height;
+    line-height: $table-view-caption-height;
+
+    font-size: 0.9em;
+    color: $gray;
+    background-color: $gray-lighter;
+  }
+
+  > .table-view-item {
+    height: $table-view-item-height;
+    line-height: $table-view-item-height;
+  }
+
+  a.table-view-item {
+    color: inherit;
+
+    &:hover,
+    &:focus {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    &:focus {
+      @include tab-focus;
+    }
+  }
+
+  a.action {
+    color: $link-color;
+    text-decoration: none;
+    text-align: center;
+
+    &:hover,
+    &:focus {
+      color: $link-hover-color;
+      text-decoration: none;
+    }
+
+    &:focus {
+      @include tab-focus;
+    }
+  }
 }
