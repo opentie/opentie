@@ -2,16 +2,21 @@ Rails.application.routes.draw do
   namespace :api, format: 'json' do
     namespace :v1 do
 
-      resource :account, only: [:new, :create, :edit, :update]
+      resource :account, only: [:new, :create, :edit, :update] do
 
-      namespace :auth do
-        resources :passwords, only: [:create, :update]
+        collection do
+          post :email_confirm
+        end
 
-        resources :sessions, only: [] do
-          collection do
-            post :sign_in
-            post :sign_out
-          end
+        resource :password, only: [:create, :update]
+      end
+
+      resources :sessions, only: [] do
+
+        collection do
+
+          post :sign_in
+          post :sign_out
         end
       end
 
@@ -24,16 +29,23 @@ Rails.application.routes.draw do
             resource :request
           end
 
-          namespace :message do
-            resources :topics, only: [:index, :show, :new, :create] do
 
-              resources :posts, only: :create
+          resources :topics do
+
+            scope module: :topics do
+
+              resources :posts, only: [:new, :create, :edit, :update]
             end
           end
         end
       end
 
-      resources :divisions, except: [:index, :destroy] do
+      resources :divisions, only: [:new, :create, :show] do
+
+        member do
+
+          post :invitation
+        end
 
         scope module: :divisions do
 
@@ -47,20 +59,23 @@ Rails.application.routes.draw do
             resources :sub_schemata
           end
 
-          namespace :message do
-            resources :topics, except: [:destroy, :edit] do
+          resources :topics do
 
-              resources :posts, only: :create
+            scope module: :topics do
+
+              resources :posts, only: [:new, :create, :edit, :update]
             end
-
-            resources :labels, except: :show
           end
+
+          resources :tags, except: [:show, :edit, :update]
         end
       end
     end
   end
 
   if Rails.env.development?
+    require 'sidekiq/web'
+    mount Sidekiq::Web => '/api/sidekiq'
     mount LetterOpenerWeb::Engine, at: "/api/letter_opener"
   end
 end

@@ -1,32 +1,58 @@
 class Account < ActiveRecord::Base
-  class ConfirmationCodeInvaldError < StandardError; end
 
   has_secure_password
 
-  validates :email, {
-    presence: true,
-    uniqueness: true
-  }
-  validates :password             , length: { minimum: 8 }, :if => :validate_password?
-  validates :password_confirmation, presence: true        , :if => :validate_password?
+  validates :email                , uniqueness: true      , allow_blank: true
+  validates :password             , length: { minimum: 8 }, if: :validate_password?
+  validates :password_confirmation, presence: true        , if: :validate_password?
 
-  after_initialize :set_confirmation_code
+  has_many :email_recovery_tokens
+  has_many :password_recovery_tokens
 
-  def confirm_code(code)
-    raise ConfirmationCodeInvaldError.new if code != self.confirmation_code
-    self.update(confirmed: true)
+  has_many :roles, dependent: :delete_all
+  has_many :divisions, through: :roles
+
+  has_many :delegates, dependent: :delete_all
+  has_many :groups, through: :delegates
+
+  has_many :topics
+  has_many :posts
+
+  def self.create_with_kibokan(params)
+    account = new(
+      password: params[:password],
+      password_confirmation: params[:password_confirmation]
+    )
+
+    # no match password
+    raise ActiveRecord::RecordInvalid unless account.valid?
+
+    params[:kibokan][:email] = nil
+    # sync kibokan FIXME
+    kibokan_id = (0...100).to_a.sample # delete later
+
+    account.kibokan_id = kibokan_id
+    account.save
+    account
   end
 
-  def set_confirmation_code
-    update(confirmation_code: generate_confirmation_code)
+  def update_with_kibokan(params)
+    # FIXME
+  end
+
+  def confirmed_reset_password?
+    password_recovery_tokens.empty?
+  end
+
+  def confirmed_reset_email?
+    email_recovery_tokens.empty?
+  end
+
+  def confirmed_email_first_time?
+    !email.nil?
   end
 
   private
-
-  def generate_confirmation_code
-    4.times.map { SecureRandom.random_number(10).to_s }.join
-  end
-
   def validate_password?
     password.present? || password_confirmation.present?
   end

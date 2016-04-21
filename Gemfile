@@ -17,6 +17,14 @@ gem 'bcrypt-ruby', '3.1.2'
 # account authorization
 gem 'cancancan'
 
+# job queue
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'redis-namespace'
+
+# message tags
+gem 'acts-as-taggable-on'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -53,6 +61,7 @@ group :development, :test do
   gem 'spring'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'database_cleaner', github: 'bmabey/database_cleaner'
   gem 'guard'
   gem 'guard-rspec'
   gem 'spring-commands-rspec'

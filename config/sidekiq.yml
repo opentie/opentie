@@ -1,0 +1,8 @@
+:verbose: false
+:concurrency: 3
+:pidfile: ./tmp/pids/sidekiq.pid
+:logfile: ./log/sidekiq.log
+:queues:
+  - default
+  - mailer
+:daemon: true

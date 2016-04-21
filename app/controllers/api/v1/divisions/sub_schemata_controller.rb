@@ -1,3 +1,5 @@
-class Api::V1::Divisions::SubSchemataController < ApplicationController
+module Api::V1::Divisions
+  class SubSchemataController < Api::V1::Divisions::BaseController
 
+  end
 end

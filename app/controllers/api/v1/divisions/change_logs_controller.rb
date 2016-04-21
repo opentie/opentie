@@ -1,3 +1,5 @@
-class Api::V1::Divisions::ChangeLogsController < ApplicationController
+module Api::V1::Divisions
+  class ChangeLogsController < Api::V1::Divisions::BaseController
 
+  end
 end

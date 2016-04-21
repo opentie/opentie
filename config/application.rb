@@ -23,7 +23,23 @@ module Opentie
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
+    if Rails.env.test?
+      config.web_console.development_only = false
+      config.active_job.queue_adapter = :inline
+    else
+      config.active_job.queue_adapter = :sidekiq
+    end
+
     # Application timezone
     config.time_zone = 'Tokyo'
+
+    # set spec framework
+    config.generators do |g|
+      g.test_framework = "rspec"
+    end
+
+    # autoload paths
+    config.autoload_paths += %W(#{config.root}/app/services)
+    config.autoload_paths += %W(#{config.root}/lib)
   end
 end

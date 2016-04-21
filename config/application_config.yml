@@ -1,0 +1,14 @@
+default: &default
+  service_name: "opentie"
+  organization_name: "opentie-developper"
+  organization_mail: "opentie@sample.com"
+  organization_tel: "xxx-xxxx-xxxx"
+
+development:
+  <<: *default
+
+production:
+  <<: *default
+
+test:
+  <<: *default
