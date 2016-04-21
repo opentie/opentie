@@ -59,13 +59,15 @@ Rails.application.routes.draw do
             resources :sub_schemata
           end
 
-          resources :topics do
+          resources :group_topics, only: [:show] do
 
-            scope module: :topics do
+            scope module: :group_topics do
 
               resources :posts, only: [:new, :create, :edit, :update]
             end
           end
+
+          resources :topics
 
           resources :tags, except: [:show, :edit, :update]
         end

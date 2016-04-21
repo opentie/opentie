@@ -1,10 +1,8 @@
 module Api::V1::Divisions
-  class TopicsController < Api::V1::Divisions::Topics::BaseController
+  class TopicsController < Api::V1::Divisions::BaseController
 
-    before_action :division
-    before_action :tag,           except: [:new, :create, :index]
-    before_action :post,          except: [:new, :create, :index]
-    prepend_before_action :topic, except: [:new, :create, :index]
+    #before_action :division
+    before_action :topic, except: [:new, :create, :index]
 
     def index
       topics = Topic.published.all
@@ -15,10 +13,14 @@ module Api::V1::Divisions
     end
 
     def show
+      group_params = @topic.group_topics.map do |gt|
+        # link用
+        gt.group.attributes.merge({group_topic_id: gt.id})
+      end
+
       render_ok({
         topic: @topic,
-        tags: @tags,
-        posts: @posts
+        groups: group_params
       })
     end
 
@@ -37,8 +39,6 @@ module Api::V1::Divisions
     def edit
       render_ok({
         topic: @topic,
-        tags: @tags,
-        posts: @posts
       })
     end
 
@@ -58,20 +58,21 @@ module Api::V1::Divisions
 
     private
 
-    def tag
-      topic unless @topic
+    def topic
+      unless @topic
+        id = params[:topic_id] || params[:id]
 
-      @tags = @topic.group_topics.map do |gt|
-        [ gt.group_id, gt.tag_list ]
-      end.to_h
-    end
+        # caching here
+        @topic =
+          Topic.includes(
+          :groups,
+          :group_topics,
+          group_topics: [:posts, :labels]
+        ).find(id)
+      end
 
-    def post
-      topic unless @topic
-
-      @posts = @topic.group_topics.map do |gt|
-        [ gt.group_id, gt.posts ]
-      end.to_h
+      render_not_found unless @topic
+      @topic
     end
 
     def project_params

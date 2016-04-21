@@ -78,7 +78,8 @@ unless Rails.env.production?
           body: "body",
           author: Account.first,
           division: Division.first,
-          is_draft: false
+          is_draft: false,
+          sended_at: Time.now
         )
       end
     end
