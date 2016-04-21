@@ -8,7 +8,7 @@ export default class GroupLayout extends Component {
   render() {
     const { children } = this.props;
     return (
-      <div className="col-xs-12">
+      <div className="container">
         {children}
       </div>
     );

@@ -15,6 +15,7 @@ import Root from './root';
 import ToplevelLayout from './toplevel_layout';
 
 import Auth from './auth';
+import Categories from './categories';
 import Divisions from './divisions';
 import Groups from './groups';
 
@@ -33,6 +34,7 @@ export default {
   Root,
   ToplevelLayout,
   Auth,
+  Categories,
   Divisions,
   Groups,
 };
