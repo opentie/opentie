@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import Glyphicon from '../components/Glyphicon';
+import Glyphicon from '../components/glyphicon';
 
 export default class DashboardPage extends Component {
   render() {
