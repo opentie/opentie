@@ -6,6 +6,7 @@ import Fields from './fields';
 const Mapping = new NamedObjectMap();
 Mapping.add(Fields.TextField);
 Mapping.add(Fields.ParagraphField);
+Mapping.add(Fields.RadioField);
 
 const ValidatorPrinters = {
   MaxlengthValidator: (length) => `${length}文字以内`,

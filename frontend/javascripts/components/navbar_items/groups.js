@@ -22,7 +22,7 @@ export default class GroupNavbarItem extends Component {
         </li>
         <li>
           <Link
-             to={`/groups/${groupId}/sub_schemata/`}
+             to={`/groups/${groupId}/schemata/`}
              activeClassName="active"
              >
             <Glyphicon glyph="check" />
