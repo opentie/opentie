@@ -9,7 +9,7 @@ module Api::V1::Divisions
         @group_topic = GroupTopic.find(id)
       end
 
-      render_not_found unless @group_topic
+      ActiveRecord::RecordNotFound unless @group_topic
       @group_topic
     end
   end

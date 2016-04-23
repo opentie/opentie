@@ -64,7 +64,7 @@ module Api::V1::Divisions
         ).find(id)
       end
 
-      render_not_found unless @topic
+      ActiveRecord::RecordNotFound unless @topic
       @topic
     end
 

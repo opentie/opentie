@@ -10,7 +10,7 @@ module Api::V1
         @division = Division.find(id)
       end
 
-      render_not_found unless @division
+      ActiveRecord::RecordNotFound unless @division
       @division
     end
   end
