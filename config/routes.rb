@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
   namespace :api, format: 'json' do
     namespace :v1 do
-      resource :dashboard, only: :show
 
-      resource :account, only: [:new, :create, :edit, :update] do
+      resource :account, except: [:destroy] do
 
         collection do
           post :email_confirm
