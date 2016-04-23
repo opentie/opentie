@@ -56,6 +56,7 @@ module Api::V1::Divisions
         expect(body.include?(:topic)).to eq(true)
         expect(body[:topic].include?(:groups)).to eq(true)
         expect(body[:topic][:groups][0].include?(:group_topic_id)).to eq(true)
+        expect(body[:topic][:groups][0].include?(:tags)).to eq(true)
       end
     end
 
@@ -75,6 +76,7 @@ module Api::V1::Divisions
 
         expect(body.include?(:topic)).to eq(true)
         expect(body[:topic].include?(:group_ids)).to eq(true)
+        expect(body[:topic].include?(:tags)).to eq(true)
       end
     end
 
