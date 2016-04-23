@@ -6,7 +6,7 @@ module Api::V1::Divisions
 
     def index
       topics = Topic.published.all
-      render_ok({ topics: topics})
+      render_paginate(topics)
     end
 
     def new

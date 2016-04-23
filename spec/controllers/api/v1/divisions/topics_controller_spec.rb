@@ -18,7 +18,7 @@ module Api::V1::Divisions
     describe "GET /api/v1/divisions/topics" do
       before do
         sign_in!(account)
-        xhr :get, :index, { division_id: division.id }
+        xhr :get, :index, { division_id: division.id}
       end
 
       it '200 OK' do
