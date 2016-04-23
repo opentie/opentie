@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'api/v1/sessions_controller'
 
 module Api::V1
   RSpec.describe AccountsController, type: :controller do
