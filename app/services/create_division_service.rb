@@ -2,8 +2,8 @@ class CreateDivisionService
 
   attr_accessor :proposer
 
-  def initialize(default_account_id)
-    @account = Account.find(default_account_id)
+  def initialize(account_email)
+    @account = Account.find_by(email: account_email)
   end
 
   def execute(params)

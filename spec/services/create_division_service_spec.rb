@@ -19,7 +19,7 @@ RSpec.describe CreateDivisionService, type: :services do
   end
 
   def create_division
-    CreateDivisionService.new(account).execute({
+    CreateDivisionService.new(account.email).execute({
       name: "division_name"
     })
   end
