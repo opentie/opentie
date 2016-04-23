@@ -29,7 +29,7 @@ module Api::V1
 
     describe "POST /api/v1/account" do
       before do
-        @attributes = FactoryGirl.attributes_for(:account)
+        @attributes = { account: FactoryGirl.attributes_for(:account) }
         @attributes.merge!({ kibokan: { email: "opentie@example.com" } })
       end
 
@@ -96,7 +96,7 @@ module Api::V1
         account = FactoryGirl.create(:account)
         sign_in!(account)
 
-        @params = { email: "changed-opentie@example.com"}
+        @params = { kibokan: { email: "changed-opentie@example.com" } }
       end
 
       it '200 OK' do

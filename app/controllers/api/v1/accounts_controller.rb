@@ -10,11 +10,7 @@ module Api::V1
     end
 
     def create
-      register_attributes = params.slice(
-        :password, :password_confirmation, :kibokan
-      ).symbolize_keys
-
-      account = Account.create_with_kibokan(register_attributes)
+      account = Account.create_with_kibokan(account_params)
 
       email = params[:kibokan][:email]
       RegisterEmailService.new(account).execute(email)
@@ -40,14 +36,26 @@ module Api::V1
     end
 
     def update
-      if params[:email] != current_account.email
-        RegisterEmailService.new(current_account).execute(params[:email])
-        params[:email] = current_account.email
+      email = params[:kibokan][:email]
+
+      if email != current_account.email
+        RegisterEmailService.new(current_account).execute(email)
       end
 
+      params[:email] = current_account.email
       current_account.update_with_kibokan(params[:kibokan])
 
       render_ok
+    end
+
+    private
+
+    def account_params
+      params.require(:account).permit(
+        :password, :password_confirmation
+      ).merge(
+        params[:kibokan]
+      )
     end
   end
 end
