@@ -1,7 +1,19 @@
 module Api::V1
   class AccountsController < Api::V1::BaseController
 
-    before_action :authenticate_account!, only: [:edit, :update]
+    before_action :authenticate_account!, only: [:edit, :update, :show]
+
+    def show
+      groups = current_account.groups
+      divisions = current_account.divisions
+
+      render_ok(
+        current_account.attributes.merge({
+          groups: groups,
+          divisions: divisions
+        })
+      )
+    end
 
     def new
       # return schema from mongodb

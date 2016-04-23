@@ -14,7 +14,7 @@ module Api::V1
 
     end
 
-    describe "GET /api/v1/account/edit" do
+    describe "GET /api/v1/account/" do
       before do
         account = FactoryGirl.create(:account)
         sign_in!(account)
@@ -24,6 +24,26 @@ module Api::V1
         xhr :get, :edit
         expect(response).to be_success
         expect(response.status).to eq(200)
+      end
+    end
+
+    describe "GET /api/v1/account/edit" do
+      before do
+        account = FactoryGirl.create(:account)
+        sign_in!(account)
+        xhr :get, :show
+      end
+
+      it '200 OK' do
+        expect(response).to be_success
+        expect(response.status).to eq(200)
+      end
+
+      it 'has attributes' do
+        body = JSON.parse(response.body).deep_symbolize_keys
+
+        expect(body.include?(:groups)).to eq(true)
+        expect(body.include?(:divisions)).to eq(true)
       end
     end
 
