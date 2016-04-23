@@ -1,7 +1,6 @@
 module Api::V1::Divisions
   class TopicsController < Api::V1::Divisions::BaseController
 
-    before_action :division
     before_action :topic, except: [:new, :create, :index]
 
     def index
