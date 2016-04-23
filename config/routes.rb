@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'dashboards/show'
-
   namespace :api, format: 'json' do
     namespace :v1 do
       resource :dashboard, only: :show
