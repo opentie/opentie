@@ -62,7 +62,13 @@ Rails.application.routes.draw do
 
             scope module: :group_topics do
 
-              resources :posts, only: [:new, :create, :edit, :update]
+              resources :posts, only: [:new, :create, :edit, :update] do
+
+                collection do
+
+                  get :draft
+                end
+              end
             end
           end
 
