@@ -35,10 +35,9 @@ module Api::V1::Divisions::GroupTopics
     private
 
     def post
-      unless @post
-        id = params[:post_id] || params[:id]
-        @post = Post.find(id)
-      end
+      id = params[:post_id] || params[:id]
+
+      @post = Post.find(id)
 
       raise ActiveRecord::RecordNotFound unless @post
       @post

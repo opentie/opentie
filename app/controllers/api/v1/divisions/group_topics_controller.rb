@@ -1,7 +1,6 @@
 module Api::V1::Divisions
   class GroupTopicsController < Api::V1::Divisions::GroupTopics::BaseController
 
-    before_action :group_topic
     before_action :load_topic_detail
 
     def show
