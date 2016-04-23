@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+  get 'dashboards/show'
+
   namespace :api, format: 'json' do
     namespace :v1 do
+      resource :dashboard, only: :show
 
       resource :account, only: [:new, :create, :edit, :update] do
 
