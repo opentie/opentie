@@ -60,6 +60,8 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'rspec-rails'
+  gem 'nyan-cat-formatter'
+  gem 'fuubar'
   gem 'factory_girl_rails'
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
   gem 'guard'

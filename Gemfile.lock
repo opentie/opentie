@@ -81,6 +81,9 @@ GEM
       railties (>= 3.0.0)
     ffi (1.9.10)
     formatador (0.2.5)
+    fuubar (2.0.0)
+      rspec (~> 3.0)
+      ruby-progressbar (~> 1.4)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     guard (2.13.0)
@@ -131,6 +134,8 @@ GEM
     notiffany (0.0.8)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    nyan-cat-formatter (0.11)
+      rspec (>= 2.99, >= 2.14.2, < 4)
     orm_adapter (0.5.0)
     pg (0.18.4)
     pry (0.10.3)
@@ -204,6 +209,7 @@ GEM
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
+    ruby-progressbar (1.7.5)
     shellany (0.0.1)
     sidekiq (4.1.1)
       concurrent-ruby (~> 1.0)
@@ -255,10 +261,12 @@ DEPENDENCIES
   devise
   devise-i18n
   factory_girl_rails
+  fuubar
   guard
   guard-rspec
   jquery-rails
   letter_opener_web
+  nyan-cat-formatter
   pg
   pry-byebug
   pry-doc
