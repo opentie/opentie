@@ -25,14 +25,9 @@ gem 'redis-namespace'
 # message tags
 gem 'acts-as-taggable-on'
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+# paginator
+gem 'kaminari'
+gem 'api-pagination'
 
 group :assets do
   # Use Uglifier as compressor for JavaScript assets
