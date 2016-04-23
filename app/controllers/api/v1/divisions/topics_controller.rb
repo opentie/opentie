@@ -1,29 +1,26 @@
 module Api::V1::Divisions
-  class TopicsController < Api::V1::Divisions::Topics::BaseController
+  class TopicsController < Api::V1::Divisions::BaseController
 
     before_action :division
-    before_action :tag,           except: [:new, :create, :index]
-    before_action :post,          except: [:new, :create, :index]
-    prepend_before_action :topic, except: [:new, :create, :index]
+    before_action :topic, except: [:new, :create, :index]
 
     def index
       topics = Topic.published.all
-
-      render_ok({
-        topics: topics
-      })
-    end
-
-    def show
-      render_ok({
-        topic: @topic,
-        tags: @tags,
-        posts: @posts
-      })
+      render_ok({ topics: topics})
     end
 
     def new
       render_ok
+    end
+
+    def show
+      groups = @topic.group_topics.map do |gt|
+        gt.group.attributes.merge({ group_topic_id: gt.id})
+      end
+
+      render_ok ({
+        topic: @topic.attributes.merge({ groups: groups })
+      })
     end
 
     def create
@@ -35,15 +32,17 @@ module Api::V1::Divisions
     end
 
     def edit
+      group_ids = @topic.groups.pluck(:kibokan_id)
+
       render_ok({
-        topic: @topic,
-        tags: @tags,
-        posts: @posts
+        topic: @topic.attributes.merge({
+          group_ids: group_ids
+        })
       })
     end
 
     def update
-      UpdateUpdateService.
+      UpdateTopicService.
         new(@topic).
         execute(project_params)
 
@@ -52,26 +51,22 @@ module Api::V1::Divisions
 
     def destroy
       @topic.destroy
-
       render_ok
     end
 
     private
 
-    def tag
-      topic unless @topic
+    def topic
+      unless @topic
+        id = params[:topic_id] || params[:id]
+        @topic =Topic.includes(
+          :groups,
+          :group_topics,
+        ).find(id)
+      end
 
-      @tags = @topic.group_topics.map do |gt|
-        [ gt.group_id, gt.tag_list ]
-      end.to_h
-    end
-
-    def post
-      topic unless @topic
-
-      @posts = @topic.group_topics.map do |gt|
-        [ gt.group_id, gt.posts ]
-      end.to_h
+      render_not_found unless @topic
+      @topic
     end
 
     def project_params
