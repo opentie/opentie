@@ -2,6 +2,7 @@ module Api::V1
   class Divisions::BaseController < Api::V1::BaseController
 
     before_action :authenticate_account!
+    before_action :division
 
     def division
       unless @division
