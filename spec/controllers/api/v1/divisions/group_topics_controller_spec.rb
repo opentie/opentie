@@ -3,13 +3,18 @@ require 'rails_helper'
 module Api::V1::Divisions::GroupTopics
   RSpec.describe GroupTopicsController, type: :controller do
     let(:account) { FactoryGirl.create(:account) }
+    let(:division) { FactoryGirl.create(:division) }
+
+    before do
+      division.roles.create(account: account, permission: 'normal')
+    end
 
     describe "GET /divisions/:division_id/group_topics/:id" do
       before do
         sign_in!(account)
 
         params = {
-          division_id: Division.first.id,
+          division_id: division.id,
           id: GroupTopic.first.id
         }
 

@@ -5,6 +5,10 @@ module Api::V1::Divisions
     let(:account) { FactoryGirl.create(:account) }
     let(:division) { FactoryGirl.create(:division) }
 
+    before do
+      division.roles.create(account: account, permission: 'normal')
+    end
+
     describe "Authenticate" do
       before do
         xhr :get, :index, { division_id: division.id }

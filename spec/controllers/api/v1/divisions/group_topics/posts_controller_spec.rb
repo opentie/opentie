@@ -6,6 +6,9 @@ module Api::V1::Divisions::GroupTopics
     let(:division) { FactoryGirl.create(:division) }
     let(:group_topic) { GroupTopic.first }
 
+    before do
+      division.roles.create(account: account, permission: 'normal')
+    end
 
     describe "GET /divisions/:division_id/group_topics/:group_topic_id/posts/draft" do
       before do
