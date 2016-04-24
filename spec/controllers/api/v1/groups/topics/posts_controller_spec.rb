@@ -89,7 +89,7 @@ module Api::V1::Groups::Topics
 
         @params = id_params.merge({
           post: FactoryGirl.attributes_for(:post),
-          id: @post.id
+          id: post.id
         })
       end
 
