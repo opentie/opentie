@@ -19,7 +19,6 @@ module Api::V1::Groups
 
     def group_topic
       unless @group_topic
-        id = params[:topic_id] || params[:id]
         @group_topic = @group.group_topics.includes(
           :posts, :tags, :topic
         ).find_by(topic_id: @topic.id)
