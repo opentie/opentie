@@ -4,14 +4,12 @@ import AccountsEditPage from './accounts_edit_page';
 import AccountsNewPage from './accounts_new_page';
 import App from './app';
 import DashboardPage from './dashboard_page';
-import DevTools from './dev_tools';
 import DivisionsEditPage from './divisions_edit_page';
 import DivisionsNewPage from './divisions_new_page';
 import DivisionsShowPage from './divisions_show_page';
 import GroupLayout from './group_layout';
 import GroupsNewPage from './groups_new_page';
 import GroupsShowPage from './groups_show_page';
-import Root from './root';
 import ToplevelLayout from './toplevel_layout';
 
 import Auth from './auth';
@@ -24,14 +22,12 @@ export default {
   AccountsNewPage,
   App,
   DashboardPage,
-  DevTools,
   DivisionsEditPage,
   DivisionsNewPage,
   DivisionsShowPage,
   GroupLayout,
   GroupsNewPage,
   GroupsShowPage,
-  Root,
   ToplevelLayout,
   Auth,
   Categories,

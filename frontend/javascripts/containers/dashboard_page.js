@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Glyphicon from '../components/glyphicon';
 import * as actions from '../actions';
 
-class DashboardPage extends Component {
+export default class DashboardPage extends Component {
   componentWillMount() {
-    this.props.loadAccount();
+    //this.props.loadAccount();
   }
 
   divisionsPanel() {
@@ -88,25 +87,8 @@ class DashboardPage extends Component {
       <div className="row">
         <div className="col-lg-8 col-lg-offset-2">
           {categoryPanels}
-          {this.divisionsPanel()}
         </div>
       </div>
     );
   }
 }
-
-function mapStateToProps(state, ownProps) {
-  const { entities: { accounts, divisions } } = state;
-
-  const me = (Object.keys(accounts).length >= 1)
-  ? Object.values(accounts)[0]
-  : null;
-
-  const myDivisions = me && me.divisions.map(id => divisions[id]);
-
-  return Object.assign({}, ownProps, {
-    me,
-    divisions: myDivisions,
-  });
-}
-export default connect(mapStateToProps, actions)(DashboardPage);

@@ -1,5 +1,3 @@
-import { CALL_API, Schemata } from '../middlewares/api';
-
 export const DIVISIONS_REQUEST = 'DIVISIONS_REQUEST';
 export const DIVISIONS_SUCCESS = 'DIVISIONS_SUCCESS';
 export const DIVISIONS_FAILURE = 'DIVISIONS_FAILURE';
