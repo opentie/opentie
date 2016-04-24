@@ -19,6 +19,9 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'redis-namespace'
 
+# define virtual model
+gem 'virtus'
+
 # message tags
 gem 'acts-as-taggable-on'
 
