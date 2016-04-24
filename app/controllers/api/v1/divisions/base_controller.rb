@@ -8,7 +8,7 @@ module Api::V1
     def division
       unless @division
         id = params[:division_id] || params[:id]
-        @division =current_account.divisions.includes(
+        @division = current_account.divisions.includes(
           :roles, :accounts
         ).find(id)
       end
