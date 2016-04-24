@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 20160412085908) do
   create_table "posts", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "body",           default: ""
     t.uuid     "author_id",                      null: false
-    t.uuid     "division_id",                    null: false
+    t.uuid     "division_id"
     t.uuid     "group_topic_id",                 null: false
     t.boolean  "is_draft",       default: false
     t.datetime "sended_at"
