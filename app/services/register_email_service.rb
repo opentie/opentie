@@ -14,6 +14,6 @@ class RegisterEmailService
 
     AccountMailer.regist_email(
       email, account_name, recovery_token.token
-    ).deliver_now
+    ).deliver_later
   end
 end
