@@ -5,6 +5,10 @@ module Api::V1::Groups
     let(:account) { FactoryGirl.create(:account) }
     let(:group) { Group.first }
 
+    before do
+      group.delegates.create(account: account)
+    end
+
     describe "Authenticate" do
       before do
         xhr :get, :index, id_params

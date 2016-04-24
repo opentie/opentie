@@ -7,7 +7,7 @@ module Api::V1
     def group
       unless @group
         id = params[:group_id] || params[:id]
-        @group = Group.find(id)
+        @group = current_account.groups.find(id)
       end
 
       ActiveRecord::RecordNotFound unless @group
