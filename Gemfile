@@ -14,9 +14,6 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'bcrypt-ruby', '3.1.2'
 
-# account authorization
-gem 'cancancan'
-
 # job queue
 gem 'sidekiq'
 gem 'sinatra', require: false
