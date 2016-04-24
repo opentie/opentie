@@ -17,7 +17,7 @@ module Api
 
     def authenticate_admin!
       render_unauthorized unless account_signed_in?
-      render_unauthorized unless account.admin?
+      render_unauthorized unless current_account.admin?
     end
   end
 end
