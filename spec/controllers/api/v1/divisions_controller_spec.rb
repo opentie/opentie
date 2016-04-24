@@ -4,6 +4,7 @@ module Api::V1
   RSpec.describe DivisionsController, type: :controller do
     let(:account) { FactoryGirl.create(:account) }
     let(:admin) { FactoryGirl.create(:admin) }
+    let(:division) { Division.first }
 
     describe "GET /api/v1/divisions/new" do
       it "Unauthorized" do
@@ -39,14 +40,57 @@ module Api::V1
       end
     end
 
-    describe "POST /api/v1/divisions/invitation" do
-      pending "not impliment yet"
+    describe "POST /api/v1/divisions/invite" do
+      before do
+        @role = division.roles.create(
+          account: account,
+          permission: 'super'
+        )
+
+        @account_param = {
+          id: division.id,
+          invite_account: {
+            email: "invite@opentie.com",
+            permission: 'normal'
+          }
+        }
+
+        @yet_account_param = {
+          id: division.id,
+          invite_account: {
+            email: account.email,
+            permission: 'normal'
+          }
+        }
+      end
+
+      it "200 OK, with send email" do
+        sign_in!(account)
+        xhr :post, :invite, @yet_account_param
+
+        expect(response).to be_success
+        expect(response.status).to eq(200)
+      end
+
+      it "200 OK, with send email" do
+        sign_in!(account)
+        xhr :post, :invite, @account_param
+
+        expect(response).to be_success
+        expect(response.status).to eq(200)
+      end
     end
 
-    describe "GET /api/v1/divisions/new" do
+    describe "GET /api/v1/divisions/:id" do
       before do
         sign_in!(account)
-        xhr :get, :show, { id: Division.first.id }
+
+        role = division.roles.create(
+          account: account,
+          permission: 'super'
+        )
+
+        xhr :get, :show, { id: division.id }
       end
 
       it "200 OK" do
@@ -57,6 +101,7 @@ module Api::V1
       it "has attributes" do
         body = JSON.parse(response.body).deep_symbolize_keys
         expect(body.include?(:members)).to eq(true)
+        expect(body[:members][0].include?(:permission)).to eq(true)
       end
     end
 

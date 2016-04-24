@@ -1,9 +1,9 @@
 module Api::V1
   class DivisionsController < Api::V1::Divisions::BaseController
 
-    before_action :authenticate_account!
-    before_action :authenticate_admin!,  only: [:new, :create]
-    before_action :division, only: [:show, :invitation]
+    before_action :authenticate_admin!, only: [:new, :create]
+    before_action :division, only: [:show, :invite]
+    before_action :role, only: [:show, :invite]
 
     def new
       render_ok
@@ -16,16 +16,19 @@ module Api::V1
       render_ok
     end
 
-    def invitation
-      email = params[:email]
+    def invite
+      render_unauthorized and return unless @role.super?
 
-      # TODO
+      email = params[:invite_account][:email]
+      permission = params[:invite_account][:permission]
+
+      InviteDivisionAccountService.new(@division).execute(email, permission)
 
       render_ok
     end
 
     def show
-      members = @division.accounts
+      members = @division.accounts.joins(:roles).select(:email, 'roles.permission')
       render_ok(@division.attributes.merge({ members: members }))
     end
 
@@ -33,10 +36,6 @@ module Api::V1
 
     def division_params
       params.require(:division).permit(:name)
-    end
-
-    def authenticate_admin!
-      render_unauthorized unless current_account.is_admin
     end
   end
 end
