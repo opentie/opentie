@@ -64,4 +64,31 @@ RSpec.describe AccountMailer, type: :mailer do
       expect(mail.from).to eq [@mail_from]
     end
   end
+
+  describe 'AccountMailer#invite_division' do
+    let(:mail) do
+      AccountMailer.invite_division(
+        FactoryGirl.create(:division),
+        @mail_to
+      )
+    end
+
+    it 'send an email' do
+      expect do
+        mail.deliver_now
+      end.to change { ActionMailer::Base.deliveries.size }.by(1)
+    end
+
+    it 'renders the subject' do
+      expect(mail.subject).to eq "#{@service_name}へこのメールアドレスに招待がありました"
+    end
+
+    it "renders the receiver email" do
+      expect(mail.to).to eq [@mail_to]
+    end
+
+    it "renders the sender email" do
+      expect(mail.from).to eq [@mail_from]
+    end
+  end
 end
