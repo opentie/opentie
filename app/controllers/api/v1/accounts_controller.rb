@@ -17,6 +17,7 @@ module Api::V1
 
     def new
       # return schema from mongodb
+      # if account has invitaion token -> join division
       # FIXME
       render_ok({ result: true })
     end
