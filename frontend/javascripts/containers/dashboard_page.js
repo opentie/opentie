@@ -1,8 +1,39 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Glyphicon from '../components/glyphicon';
+import * as actions from '../actions';
 
-export default class DashboardPage extends Component {
+class DashboardPage extends Component {
+  componentWillMount() {
+    this.props.loadAccount();
+  }
+
+  divisionsPanel() {
+    const { divisions } = this.props;
+
+    if (!divisions) {
+      return null;
+    }
+
+    const divisionItems = divisions.map((division) => {
+      return (
+        <Link className="list-group-item" to={`/divisions/${division.id}`}>
+          {division.name}
+        </Link>
+      );
+    });
+
+    return (
+      <div className="panel panel-default">
+        <div className="panel-heading">実行委員会内組織一覧</div>
+        <ul className="list-group">
+          {divisionItems}
+        </ul>
+      </div>
+    );
+  }
+
   render() {
     const categories = [
       {
@@ -52,25 +83,30 @@ export default class DashboardPage extends Component {
         </div>
       );
     });
-/*
-    const divisionsPanel = (() => {
-      return (
-        <div className="panel panel-default">
-          <div className="panel-heading">実行委員会内組織一覧</div>
-          <ul className="list-group">
-            <Link className="list-group-item" to={`/divisions/${division.id}`}>
-            </Link>
-          </ul>
-        </div>
-      );
-    })();
-*/
+
     return (
       <div className="row">
         <div className="col-lg-8 col-lg-offset-2">
           {categoryPanels}
+          {this.divisionsPanel()}
         </div>
       </div>
     );
   }
 }
+
+function mapStateToProps(state, ownProps) {
+  const { entities: { accounts, divisions } } = state;
+
+  const me = (Object.keys(accounts).length >= 1)
+  ? Object.values(accounts)[0]
+  : null;
+
+  const myDivisions = me && me.divisions.map(id => divisions[id]);
+
+  return Object.assign({}, ownProps, {
+    me,
+    divisions: myDivisions,
+  });
+}
+export default connect(mapStateToProps, actions)(DashboardPage);

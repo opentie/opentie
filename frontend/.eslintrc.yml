@@ -14,10 +14,12 @@ plugins:
   - react
 rules:
   accessor-pairs: error
-  array-bracket-spacing: error
+  array-bracket-spacing:
+    - error
+    - always
   array-callback-return: error
   arrow-body-style: 'off'
-  arrow-parens: error
+  arrow-parens: 'off'
   arrow-spacing: error
   block-scoped-var: error
   block-spacing: error
@@ -45,7 +47,7 @@ rules:
   eol-last: error
   eqeqeq: error
   func-names: error
-  func-style: error
+  func-style: 'off'
   generator-star-spacing: error
   global-require: error
   guard-for-in: error
@@ -155,6 +157,7 @@ rules:
   no-unmodified-loop-condition: error
   no-unneeded-ternary: error
   no-unused-expressions: error
+  no-unused-vars: warn
   no-use-before-define: error
   no-useless-call: error
   no-useless-concat: error
@@ -176,7 +179,7 @@ rules:
   padded-blocks: 'off'
   prefer-arrow-callback: error
   prefer-const: error
-  prefer-reflect: error
+  prefer-reflect: 'off'
   prefer-rest-params: error
   prefer-spread: error
   prefer-template: error
