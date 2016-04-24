@@ -1,9 +1,9 @@
 module Api::V1::Divisions::GroupTopics
   class PostsController < Api::V1::Divisions::GroupTopics::BaseController
 
-    before_action :post, except: [:new, :create, :draft]
+    before_action :post, except: [:new, :create, :index]
 
-    def draft
+    def index
       draft_posts = @group_topic.posts.draft
 
       render_ok({ posts: draft_posts })
@@ -14,20 +14,19 @@ module Api::V1::Divisions::GroupTopics
     end
 
     def create
-      post = @group_topic.posts.new(post_params)
+      post = @group_topic.posts.create(post_params)
       post.publish! unless post.draft?
-      post.save!
 
       render_ok
     end
 
     def edit
-      render_ok({ post: @post })
+      render_ok(@post.attributes)
     end
 
     def update
       @post.update(post_params)
-      post.publish! unless post.draft?
+      @post.publish! unless @post.draft?
 
       render_ok
     end
@@ -36,8 +35,7 @@ module Api::V1::Divisions::GroupTopics
 
     def post
       id = params[:post_id] || params[:id]
-
-      @post = Post.find(id)
+      @post = @group_topic.posts.draft.find(id)
 
       raise ActiveRecord::RecordNotFound unless @post
       @post
