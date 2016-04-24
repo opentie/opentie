@@ -6,8 +6,6 @@ class InvitationToken < ActiveRecord::Base
 
   belongs_to :division
 
-  default_scope ->{ where(created_at: 1.hour.ago...Time.now) }
-
   def self.create_new_token(division, email)
     where(division: division).where(email: email).each do |token|
       token.disable
