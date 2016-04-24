@@ -4,7 +4,11 @@ module Api::V1
   RSpec.describe DivisionsController, type: :controller do
     let(:account) { FactoryGirl.create(:account) }
     let(:admin) { FactoryGirl.create(:admin) }
-    let(:division) { Division.first }
+    let(:division) { FactoryGirl.create(:division) }
+
+    before do
+      division.roles.create(account: account, permission: 'super')
+    end
 
     describe "GET /api/v1/divisions/new" do
       it "Unauthorized" do
@@ -42,11 +46,6 @@ module Api::V1
 
     describe "POST /api/v1/divisions/invite" do
       before do
-        @role = division.roles.create(
-          account: account,
-          permission: 'super'
-        )
-
         @account_param = {
           id: division.id,
           invite_account: {
@@ -84,11 +83,6 @@ module Api::V1
     describe "GET /api/v1/divisions/:id" do
       before do
         sign_in!(account)
-
-        role = division.roles.create(
-          account: account,
-          permission: 'super'
-        )
 
         xhr :get, :show, { id: division.id }
       end
