@@ -30,11 +30,11 @@ ActiveRecord::Schema.define(version: 20160412085908) do
   add_index "accounts", ["kibokan_id"], name: "index_accounts_on_kibokan_id", using: :btree
 
   create_table "delegates", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "group_id",                      null: false
-    t.uuid     "account_id",                    null: false
-    t.string   "permission", default: "normal", null: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.uuid     "group_id",                        null: false
+    t.uuid     "account_id",                      null: false
+    t.string   "permission", default: "observer", null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   add_index "delegates", ["group_id", "account_id"], name: "index_delegates_on_group_id_and_account_id", unique: true, using: :btree
@@ -108,11 +108,11 @@ ActiveRecord::Schema.define(version: 20160412085908) do
   add_index "posts", ["is_draft"], name: "index_posts_on_is_draft", using: :btree
 
   create_table "roles", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "account_id",                     null: false
-    t.uuid     "division_id",                    null: false
-    t.string   "permission",  default: "normal", null: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.uuid     "account_id",                       null: false
+    t.uuid     "division_id",                      null: false
+    t.string   "permission",  default: "observer", null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   add_index "roles", ["account_id", "division_id"], name: "index_roles_on_account_id_and_division_id", unique: true, using: :btree
