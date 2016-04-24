@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
             scope module: :topics do
 
-              resources :posts, only: [:new, :create, :edit, :update]
+              resources :posts, except: [:show]
             end
           end
         end
@@ -62,13 +62,7 @@ Rails.application.routes.draw do
 
             scope module: :group_topics do
 
-              resources :posts, only: [:new, :create, :edit, :update] do
-
-                collection do
-
-                  get :draft
-                end
-              end
+              resources :posts, except: [:show]
             end
           end
 
