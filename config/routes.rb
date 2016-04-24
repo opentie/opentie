@@ -43,7 +43,7 @@ Rails.application.routes.draw do
 
         member do
 
-          post :invitation
+          post :invite
         end
 
         scope module: :divisions do
