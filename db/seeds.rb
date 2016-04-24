@@ -27,7 +27,9 @@ unless Rails.env.production?
         kibokan_id: i
       )
     end
+  end
 
+  ActiveRecord::Base.transaction do
     puts "Create Relationship: Roles, Delegates..."
     10.times do |i|
       Role.create(
@@ -56,5 +58,31 @@ unless Rails.env.production?
       )
     end
   end
+
+  puts "Create topic..."
+  ActiveRecord::Base.transaction do
+    CreateTopicService.new(Division.first, Account.first).execute({
+      title: "title",
+      description: "des",
+      group_ids: Group.select(:kibokan_id).all,
+      is_draft: false,
+      tag_list: ["tag", "tagtagtag"]
+    })
+  end
+
+  puts "Create post..."
+  ActiveRecord::Base.transaction do
+    GroupTopic.all.each do |g|
+      10.times do
+        g.posts.create(
+          body: "body",
+          author: Account.first,
+          division: Division.first,
+          is_draft: false
+        )
+      end
+    end
+  end
+
   puts "### Completed db/seeds.rb ###"
 end

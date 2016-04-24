@@ -41,6 +41,11 @@ class Api::BaseController < ApplicationController
     render json: params, status: 200
   end
 
+  def render_paginate(rows)
+    logger.info "Rendering pagination 200 OK"
+    paginate json: rows, status: 200
+  end
+
   private
 
   def check_xhr

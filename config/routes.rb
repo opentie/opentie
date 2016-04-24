@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :api, format: 'json' do
     namespace :v1 do
 
-      resource :account, only: [:new, :create, :edit, :update] do
+      resource :account, except: [:destroy] do
 
         collection do
           post :email_confirm
@@ -28,7 +28,6 @@ Rails.application.routes.draw do
 
             resource :request
           end
-
 
           resources :topics do
 
@@ -59,13 +58,21 @@ Rails.application.routes.draw do
             resources :sub_schemata
           end
 
-          resources :topics do
+          resources :group_topics, only: [:show] do
 
-            scope module: :topics do
+            scope module: :group_topics do
 
-              resources :posts, only: [:new, :create, :edit, :update]
+              resources :posts, only: [:new, :create, :edit, :update] do
+
+                collection do
+
+                  get :draft
+                end
+              end
             end
           end
+
+          resources :topics
 
           resources :tags, except: [:show, :edit, :update]
         end

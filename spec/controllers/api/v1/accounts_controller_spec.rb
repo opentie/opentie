@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'api/v1/sessions_controller'
 
 module Api::V1
   RSpec.describe AccountsController, type: :controller do
@@ -15,7 +14,7 @@ module Api::V1
 
     end
 
-    describe "GET /api/v1/account/edit" do
+    describe "GET /api/v1/account/" do
       before do
         account = FactoryGirl.create(:account)
         sign_in!(account)
@@ -28,9 +27,29 @@ module Api::V1
       end
     end
 
+    describe "GET /api/v1/account/edit" do
+      before do
+        account = FactoryGirl.create(:account)
+        sign_in!(account)
+        xhr :get, :show
+      end
+
+      it '200 OK' do
+        expect(response).to be_success
+        expect(response.status).to eq(200)
+      end
+
+      it 'has attributes' do
+        body = JSON.parse(response.body).deep_symbolize_keys
+
+        expect(body.include?(:groups)).to eq(true)
+        expect(body.include?(:divisions)).to eq(true)
+      end
+    end
+
     describe "POST /api/v1/account" do
       before do
-        @attributes = FactoryGirl.attributes_for(:account)
+        @attributes = { account: FactoryGirl.attributes_for(:account) }
         @attributes.merge!({ kibokan: { email: "opentie@example.com" } })
       end
 
@@ -97,7 +116,7 @@ module Api::V1
         account = FactoryGirl.create(:account)
         sign_in!(account)
 
-        @params = { email: "changed-opentie@example.com"}
+        @params = { kibokan: { email: "changed-opentie@example.com" } }
       end
 
       it '200 OK' do

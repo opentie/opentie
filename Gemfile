@@ -25,14 +25,9 @@ gem 'redis-namespace'
 # message tags
 gem 'acts-as-taggable-on'
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+# paginator
+gem 'kaminari'
+gem 'api-pagination'
 
 group :assets do
   # Use Uglifier as compressor for JavaScript assets
@@ -60,6 +55,8 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'rspec-rails'
+  gem 'nyan-cat-formatter'
+  gem 'fuubar'
   gem 'factory_girl_rails'
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
   gem 'guard'

@@ -41,5 +41,10 @@ module Opentie
     # autoload paths
     config.autoload_paths += %W(#{config.root}/app/services)
     config.autoload_paths += %W(#{config.root}/lib)
+
+    # pagination options
+    config.paginator = :kaminari
+    config.page_param = :page
+    config.per_page_param = :per_page
   end
 end

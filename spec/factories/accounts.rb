@@ -10,7 +10,7 @@ FactoryGirl.define do
   factory :admin, class: Account do
     password "passward"
     password_confirmation "passward"
-    email "opentie@example.com"
+    email "admin.opentie@example.com"
     kibokan_id 0
     is_admin true
   end

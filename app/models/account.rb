@@ -52,6 +52,10 @@ class Account < ActiveRecord::Base
     !email.nil?
   end
 
+  def admin?
+    self.is_admin
+  end
+
   private
   def validate_password?
     password.present? || password_confirmation.present?

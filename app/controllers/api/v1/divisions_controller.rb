@@ -3,15 +3,15 @@ module Api::V1
 
     before_action :authenticate_account!
     before_action :authenticate_admin!,  only: [:new, :create]
-    before_action :load_division,        only: [:show, :invitation]
+    before_action :division, only: [:show, :invitation]
 
     def new
       render_ok
     end
 
     def create
-      name = params[:name]
-      Division.create_with_name(name)
+      account_email = params[:default_account_email]
+      CreateDivisionService.new(account_email).execute(division_params)
 
       render_ok
     end
@@ -19,27 +19,24 @@ module Api::V1
     def invitation
       email = params[:email]
 
-      # invite
+      # TODO
 
       render_ok
     end
 
     def show
-      render json: {
-        division: @division.attributes,
-        member: @member.map{|m| m.attributes}
-      }
+      members = @division.accounts
+      render_ok(@division.attributes.merge({ members: members }))
     end
 
     private
 
-    def authenticate_admin!
-      render_unauthorized unless current_account.is_admin
+    def division_params
+      params.require(:division).permit(:name)
     end
 
-    def load_division
-      @division = Division.find_by!(id: params[:id])
-      @member = @division.accounts
+    def authenticate_admin!
+      render_unauthorized unless current_account.is_admin
     end
   end
 end
