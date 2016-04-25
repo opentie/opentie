@@ -24,9 +24,9 @@ Rails.application.routes.draw do
 
         scope module: :groups do
 
-          resources :sub_schemata, only: [:index, :show] do
+          resources :request_forms, only: [:index, :show] do
 
-            resource :request
+            resource :request, except: [:destroy, :edit]
           end
 
           resources :topics do
@@ -48,14 +48,22 @@ Rails.application.routes.draw do
 
         scope module: :divisions do
 
-          resources :group_schemata, except: :destroy do
+          resources :categories, except: :destroy do
 
-            resources :groups, only: [:index, :show, :edit, :update] do
+            scope module: :categories do
+
+              resources :groups, only: [:index, :new, :update]
+
+              resources :forms
+            end
+          end
+
+          resources :groups, only: [:show, :edit, :update] do
+
+            scope module: :groups do
 
               resources :change_logs, only: :index
             end
-
-            resources :sub_schemata
           end
 
           resources :group_topics, only: [:show] do
