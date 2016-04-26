@@ -40,7 +40,7 @@ module Api::V1
         xhr :post, :create, division_params
 
         expect(response).to be_success
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(201)
       end
     end
 

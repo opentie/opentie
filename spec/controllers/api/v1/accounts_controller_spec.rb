@@ -57,7 +57,7 @@ module Api::V1
         xhr :post, :create, @attributes
 
         expect(response).to be_success
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(201)
       end
 
       it 'increse column of account' do
@@ -90,7 +90,7 @@ module Api::V1
       it '200 OK' do
         xhr :post, :email_confirm, email_set_token: @recovery_token.token
         expect(response).to be_success
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(201)
       end
 
       it 'change email' do

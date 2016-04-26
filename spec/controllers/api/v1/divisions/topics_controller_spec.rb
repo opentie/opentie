@@ -110,7 +110,7 @@ module Api::V1::Divisions
         sign_in!(account)
 
         @id = Topic.first.id
-        xhr :post, :destroy, { division_id: division.id, id: @id }
+        xhr :delete, :destroy, { division_id: division.id, id: @id }
       end
 
       it '200 OK' do
@@ -139,7 +139,7 @@ module Api::V1::Divisions
 
       it '200 OK' do
         expect(response).to be_success
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(201)
       end
     end
 

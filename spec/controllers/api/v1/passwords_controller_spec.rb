@@ -13,7 +13,7 @@ module Api::V1
         xhr :post, :create, { email: @email }
 
         expect(response).to be_success
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(201)
       end
 
       it "increse password_recovery_tokens" do

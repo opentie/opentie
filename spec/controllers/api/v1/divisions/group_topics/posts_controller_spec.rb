@@ -51,7 +51,7 @@ module Api::V1::Divisions::GroupTopics
 
       it "200 OK" do
         expect(response).to be_success
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(201)
       end
     end
 
@@ -92,6 +92,23 @@ module Api::V1::Divisions::GroupTopics
       end
     end
 
+    describe "DELETE /divisions/:division_id/group_topics/:group_topic_id/posts/:id" do
+      before do
+        post = create_post
+
+        params = {
+          post: FactoryGirl.attributes_for(:post),
+          id: post.id
+        }
+
+        xhr :delete, :destroy, id_params.merge(params)
+      end
+
+      it "200 OK" do
+        expect(response).to be_success
+        expect(response.status).to eq(200)
+      end
+    end
 
     def id_params
       {

@@ -105,7 +105,7 @@ module Api::V1::Groups
         sign_in!(account)
 
         @id = id_params[:id]
-        xhr :post, :destroy, id_params.merge({id: @id})
+        xhr :delete, :destroy, id_params.merge({id: @id})
       end
 
       it '200 OK' do
@@ -132,7 +132,7 @@ module Api::V1::Groups
 
       it '200 OK' do
         expect(response).to be_success
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(201)
       end
     end
 

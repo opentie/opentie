@@ -12,7 +12,7 @@ module Api::V1
 
       it "Success sign_in" do
         expect(response).to be_success
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(201)
       end
     end
 
@@ -26,14 +26,14 @@ module Api::V1
 
       it "Success sign_in" do
         expect(response).to be_success
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(201)
       end
 
       it "Success sign_out" do
         xhr :post, :sign_out, {}
 
         expect(response).to be_success
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(201)
       end
     end
   end

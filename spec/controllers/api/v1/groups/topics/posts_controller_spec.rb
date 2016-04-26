@@ -51,7 +51,7 @@ module Api::V1::Groups::Topics
       it "200 OK" do
         xhr :post, :create, @params
         expect(response).to be_success
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(201)
       end
 
       it "increase posts" do
@@ -105,6 +105,30 @@ module Api::V1::Groups::Topics
         end.to change { @group_topic.posts.published.count }.by(1)
       end
     end
+
+
+    describe "DELETE /api/v1/groups/:group_id/topics/:topic_id/posts" do
+      before do
+        post = create_post
+
+        @params = id_params.merge({
+          id: post.id
+        })
+      end
+
+      it "200 OK" do
+        xhr :delete, :destroy, @params
+        expect(response).to be_success
+        expect(response.status).to eq(200)
+      end
+
+      it "increase posts" do
+        expect do
+          xhr :delete, :destroy, @params
+        end.to change { @group_topic.posts.count }.by(-1)
+      end
+    end
+
 
     def create_post
       post = @group_topic.posts.create(
