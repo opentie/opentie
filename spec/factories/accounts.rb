@@ -3,7 +3,7 @@ FactoryGirl.define do
     password "passward"
     password_confirmation "passward"
     email "opentie@example.com"
-    kibokan_id 0
+    kibokan_id "0"
     is_admin false
   end
 
@@ -11,7 +11,7 @@ FactoryGirl.define do
     password "passward"
     password_confirmation "passward"
     email "admin.opentie@example.com"
-    kibokan_id 0
+    kibokan_id "0"
     is_admin true
   end
 end

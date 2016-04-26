@@ -14,7 +14,7 @@ unless Rails.env.production?
     20.times do |i|
       Account.create(
         email: "opentie#{i}@example.com",
-        kibokan_id: 0,
+        kibokan_id: "0",
         password: "password",
         password_confirmation: "password"
       )
@@ -24,7 +24,8 @@ unless Rails.env.production?
       )
 
       Group.create(
-        kibokan_id: i
+        kibokan_id: "#{i}",
+        category_id: "hogehoge"
       )
     end
   end
@@ -54,7 +55,7 @@ unless Rails.env.production?
 
       Delegate.create(
         account: Account.find_by(email: "opentie#{i}@example.com"),
-        group: Group.find_by(kibokan_id: i),
+        group: Group.find_by(kibokan_id: "#{i}"),
       )
     end
   end
