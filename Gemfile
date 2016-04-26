@@ -19,6 +19,9 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'redis-namespace'
 
+# webserver
+gem 'puma'
+
 # define virtual model
 gem 'virtus'
 

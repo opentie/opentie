@@ -166,6 +166,7 @@ GEM
       yard (~> 0.8)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
+    puma (3.4.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -294,6 +295,7 @@ DEPENDENCIES
   pry-byebug
   pry-doc
   pry-rails
+  puma
   rails (= 4.2.0)
   redis-namespace
   rspec-rails
