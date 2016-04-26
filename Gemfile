@@ -22,6 +22,9 @@ gem 'redis-namespace'
 # define virtual model
 gem 'virtus'
 
+# request for kibokan
+gem 'faraday'
+
 # message tags
 gem 'acts-as-taggable-on'
 
