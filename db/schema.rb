@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20160412085908) do
   enable_extension "uuid-ossp"
 
   create_table "accounts", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.integer  "kibokan_id",                      null: false
+    t.string   "kibokan_id",                      null: false
     t.string   "email"
     t.string   "password_digest", default: "",    null: false
     t.boolean  "is_admin",        default: false
@@ -67,7 +67,8 @@ ActiveRecord::Schema.define(version: 20160412085908) do
   add_index "group_topics", ["group_id", "topic_id"], name: "index_group_topics_on_group_id_and_topic_id", unique: true, using: :btree
 
   create_table "groups", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.integer "kibokan_id", null: false
+    t.string "kibokan_id",  null: false
+    t.string "category_id", null: false
   end
 
   add_index "groups", ["kibokan_id"], name: "index_groups_on_kibokan_id", using: :btree
