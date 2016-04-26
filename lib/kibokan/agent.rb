@@ -15,36 +15,49 @@ class Kibokan::Agent
   end
 
   def get
+    return sample_response if Rails.env.test?
     response = @agent.get(@path)
     check_status(response.status)
     JSON.parse(response.body)
   end
 
   def post(params)
+    return sample_response if Rails.env.test?
     response = @agent.post(@path, params)
     check_status(response.status)
     JSON.parse(response.body)
   end
 
   def put(params)
+    return sample_response if Rails.env.test?
     response = @agent.put(@path, params)
     check_status(response.status)
     JSON.parse(response.body)
   end
 
   def bulk
+    return sample_response if Rails.env.test?
     response = @agent.post(@path ,params)
     check_status(response.status)
     JSON.parse(response.body)
   end
 
   def search(query)
+    return sample_response if Rails.env.test?
     response = @agent.get(@path, { q: query })
     check_status(response.status)
     JSON.parse(response.body)
   end
 
   private
+
+  def sample_response
+    {
+      _id: "idididiid",
+      _name: "namenamename",
+      payload: { data: "data" }
+    }
+  end
 
   def check_status(status)
     case status
