@@ -27,7 +27,7 @@ module Api::V1::Groups
         new(@group, current_account).
         execute(topic_params)
 
-      render_ok
+      render_created
     end
 
     def edit

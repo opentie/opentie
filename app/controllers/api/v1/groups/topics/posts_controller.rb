@@ -17,7 +17,7 @@ module Api::V1::Groups::Topics
       post = @group_topic.posts.create(post_params)
       post.publish! unless post.draft?
 
-      render_ok
+      render_created
     end
 
     def edit

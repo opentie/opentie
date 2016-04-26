@@ -13,7 +13,7 @@ module Api::V1
       account_email = params[:default_account_email]
       CreateDivisionService.new(account_email).execute(division_params)
 
-      render_ok
+      render_created
     end
 
     def invite

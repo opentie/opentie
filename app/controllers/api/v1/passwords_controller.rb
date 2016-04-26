@@ -8,7 +8,7 @@ module Api::V1
 
       RestorePasswordService.new(account).execute
 
-      render_ok
+      render_created
     end
 
     def update

@@ -13,12 +13,12 @@ module Api::V1
       end
 
       sign_in!(account)
-      render_ok
+      render_created
     end
 
     def sign_out
       sign_out!
-      render_ok
+      render_created
     end
   end
 end

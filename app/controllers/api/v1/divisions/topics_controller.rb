@@ -30,7 +30,7 @@ module Api::V1::Divisions
         new(@division, current_account).
         execute(topic_params)
 
-      render_ok
+      render_created
     end
 
     def edit

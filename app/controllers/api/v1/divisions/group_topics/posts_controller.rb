@@ -17,7 +17,7 @@ module Api::V1::Divisions::GroupTopics
       post = @group_topic.posts.create(post_params)
       post.publish! unless post.draft?
 
-      render_ok
+      render_created
     end
 
     def edit
@@ -27,6 +27,12 @@ module Api::V1::Divisions::GroupTopics
     def update
       @post.update(post_params)
       @post.publish! unless @post.draft?
+
+      render_ok
+    end
+
+    def destroy
+      @post.destroy
 
       render_ok
     end
