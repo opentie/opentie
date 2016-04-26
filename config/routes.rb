@@ -52,7 +52,7 @@ Rails.application.routes.draw do
 
             scope module: :categories do
 
-              resources :groups, only: [:index, :new, :update]
+              resources :groups, only: [:index]
 
               resources :forms
             end
