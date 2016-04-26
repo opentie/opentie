@@ -12,7 +12,7 @@ def load_config(key, filepath)
 end
 
 load_datas = {
-  global_config: 'config/application_config.yml',
+  global_config: 'config/global_config.yml',
 }
 
 load_datas.each do |key, path|
