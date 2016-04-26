@@ -9,6 +9,9 @@ class Api::BaseController < ApplicationController
     rescue_from ActionController::RoutingError, with: :handle_404
     rescue_from ActiveRecord::RecordNotFound,   with: :handle_404
     rescue_from ActiveRecord::RecordInvalid,    with: :handle_400
+    rescue_from Kibokan::NotFound,              with: :handle_404
+    rescue_from Kibokan::RecordInvalid,         with: :handle_400
+    rescue_from Kibokan::ServerError,           with: :handle_500
   end
 
   def handle_500(exception = nil)
