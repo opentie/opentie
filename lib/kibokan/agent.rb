@@ -1,9 +1,5 @@
 class Kibokan::Agent
 
-  class Kibokan::NotFound < Exception; end
-  class Kibokan::RecordInvalid < Exception; end
-  class Kibokan::ServerError < Exception; end
-
   def initialize(path)
     @path = path
     host = Rails.application.config.global_config.kibokan_host
