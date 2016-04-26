@@ -28,7 +28,7 @@ module Api::V1
       email = params[:kibokan][:email]
       RegisterEmailService.new(account).execute(email)
 
-      render_ok
+      render_created
     end
 
     def edit
@@ -45,7 +45,7 @@ module Api::V1
       UpdateEmailService.new(account).execute(token)
 
       sign_in!(account)
-      render_ok
+      render_created
     end
 
     def update
