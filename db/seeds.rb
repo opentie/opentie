@@ -25,7 +25,7 @@ unless Rails.env.production?
 
       Group.create(
         kibokan_id: "#{i}",
-        category_id: "hogehoge"
+        category_name: "hogehoge"
       )
     end
   end

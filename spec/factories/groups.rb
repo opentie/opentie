@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :group do
     kibokan_id "hogehogehoge"
-    category_id "hogehogeho"
+    category_name "hogehogeho"
   end
 end
