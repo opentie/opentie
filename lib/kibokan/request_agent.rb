@@ -48,7 +48,7 @@ class Kibokan::RequestAgent
   private
 
   def serialize(body)
-    JSON.parse(body).deep_symbolize_keys
+    JSON.parse(body, symbolize_names: true)
   end
 
   def sample_response
