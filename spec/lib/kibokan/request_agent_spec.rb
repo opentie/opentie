@@ -3,6 +3,12 @@ require 'rails_helper'
 module Kibokan
   RSpec.describe RequestAgent do
     before do
+      @responses = [{
+        _id: 'idididiid',
+        _name: 'namenamename',
+        payload: { data: 'data' }
+      }]
+
       @response = {
         _id: 'idididiid',
         _name: 'namenamename',
@@ -20,7 +26,7 @@ module Kibokan
     describe "get" do
       it "response is accept" do
         res = RequestAgent.new('/sample/test').get
-        expect(res).to eq(@response)
+        expect(res).to eq(@responses)
       end
     end
 
@@ -31,24 +37,24 @@ module Kibokan
       end
     end
 
-    describe "get" do
+    describe "put" do
       it "response is accept" do
         res = RequestAgent.new('/sample/test').put({})
         expect(res).to eq(@response)
       end
     end
 
-    describe "get" do
+    describe "bulk" do
       it "response is accept" do
         res = RequestAgent.new('/sample/test').bulk([])
-        expect(res).to eq(@response)
+        expect(res).to eq(@responses)
       end
     end
 
-    describe "get" do
+    describe "search" do
       it "response is accept" do
         res = RequestAgent.new('/sample/test').search('query')
-        expect(res).to eq(@response)
+        expect(res).to eq(@responses)
       end
     end
   end

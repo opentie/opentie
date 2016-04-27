@@ -11,7 +11,7 @@ class Kibokan::RequestAgent
   end
 
   def get
-    return sample_response if Rails.env.test?
+    return sample_responses if Rails.env.test?
     response = @agent.get(@path)
     check_status(response.status)
     serialize(response.body)
@@ -32,14 +32,14 @@ class Kibokan::RequestAgent
   end
 
   def bulk(params)
-    return sample_response if Rails.env.test?
+    return sample_responses if Rails.env.test?
     response = @agent.post(@path + '/bulk', params)
     check_status(response.status)
     serialize(response.body)
   end
 
   def search(query)
-    return sample_response if Rails.env.test?
+    return sample_responses if Rails.env.test?
     response = @agent.get(@path, { q: query })
     check_status(response.status)
     serialize(response.body)
@@ -49,6 +49,14 @@ class Kibokan::RequestAgent
 
   def serialize(body)
     JSON.parse(body, symbolize_names: true)
+  end
+
+  def sample_responses
+    [{
+      _id: "idididiid",
+      _name: "namenamename",
+      payload: { data: "data" }
+     }]
   end
 
   def sample_response
