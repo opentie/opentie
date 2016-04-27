@@ -2,7 +2,7 @@ require 'rails_helper'
 
 module Api::V1
   RSpec.describe AccountsController, type: :controller do
-    describe "GET /api/v1/account" do
+    describe "GET /api/v1/account/new" do
       before do
         xhr :get, :new
       end
@@ -11,23 +11,27 @@ module Api::V1
         expect(response).to be_success
         expect(response.status).to eq(200)
       end
-
     end
 
-    describe "GET /api/v1/account/" do
+    describe "GET /api/v1/account/edit" do
       before do
         account = FactoryGirl.create(:account)
         sign_in!(account)
+
+        @params = {
+          account: FactoryGirl.attributes_for(:account),
+          kibokan: {}
+        }
       end
 
       it '200 OK' do
-        xhr :get, :edit
+        xhr :get, :edit, @params
         expect(response).to be_success
         expect(response.status).to eq(200)
       end
     end
 
-    describe "GET /api/v1/account/edit" do
+    describe "GET /api/v1/account/" do
       before do
         account = FactoryGirl.create(:account)
         sign_in!(account)
@@ -116,7 +120,12 @@ module Api::V1
         account = FactoryGirl.create(:account)
         sign_in!(account)
 
-        @params = { kibokan: { email: "changed-opentie@example.com" } }
+        attributes = account.attributes
+        attributes[:email] = "changed-opentie@example.com"
+        @params = {
+          account: attributes,
+          kibokan: { email: "changed-opentie@example.com" }
+        }
       end
 
       it '200 OK' do

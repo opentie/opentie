@@ -16,10 +16,11 @@ module Api::V1
     end
 
     def new
-      # return schema from mongodb
-      # if account has invitaion token -> join division
-      # FIXME
-      render_ok({ result: true })
+      forms = Account.get_forms('accounts')
+
+      render_ok({
+        forms: forms.map{|f| f.attributes }
+      })
     end
 
     def create
@@ -32,10 +33,17 @@ module Api::V1
     end
 
     def edit
-      current_account
-      # return schema from mongodb
-      # FIXME
-      render_ok
+      forms = Account.get_forms('accounts')
+
+      entity = Account.get_entities(
+        current_account.current_category,
+        [current_account.kibokan_id]
+      ).first
+
+      render_ok({
+        account: current_account.attributes.merge(entity.attributes),
+        forms: forms.map{|f| f.attributes }
+      })
     end
 
     def email_confirm
@@ -49,14 +57,13 @@ module Api::V1
     end
 
     def update
-      email = params[:kibokan][:email]
+      email = params[:account].delete(:email)
 
       if email != current_account.email
         RegisterEmailService.new(current_account).execute(email)
       end
 
-      params[:email] = current_account.email
-      current_account.update_with_kibokan(params[:kibokan])
+      current_account.update_with_kibokan(account_params)
 
       render_ok
     end
