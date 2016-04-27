@@ -53,6 +53,37 @@ RSpec.describe Account, type: :models do
     end
   end
 
+  describe "create and update methods" do
+    before do
+      @account = FactoryGirl.create(:account)
+      @email = @account.email
+    end
+
+    it "create_with_kibokan" do
+      params = {
+        password: "password",
+        password_confirmation: "password",
+        kibokan: {}
+      }
+
+      expect do
+        Account.create_with_kibokan(params)
+      end.to change { Account.all.count }.by(1)
+    end
+
+    it "update_with_kibokan" do
+      expect(@account.email).to eq(@email)
+
+      params = {
+        email: "chenged@opentie.com",
+        kibokan: {}
+      }
+
+      @account.update_with_kibokan(params)
+      expect(Account.find(@account.id).email).not_to eq(@email)
+    end
+  end
+
   describe "Instance methods" do
     it "#confirmed_reset_password?" do
       account = FactoryGirl.create(:account)
@@ -101,16 +132,6 @@ RSpec.describe Account, type: :models do
       UpdateEmailService.new(account).execute(recovery_token.token)
 
       expect(account.confirmed_email_first_time?).to eq(true)
-    end
-  end
-
-  describe "Class methods" do
-    pending "not finished desgin"
-
-    it "#create_with_kibokan" do
-    end
-
-    it "#update_with_kibokan" do
     end
   end
 end

@@ -1,5 +1,7 @@
 class Account < ActiveRecord::Base
 
+  include Kibokan::RequestQuery
+
   has_secure_password
 
   validates :email                , uniqueness: true      , allow_blank: true
@@ -19,25 +21,33 @@ class Account < ActiveRecord::Base
   has_many :posts
 
   def self.create_with_kibokan(params)
-    account = new(
-      password: params[:password],
-      password_confirmation: params[:password_confirmation]
-    )
+    kibokan_params = params.delete(:kibokan)
 
-    # no match password
-    raise ActiveRecord::RecordInvalid unless account.valid?
+    account = new(params)
+    unless account.valid?
+      raise ActiveRecord::RecordInvalid('password does not match')
+    end
 
-    params[:kibokan][:email] = nil
-    # sync kibokan FIXME
-    kibokan_id = (0...100).to_a.sample # delete later
+    entity = insert_entity(account.current_category, kibokan_params)
 
-    account.kibokan_id = kibokan_id
+    account.kibokan_id = entity.id
     account.save
     account
   end
 
   def update_with_kibokan(params)
-    # FIXME
+    kibokan_params = params.delete(:kibokan)
+    entity = update_entity(kibokan_params)
+
+    update(params)
+    self.kibokan_id = entity.id
+    save
+    self
+  end
+
+  # override on Kibokan::RequestQuery
+  def current_category
+    'accounts'
   end
 
   def confirmed_reset_password?
@@ -57,6 +67,7 @@ class Account < ActiveRecord::Base
   end
 
   private
+
   def validate_password?
     password.present? || password_confirmation.present?
   end
