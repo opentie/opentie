@@ -35,6 +35,14 @@ module Kibokan
         Form.from_kibokan(form_body)
       end
 
+      # new form
+      def get_root_form(category)
+        path = Entity.request_path(current_namespace, category)
+
+        form_body = Kibokan::RequestAgent.new(path).new
+        Form.from_kibokan(entity_body)
+      end
+
       # request for entities
       def get_entities(category, entity_ids=nil)
         path = Entity.request_path(current_namespace, category)
