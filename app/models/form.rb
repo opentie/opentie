@@ -8,6 +8,6 @@ class Form
   end
 
   def self.request_path(namespace, category)
-    "namespaces/#{namespace}/categories/#{category}"
+    "namespaces/#{namespace}/categories/#{category}/forms"
   end
 end

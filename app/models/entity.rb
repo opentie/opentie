@@ -14,6 +14,6 @@ class Entity
   end
 
   def self.request_path(namespace, category)
-    "namespaces/#{namespace}/categories/#{category}"
+    "namespaces/#{namespace}/categories/#{category}/entities"
   end
 end
