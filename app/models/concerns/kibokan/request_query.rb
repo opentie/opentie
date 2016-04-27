@@ -16,14 +16,15 @@ module Kibokan
       def get_forms(category, form_ids=nil)
         path = Form.request_path(current_namespace, category)
 
+        form_bodies = nil
         if form_ids.nil?
-          form_body = Kibokan::RequestAgent.new(path).get
-          Form.from_kibokan(form_body)
+          form_bodies = Kibokan::RequestAgent.new(path).get
         else
           form_bodies = Kibokan::RequestAgent.new(path).bulk({ ids: form_ids })
-          form_bodies.map do |form_param|
-            Form.from_kibokan(form_param)
-          end
+        end
+
+        form_bodies.map do |form_param|
+          Form.from_kibokan(form_param)
         end
       end
 
@@ -38,14 +39,15 @@ module Kibokan
       def get_entities(category, entity_ids=nil)
         path = Entity.request_path(current_namespace, category)
 
+        entity_bodies = nil
         if entity_ids.nil?
-          entity_body = Kibokan::RequestAgent.new(path).get
-          Entity.from_kibokan(entity_body)
+          entity_bodies = Kibokan::RequestAgent.new(path).get
         else
           entity_bodies = Kibokan::RequestAgent.new(path).bulk({ ids: entity_ids })
-          entity_bodies.map do |entity_param|
-            Entity.from_kibokan(entity_param)
-          end
+        end
+
+        entity_bodies.map do |entity_param|
+          Entity.from_kibokan(entity_param)
         end
       end
 
@@ -64,8 +66,11 @@ module Kibokan
       end
     end
 
-    def update_entity(entity_id, params)
-      path = Entity.request_path(self.current_category) + "/#{entity_id}"
+    def update_entity(params)
+      path = Entity.request_path(
+        self.class.current_namespace,
+        current_category
+      ) + "/#{self.kibokan_id}"
 
       entity_body = Kibokan::RequestAgent.new(path).put(params)
       Entity.from_kibokan(entity_body)
