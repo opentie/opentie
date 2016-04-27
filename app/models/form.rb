@@ -6,4 +6,8 @@ class Form
   def self.from_kibokan(hash)
     new(payload: hash)
   end
+
+  def self.request_path(namespace, category)
+    "namespaces/#{namespace}/categories/#{category}"
+  end
 end

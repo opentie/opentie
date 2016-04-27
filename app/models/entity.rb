@@ -8,8 +8,12 @@ class Entity
   def self.from_kibokan(hash)
     new(
       name: hash[:_name],
-      payload: hash[:payload],
+      payload: hash,
       id: hash[:_id]
     )
+  end
+
+  def self.request_path(namespace, category)
+    "namespaces/#{namespace}/categories/#{category}"
   end
 end

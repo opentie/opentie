@@ -16,4 +16,8 @@ class Category
     path = "namespaces/#{namespace}/categories"
     Kibokan::Agent.new(path).get
   end
+
+  def self.request_path(namepsace)
+    "namespaces/#{namespace}/categories"
+  end
 end
