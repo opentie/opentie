@@ -1,9 +1,7 @@
 def load_config(key, filepath)
-  yml = YAML.load_file filepath rescue nil
-  abort "No such file #{filepath}" unless yml
-
-  config = yml[Rails.env]
-  abort "No such environment #{Rails.env} on #{filepath}" unless config
+  config = YAML::load(
+    ERB.new(IO.read('config/global_config.yml')).result
+  )[Rails.env]
 
   Rails.application.config.send(
     "#{key}=".to_sym,

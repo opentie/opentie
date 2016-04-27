@@ -3,7 +3,7 @@ default: &default
   organization_name: "opentie-developper"
   organization_mail: "opentie@sample.com"
   organization_tel: "xxx-xxxx-xxxx"
-  kibokan_host: "127.0.0.1:1234"
+  kibokan_host: <%= ENV['KIBOKAN_HOST'] %>
 
 development:
   <<: *default
