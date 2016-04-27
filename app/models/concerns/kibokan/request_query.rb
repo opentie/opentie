@@ -42,7 +42,7 @@ module Kibokan
           entity_body = Kibokan::RequestAgent.new(path).get
           Entity.from_kibokan(entity_body)
         else
-          entity_bodies = Kibokan::RequstAgent.new(path).bulk({ ids: entity_ids })
+          entity_bodies = Kibokan::RequestAgent.new(path).bulk({ ids: entity_ids })
           entity_bodies.map do |entity_param|
             Entity.from_kibokan(entity_param)
           end
@@ -52,14 +52,14 @@ module Kibokan
       def insert_entity(category, params)
         path = Entity.request_path(current_namespace, category)
 
-        entity_body = Kibokan::RequstAgent.new(path).post(params)
+        entity_body = Kibokan::RequestAgent.new(path).post(params)
         Entity.from_kibokan(entity_body)
       end
 
       def search_entityn(category, query)
         path = Entity.request_path(current_namespace, category)
 
-        entity_body = Kibokan::RequstAgent.new(path).search(query)
+        entity_body = Kibokan::RequestAgent.new(path).search(query)
         Entity.from_kibokan(entity_body)
       end
     end
@@ -67,7 +67,7 @@ module Kibokan
     def update_entity(entity_id, params)
       path = Entity.request_path(self.current_category) + "/#{entity_id}"
 
-      entity_body = Kibokan::RequstAgent.new(path).put(params)
+      entity_body = Kibokan::RequestAgent.new(path).put(params)
       Entity.from_kibokan(entity_body)
     end
   end
