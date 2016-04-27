@@ -4,22 +4,29 @@ module Api::V1
     before_action :authenticate_account!, only: [:edit, :update, :show]
 
     def show
-      groups = current_account.groups
+      tie_groups = current_account.groups.group_by{|g| g.current_category }
+      groups = tie_groups.map do |category, cat_groups|
+        kibokan_ids = cat_groups.map {|g| g.kibokan_id }
+        {
+          category => Group.get_entities(category, kibokan_ids)
+        }
+      end
       divisions = current_account.divisions
 
-      render_ok(
-        current_account.attributes.merge({
+      render_ok({
+        account: current_account.attributes.merge({
+          entity: current_account.get_entity,
           groups: groups,
           divisions: divisions
         })
-      )
+      })
     end
 
     def new
-      forms = Account.get_forms('accounts')
+      form = Account.get_root_form('accounts')
 
       render_ok({
-        forms: forms.map{|f| f.attributes }
+        form: form
       })
     end
 
@@ -33,16 +40,10 @@ module Api::V1
     end
 
     def edit
-      forms = Account.get_forms('accounts')
-
-      entity = Account.get_entities(
-        current_account.current_category,
-        [current_account.kibokan_id]
-      ).first
+      entity = current_account.get_entity
 
       render_ok({
-        account: current_account.attributes.merge(entity.attributes),
-        forms: forms.map{|f| f.attributes }
+        account: current_account.attributes.merge(entity.attributes)
       })
     end
 
