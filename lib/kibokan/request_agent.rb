@@ -1,4 +1,4 @@
-class Kibokan::Agent
+class Kibokan::RequestAgent
 
   def initialize(path)
     @path = path
@@ -10,46 +10,46 @@ class Kibokan::Agent
     end
   end
 
-  def self.generate_request_path(namespace, category)
-    "/namespaces/#{namespace}/categories/#{category}"
-  end
-
   def get
     return sample_response if Rails.env.test?
     response = @agent.get(@path)
     check_status(response.status)
-    JSON.parse(response.body)
+    serialize(response.body)
   end
 
   def post(params)
     return sample_response if Rails.env.test?
     response = @agent.post(@path, params)
     check_status(response.status)
-    JSON.parse(response.body)
+    serialize(response.body)
   end
 
   def put(params)
     return sample_response if Rails.env.test?
     response = @agent.put(@path, params)
     check_status(response.status)
-    JSON.parse(response.body)
+    serialize(response.body)
   end
 
-  def bulk
+  def bulk(params)
     return sample_response if Rails.env.test?
-    response = @agent.post(@path ,params)
+    response = @agent.post(@path + '/bulk', params)
     check_status(response.status)
-    JSON.parse(response.body)
+    serialize(response.body)
   end
 
   def search(query)
     return sample_response if Rails.env.test?
     response = @agent.get(@path, { q: query })
     check_status(response.status)
-    JSON.parse(response.body)
+    serialize(response.body)
   end
 
   private
+
+  def serialize(body)
+    JSON.parse(body).deep_symbolize_keys
+  end
 
   def sample_response
     {
