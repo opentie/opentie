@@ -14,7 +14,9 @@ bundle exec sidekiq -C config/sidekiq.yml
 ```
 
 - Launch server
-
+```
+KIBOKAN_HOST=`your_kibokan_host` bundle exec rails s
+```
 
 ### nginx config example
 
