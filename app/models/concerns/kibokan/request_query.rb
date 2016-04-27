@@ -40,7 +40,7 @@ module Kibokan
         path = Entity.request_path(current_namespace, category)
 
         form_body = Kibokan::RequestAgent.new(path).new
-        Form.from_kibokan(entity_body)
+        Form.from_kibokan(form_body)
       end
 
       # request for entities
@@ -72,6 +72,19 @@ module Kibokan
         entity_body = Kibokan::RequestAgent.new(path).search(query)
         Entity.from_kibokan(entity_body)
       end
+    end
+
+    def get_entity
+      path = Entity.request_path(
+        self.class.current_namespace,
+        self.current_category
+      )
+
+      entity_body = Kibokan::RequestAgent.new(path).bulk({
+        ids: [ self.kibokan_id ]
+      }).first
+
+      Entity.from_kibokan(entity_body)
     end
 
     def update_entity(params)
