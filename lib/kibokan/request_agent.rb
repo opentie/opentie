@@ -17,6 +17,13 @@ class Kibokan::RequestAgent
     serialize(response.body)
   end
 
+  def new
+    return sample_response if Rails.env.test?
+    response = @agent.get(@path + '/new')
+    check_status(response.status)
+    serialize(response.body)
+  end
+
   def post(params)
     return sample_response if Rails.env.test?
     response = @agent.post(@path, params)

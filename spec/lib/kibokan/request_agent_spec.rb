@@ -30,6 +30,13 @@ module Kibokan
       end
     end
 
+    describe "new" do
+      it "response is accept" do
+        res = RequestAgent.new('/sample/test').new
+        expect(res).to eq(@response)
+      end
+    end
+
     describe "post" do
       it "response is accept" do
         res = RequestAgent.new('/sample/test').post({})
