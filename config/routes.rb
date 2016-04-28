@@ -20,7 +20,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :groups, only: [:show, :new, :create] do
+      resources :groups, except: [:index, :destroy] do
 
         scope module: :groups do
 
