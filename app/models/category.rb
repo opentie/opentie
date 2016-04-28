@@ -3,7 +3,7 @@ class Category
 
   attribute :namespace, String
   attribute :name, String
-  attribute :payload, Hash, default: default_payload
+  attribute :payload, Hash
 
   def default_payload
     return if self.payload
