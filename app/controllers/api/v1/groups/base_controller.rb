@@ -3,6 +3,7 @@ module Api::V1
 
     before_action :authenticate_account!
     before_action :group
+    before_action :category
 
     def group
       unless @group
@@ -12,6 +13,15 @@ module Api::V1
 
       ActiveRecord::RecordNotFound unless @group
       @group
+    end
+
+    def category
+      unless @category
+        @category = @group.category_name
+      end
+
+      ActiveRecord::RecordNotFound unless @category
+      @category
     end
   end
 end
