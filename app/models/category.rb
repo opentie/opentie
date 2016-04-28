@@ -6,6 +6,8 @@ class Category
   attribute :payload, Hash, default: default_payload
 
   def default_payload
+    return if self.payload
+
     path = Kibokan::Agent.
       generate_request_path(self.namespace, self.name)
 
@@ -14,7 +16,14 @@ class Category
 
   def self.all(namespace)
     path = "namespaces/#{namespace}/categories"
-    Kibokan::Agent.new(path).get
+    categories = Kibokan::Agent.new(path).get
+    categories.map do |c|
+      Category.new(
+        namespace: namespace,
+        name: c[:_name],
+        payload: c
+      )
+    end
   end
 
   def self.request_path(namepsace)
