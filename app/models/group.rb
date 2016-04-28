@@ -14,7 +14,7 @@ class Group < ActiveRecord::Base
     kibokan_params = params.delete(:kibokan)
     category_name = params[:category_name]
 
-    group = new(category_name: category_name)
+    group = new(params)
     entity = insert_entity(category_name, kibokan_params)
 
     group.kibokan_id = entity.id
