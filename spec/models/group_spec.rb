@@ -47,6 +47,30 @@ RSpec.describe Group, type: :models do
     end
   end
 
+  describe "create and update methods" do
+    before do
+      @params = {
+        kibokan: {},
+        category_name: group.category_name
+      }
+    end
+
+    it "create_with_kibokan" do
+      expect do
+        Group.create_with_kibokan(@params)
+      end.to change { Group.all.count }.by(1)
+    end
+
+    it "update_with_kibokan" do
+      params = {
+        kibokan: {hoge: 123}
+      }
+      id = group.kibokan_id
+      group.update_with_kibokan(params)
+      expect(Group.find(group.id).kibokan_id).not_to eq(id)
+    end
+  end
+
   def create_delegate
     Delegate.create(account: account, group: group)
   end
