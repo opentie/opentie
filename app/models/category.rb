@@ -3,15 +3,10 @@ class Category
 
   attribute :namespace, String
   attribute :name, String
-  attribute :payload, Hash
 
-  def default_payload
-    return if self.payload
-
-    path = Kibokan::Agent.
-      generate_request_path(self.namespace, self.name)
-
-    self.payload = Kibokan::Agent.new(path).get
+  def payload
+    path = self.class.request_path + "#{self.name}"
+    Kibokan::Agent.new(path).get
   end
 
   def self.all(namespace)
