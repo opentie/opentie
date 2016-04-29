@@ -16,8 +16,7 @@
 *.sw[a-z]
 *~
 
-# email
-/config/email.yml
 /public/assets/javascripts/
 /public/assets/stylesheets/
 
+/.env

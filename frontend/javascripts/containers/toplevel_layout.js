@@ -7,11 +7,10 @@ export default class ToplevelLayout extends Component {
 
   render() {
     const { children } = this.props;
+
     return (
-      <div className="container-fluid">
-        <div className="row">
-          {children}
-        </div>
+      <div className="container">
+        {children}
       </div>
     );
   }

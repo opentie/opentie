@@ -1,0 +1,15 @@
+defaults: &defaults
+  :address: chammarit.sohosai.com
+  :port: 25
+  :domain: sohosai.com
+  :enable_starttls_auto: true
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+

@@ -1,5 +1,5 @@
 SOURCE_DIR="."
-DESTINATION_DIR="../public/assets"
+DESTINATION_DIR="./public/assets"
 JAVASCRIPTS_DIR="javascripts"
 STYLESHEETS_DIR="stylesheets"
 
@@ -10,6 +10,8 @@ CSS_BUNDLED_FILE="style.css"
 
 NODE_SASS_OPTS="--include-path ./node_modules/bootstrap-sass/assets/stylesheets"
 BROWSERIFY_OPTS="-t [ babelify --presets [ es2015 react stage-1 ] ]"
+
+export PATH=$PATH:$(npm bin)
 
 #-------------------------------------------------------------------------------
 
