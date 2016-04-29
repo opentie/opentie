@@ -29,6 +29,17 @@ module Api::V1
       })
     end
 
+    def invite
+      render_unauthorized and return unless @delegate.super?
+
+      email = invite_params[:email]
+      permission = invite_params[:permission]
+
+      InviteAccountService.new(@group).execute(email, permission)
+
+      render_ok
+    end
+
     def update
       @group.update_with_kibokan(group_params)
 
@@ -44,6 +55,12 @@ module Api::V1
     end
 
     private
+
+    def invite_params
+      params.require(:invite).permit(
+        :email, :permission
+      )
+    end
 
     def group_params
       params.require(:group).permit(
