@@ -4,11 +4,9 @@ module Api::V1
     before_action :authenticate_account!, only: [:show]
     before_action :group, except: [:new, :create]
     before_action :delegate, except: [:new, :create]
-    before_action :category, except: [:new, :create]
 
     def new
-      category_name = params[:category_name]
-      form = Group.get_root_form(category_name)
+      form = @category.get_root_form
 
       render_ok({
         form: form
@@ -66,7 +64,7 @@ module Api::V1
       params.require(:group).permit(
         :kibokan
       ).merge({
-        category_name: params[:category_name]
+        category_name: @category.name
       })
     end
   end
