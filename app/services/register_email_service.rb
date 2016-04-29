@@ -10,7 +10,7 @@ class RegisterEmailService
     recovery_token =
       EmailRecoveryToken.create_new_token(current_account, email)
 
-    account_name = "sample_name" #current_account.get_name_from_kibokan
+    account_name = current_account.get_entity.name
 
     AccountMailer.regist_email(
       email, account_name, recovery_token.token
