@@ -1,5 +1,5 @@
-module Api::V1::Divisions
-  class TopicsController < Api::V1::Divisions::BaseController
+module Api::V1::Divisions::Categories
+  class TopicsController < Api::V1::Divisions::Categories::BaseController
 
     before_action :topic, except: [:new, :create, :index]
 
@@ -13,8 +13,12 @@ module Api::V1::Divisions
     end
 
     def show
+      kibokan_ids = @topic.groups.pluck(:kibokan_id)
+      entities = Group.get_entities(@category, kibokan_ids).group_by {|e| e.id }
+
       groups = @topic.group_topics.map do |gt|
         gt.group.attributes.merge({
+          entity: entities[gt.group.kibokan_id].first,
           group_topic_id: gt.id,
           tags: gt.tag_list
         })
