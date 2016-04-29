@@ -33,6 +33,11 @@ class Group < ActiveRecord::Base
     self
   end
 
+  def name
+    entity = self.get_entity
+    entity.name
+  end
+
   # override on Kibokan::RequestQuery
   def current_category
     self.category_name
