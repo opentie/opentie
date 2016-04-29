@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resource :account, except: [:destroy] do
 
         collection do
+
           post :email_confirm
         end
 
@@ -16,11 +17,17 @@ Rails.application.routes.draw do
         collection do
 
           post :sign_in
+
           post :sign_out
         end
       end
 
       resources :groups, except: [:index, :destroy] do
+
+        member do
+
+          post :invite
+        end
 
         scope module: :groups do
 
