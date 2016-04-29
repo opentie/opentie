@@ -11,7 +11,7 @@ module Api::V1::Groups
 
     describe "Authenticate" do
       before do
-        xhr :get, :index, id_params
+        xhr :get, :index, default_params
       end
 
       it '402 Unauthorized' do
@@ -22,7 +22,7 @@ module Api::V1::Groups
     describe "GET /api/v1/groups/topics" do
       before do
         sign_in!(account)
-        xhr :get, :index, id_params
+        xhr :get, :index, default_params
       end
 
       it '200 OK' do
@@ -34,7 +34,7 @@ module Api::V1::Groups
     describe "GET /api/v1/groups/topics/new" do
       before do
         sign_in!(account)
-        xhr :get, :new, id_params
+        xhr :get, :new, default_params
       end
 
       it '200 OK' do
@@ -46,7 +46,7 @@ module Api::V1::Groups
     describe "GET /api/v1/groups/topics/:id" do
       before do
         sign_in!(account)
-        xhr :get, :show, id_params
+        xhr :get, :show, topic_params
       end
 
       it '200 OK' do
@@ -66,7 +66,7 @@ module Api::V1::Groups
     describe "GET /api/v1/groups/topics/edit" do
       before do
         sign_in!(account)
-        xhr :get, :edit, id_params
+        xhr :get, :edit, topic_params
       end
 
       it '200 OK' do
@@ -85,13 +85,7 @@ module Api::V1::Groups
     describe "PUT /api/v1/divisions/topics/" do
       before do
         sign_in!(account)
-
-        params = {
-          tag_list: ['tag', 'tagtag'],
-          topic: FactoryGirl.attributes_for(:topic)
-        }
-
-        xhr :put, :update, id_params.merge(params)
+        xhr :put, :update, store_params.merge(topic_params)
       end
 
       it '200 OK' do
@@ -104,8 +98,8 @@ module Api::V1::Groups
       before do
         sign_in!(account)
 
-        @id = id_params[:id]
-        xhr :delete, :destroy, id_params.merge({id: @id})
+        @id = topic_params[:id]
+        xhr :delete, :destroy, topic_params
       end
 
       it '200 OK' do
@@ -121,13 +115,7 @@ module Api::V1::Groups
     describe "POST /api/v1/groups/topics" do
       before do
         sign_in!(account)
-
-        params = {
-          tag_list: ['tag', 'tagtag'],
-          topic: FactoryGirl.attributes_for(:topic)
-        }
-
-        xhr :post, :create, id_params.merge(params)
+        xhr :post, :create, store_params
       end
 
       it '200 OK' do
@@ -136,11 +124,23 @@ module Api::V1::Groups
       end
     end
 
-    def id_params
+    def default_params
       {
-        group_id: group.id,
-        id: group.topics.first.id
+        group_id: group.id
       }
+    end
+
+    def store_params
+      default_params.merge({
+        tag_list: ['tag', 'tagtag'],
+        topic: FactoryGirl.attributes_for(:topic)
+      })
+    end
+
+    def topic_params
+      default_params.merge({
+        id: group.topics.first.id
+      })
     end
   end
 end
