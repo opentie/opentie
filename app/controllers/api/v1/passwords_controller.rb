@@ -12,16 +12,21 @@ module Api::V1
     end
 
     def update
-      token = params[:passwrod_reset_token]
-
-      password = params[:password]
-      password_confirmation = params[:password_confirmation]
+      token = update_password_params[:password_reset_token]
+      password = update_password_params[:password]
+      password_confirmation = update_password_params[:password_confirmation]
 
       UpdatePasswordService.new(current_account).
         execute(token, password, password_confirmation)
 
       sign_out!
       render_ok
+    end
+
+    private
+
+    def update_password_params
+      params.permit(:password, :password_confirmation, :password_reset_token)
     end
   end
 end
