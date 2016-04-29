@@ -45,7 +45,7 @@ class Kibokan::RequestAgent
   end
 
   def bulk(params)
-    return sample_responses if Rails.env.test?
+    return sample_responses(params) if Rails.env.test?
     response = @agent.post(@path + '/bulk', params)
     check_status(response.status)
     serialize(response.body)
@@ -64,12 +64,22 @@ class Kibokan::RequestAgent
     JSON.parse(body, symbolize_names: true)
   end
 
-  def sample_responses
-    [{
-      _id: "idididiid",
-      _name: "namenamename",
-      payload: { data: "data" }
-     }]
+  def sample_responses(params=nil)
+    unless params
+      [{
+        _id: "idididiid",
+        _name: "namenamename",
+        payload: { data: "data" }
+       }]
+    else
+      params[:ids].map do |id|
+        {
+          _id: id,
+          _name: "namenamename",
+          payload: { data: "data" }
+        }
+      end
+    end
   end
 
   def sample_response
