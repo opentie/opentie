@@ -65,9 +65,9 @@ RSpec.describe AccountMailer, type: :mailer do
     end
   end
 
-  describe 'AccountMailer#invite_division' do
+  describe 'AccountMailer#invite_organization' do
     let(:mail) do
-      AccountMailer.invite_division(
+      AccountMailer.invite_organization(
         FactoryGirl.create(:division),
         @mail_to
       )
