@@ -27,7 +27,18 @@ module Api::V1
 
     def category
       unless @category
-        @category = @group.category_name
+        unless @group
+          name = params[:category_name]
+          @category = Category.new(
+            name: name,
+            namespace: Group.current_namespace
+          )
+        else
+          @category = Category.new(
+            name: @group.name,
+            namespace: Group.current_namespace
+          )
+        end
       end
 
       ActiveRecord::RecordNotFound unless @category
