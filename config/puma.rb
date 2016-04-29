@@ -4,7 +4,6 @@ require 'active_support/core_ext'
 rails_root = Dir.pwd
 
 environment Rails.env
-daemonize true if Rails.env.production?
 
 workers 2
 threads 0,16

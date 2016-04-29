@@ -5,4 +5,4 @@
 :queues:
   - default
   - mailer
-:daemon: true
+:daemon: false

@@ -46,5 +46,9 @@ module Opentie
     config.paginator = :kaminari
     config.page_param = :page
     config.per_page_param = :per_page
+
+    config.action_mailer.raise_delivery_errors = true
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = JSON.parse(ENV['SMTP_SETTINGS'] || '{}')
   end
 end

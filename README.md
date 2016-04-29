@@ -1,50 +1,25 @@
 # opentie
 [![Circle CI](https://circleci.com/gh/opentie/opentie/tree/master.svg?style=svg)](https://circleci.com/gh/opentie/opentie/tree/master)
 
-## require
-- redis-server
+## How to deploy
 
-## How to work
+TODO:
 
-- Set email.yml in config.
+### Environment Variables
 
-- Launch sidekiq.
-```
-bundle exec sidekiq -C config/sidekiq.yml
-```
+| Middleware   | Environment Variable |
+|:-------------|:---------------------|
+| Redis        | `REDIS_URL`          |
+| PostgreSQL   | `DATABASE_URL`       |
+| MongoDB      | `MONGO_URL`          |
+| SMTP Server  | `SMTP_SETTINGS`      |
 
-- Launch server
-```
-KIBOKAN_HOST=`your_kibokan_host` bundle exec rails s
-```
+#### Example: `SMTP_SETTINGS`
 
-### nginx config example
+It is written as a JSON.
 
 ```
-server {
-    listen 3124;
-
-    proxy_buffering off;
-
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
-    proxy_set_header Host $http_host;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Host $host;
-    proxy_set_header X-Forwarded-Server $host;
-    proxy_set_header X-Forwarded-Proto $scheme;
-    proxy_set_header X-Forwarded-Port $server_port;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Request-Start $msec;
-
-    root /path/to/opentie/public;
-
-    location / {
-        try_files $uri /index.html;
-    }
-
-    location /api/ {
-        proxy_pass http://127.0.0.1:3000;
-    }
-}
+SMTP_SETTINGS='{ "address": "localhost", "port": 25 }'
 ```
+
+The properties of JSON are defined in ActionMailer (refer to [Action Mailer Basics — Ruby on Rails Guides](http://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration)).

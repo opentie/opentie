@@ -1,0 +1,26 @@
+version: '2'
+services:
+  web:
+    build: .
+    command: 'foreman start'
+    ports:
+      - '3000:3000'
+    links:
+      - redis
+      - postgres
+    environment:
+      - RAILS_ENV=production
+      - PORT=3000
+      - REDIS_URL=redis://redis/1
+      - DATABASE_URL=postgres://postgres:@postgres/postgres
+  redis:
+    image: redis:3.0
+  postgres:
+    image: postgres:9.4
+  # kibokan:
+  #   image: opentie/kibokan
+  #   links:
+  #     - mongo
+  #     - MONGO_URL=mongo://mongo/opentie
+  # mongo:
+  #   image: mongo:3.2

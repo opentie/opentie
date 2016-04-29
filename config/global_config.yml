@@ -1,9 +1,8 @@
 default: &default
   service_name: "opentie"
   organization_name: "opentie-developper"
-  organization_mail: "opentie@sample.com"
+  organization_mail: "opentie@example.com"
   organization_tel: "xxx-xxxx-xxxx"
-  kibokan_host: <%= ENV['KIBOKAN_HOST'] %>
 
 development:
   <<: *default

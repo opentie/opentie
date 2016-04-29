@@ -1,8 +1,7 @@
 class Kibokan::RequestAgent
-
   def initialize(path)
     @path = path
-    host = Rails.application.config.global_config.kibokan_host
+    host = Kibokan.kibokan_host
     @agent = Faraday.new(url: "http://#{host}") do |builder|
       builder.request  :url_encoded
       builder.response :logger
