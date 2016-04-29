@@ -13,6 +13,11 @@ module Kibokan
       end
 
       # request for entities
+      def get_init_entity_body(category)
+        path = Entity.request_path(current_namespace, category)
+        Kibokan::RequestAgent.new(path).new
+      end
+
       def get_entities(category, entity_ids=nil)
         path = Entity.request_path(current_namespace, category)
 
