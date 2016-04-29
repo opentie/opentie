@@ -1,11 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link, IndexLink } from 'react-router';
 import Glyphicon from '../glyphicon';
 
 export default class GroupNavbarItem extends Component {
+  static propTypes = {
+    groupId: PropTypes.string.isRequired,
+  };
+
   render() {
     const { groupId } = this.props;
-    console.log(groupId);
+
     return (
       <ul className="nav navbar-nav">
         <li>
@@ -18,7 +22,7 @@ export default class GroupNavbarItem extends Component {
         </li>
         <li>
           <Link
-             to={`/groups/${groupId}/sub_schemata/`}
+             to={`/groups/${groupId}/schemata/`}
              activeClassName="active"
              >
             <Glyphicon glyph="check" />

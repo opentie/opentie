@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { browserHistory } from 'react-router';
-import Breadcrumb from '../components/breadcrumb';
+// import { browserHistory } from 'react-router';
+// import Breadcrumb from '../components/breadcrumb';
 
 export default class App extends Component {
   static propTypes = {
@@ -14,7 +14,10 @@ export default class App extends Component {
     return (
       <div>
         {navbar}
-        <Breadcrumb />
+        {
+          // TODO: Implement breadcrumb
+          // <Breadcrumb />
+        }
         {main}
       </div>
     );
