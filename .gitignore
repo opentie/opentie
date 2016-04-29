@@ -16,7 +16,7 @@
 *.sw[a-z]
 *~
 
-/public/assets/javascripts/
-/public/assets/stylesheets/
+/frontend/public/assets/javascripts/
+/frontend/public/assets/stylesheets/
 
 /.env
