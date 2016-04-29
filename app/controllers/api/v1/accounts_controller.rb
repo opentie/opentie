@@ -4,19 +4,19 @@ module Api::V1
     before_action :authenticate_account!, only: [:edit, :update, :show]
 
     def show
-      tie_groups = current_account.groups.group_by{|g| g.current_category }
-      groups = tie_groups.map do |category, cat_groups|
-        kibokan_ids = cat_groups.map {|g| g.kibokan_id }
-        {
-          category => Group.get_entities(category, kibokan_ids)
-        }
-      end
       divisions = current_account.divisions
+      local_groups = current_account.groups.group_by {|g| g.current_category }
+
+      kibokan_groups = local_groups.map do |category, groups|
+        kibokan_ids = cat_groups.map {|g| g.kibokan_id }
+        entities = Group.get_entities(category, kibokan_ids)
+        { category => entities }
+      end
 
       render_ok({
         account: current_account.attributes.merge({
           entity: current_account.get_entity,
-          groups: groups,
+          groups: kibokan_groups,
           divisions: divisions
         })
       })
@@ -33,7 +33,7 @@ module Api::V1
     def create
       account = Account.create_with_kibokan(account_params)
 
-      email = params[:kibokan][:email]
+      email = params[:account][:email]
       RegisterEmailService.new(account).execute(email)
 
       render_created
@@ -59,12 +59,11 @@ module Api::V1
 
     def update
       email = params[:account].delete(:email)
+      current_account.update_with_kibokan(account_params)
 
       if email != current_account.email
         RegisterEmailService.new(current_account).execute(email)
       end
-
-      current_account.update_with_kibokan(account_params)
 
       render_ok
     end
@@ -74,9 +73,9 @@ module Api::V1
     def account_params
       params.require(:account).permit(
         :password, :password_confirmation
-      ).merge(
-        params[:kibokan]
-      )
+      ).merge({
+        kibokan: params[:kibokan]
+      })
     end
   end
 end
