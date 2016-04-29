@@ -22,7 +22,7 @@ module Api::V1
       email = params[:invite_account][:email]
       permission = params[:invite_account][:permission]
 
-      InviteDivisionAccountService.new(@division).execute(email, permission)
+      InviteAccountService.new(@division).execute(email, permission)
 
       render_ok
     end
