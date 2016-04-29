@@ -31,10 +31,10 @@ RSpec.describe Category, type: :models do
       @category = Category.new(namespace: 'namespace', name: 'name')
     end
 
-    describe '#root_form' do
+    describe '#update' do
       it 'return sample form' do
-        form = @category.get_root_form
-        expect(form.class).to eq(Form)
+        category = @category.update({})
+        expect(category.class).to eq(Category)
       end
     end
 
@@ -84,6 +84,11 @@ RSpec.describe Category, type: :models do
     it 'request_path' do
       path = Category.request_path('namespace')
       expect(path).to eq('namespaces/namespace/categories')
+    end
+
+    it 'create' do
+      category = Category.create('namespace', {})
+      expect(category.class).to eq(Category)
     end
   end
 end

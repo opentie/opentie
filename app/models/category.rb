@@ -26,15 +26,28 @@ class Category
     end
   end
 
+  def self.create(namespace, params)
+    path = request_path(namespace)
+    body = Kibokan::RequestAgent.new(path).create(params)
+
+    new(
+      payload: body,
+      namespace: namespace,
+      name: body[:_name]
+    )
+  end
+
   def self.request_path(namespace)
     "namespaces/#{namespace}/categories"
   end
 
-  def get_root_form
-    path = Form.request_path(self.namespace, self.name)
+  def update(params)
+    path = self.class.request_path(self.namespace)
+    body = Kibokan::RequestAgent.new(path).update(params)
 
-    form_body = Kibokan::RequestAgent.new(path).new
-    Form.from_kibokan(form_body)
+    self.payload = body
+    self.name = body[:_name]
+    self
   end
 
   def create_form(params)
