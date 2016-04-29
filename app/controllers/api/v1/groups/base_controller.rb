@@ -3,6 +3,7 @@ module Api::V1
 
     before_action :authenticate_account!
     before_action :group
+    before_action :delegate
     before_action :category
 
     def group
@@ -13,6 +14,15 @@ module Api::V1
 
       ActiveRecord::RecordNotFound unless @group
       @group
+    end
+
+    def delegate
+      unless @delegate
+        @delegate = @group.delegates.find_by(account: current_account)
+      end
+
+      ActiveRecord::RecordNotFound unless @delegate
+      @delegate
     end
 
     def category
