@@ -11,7 +11,7 @@ TODO:
 |:-------------|:---------------------|
 | Redis        | `REDIS_URL`          |
 | PostgreSQL   | `DATABASE_URL`       |
-| MongoDB      | `MONGO_URL`          |
+| KibokanDB    | `KIBOKAN_HOST`       |
 | SMTP Server  | `SMTP_SETTINGS`      |
 
 #### Example: `SMTP_SETTINGS`
