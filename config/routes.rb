@@ -55,13 +55,15 @@ Rails.application.routes.draw do
 
         scope module: :divisions do
 
-          resources :categories, except: :destroy do
+          resources :categories, param: :name, except: :destroy do
 
             scope module: :categories do
 
               resources :groups, only: [:index]
 
               resources :forms
+
+              resources :topics
             end
           end
 
@@ -80,8 +82,6 @@ Rails.application.routes.draw do
               resources :posts, except: [:show]
             end
           end
-
-          resources :topics
 
           resources :tags, except: [:show, :edit, :update]
         end
