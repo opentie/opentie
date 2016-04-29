@@ -23,7 +23,8 @@ module Api::V1
     end
 
     def new
-      form = Account.get_root_form('accounts')
+      category = Category.new(namespace: 'accounts', name: 'accounts')
+      form = category.get_root_form
 
       render_ok({
         form: form
