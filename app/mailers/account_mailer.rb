@@ -22,8 +22,8 @@ class AccountMailer < ApplicationMailer
     mail to: email, subject: "#{@service_name}へこのメールアドレスでアカウント登録されました"
   end
 
-  def invite_division(division, email)
-    @division_name = division.name
+  def invite_organization(organization_name, email)
+    @organization_name = organization_name
     @account_email = email
 
     @account_form_url = "/account/new" # FIXME
