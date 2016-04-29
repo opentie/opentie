@@ -4,13 +4,11 @@ module Api::V1
     before_action :authenticate_account!, only: :sign_out
 
     def sign_in
-      email = params[:email]
-      account = Account.find_by!(email: email)
+      email = sign_in_params[:email]
+      password = sign_in_params[:password]
 
-      password = params[:password]
-      unless account.authenticate(password)
-        render_unauthorized and return
-      end
+      account = Account.find_by!(email: email).authenticate(password)
+      render_unauthorized and return unless account
 
       sign_in!(account)
       render_created
@@ -19,6 +17,12 @@ module Api::V1
     def sign_out
       sign_out!
       render_created
+    end
+
+    private
+
+    def sign_in_params
+      params.permit(:email, :password)
     end
   end
 end
