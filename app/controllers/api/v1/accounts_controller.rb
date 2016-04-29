@@ -23,11 +23,10 @@ module Api::V1
     end
 
     def new
-      category = Category.new(namespace: 'accounts', name: 'accounts')
-      form = category.get_root_form
+      entity_body = Account.get_init_entity_body('accounts')
 
       render_ok({
-        form: form
+        entity: entity_body
       })
     end
 

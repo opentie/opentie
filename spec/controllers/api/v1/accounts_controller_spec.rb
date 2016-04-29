@@ -39,7 +39,7 @@ module Api::V1
 
       it 'has attributes' do
         body = JSON.parse(response.body).deep_symbolize_keys
-        expect(body.include?(:form)).to eq(true)
+        expect(body.include?(:entity)).to eq(true)
       end
     end
 

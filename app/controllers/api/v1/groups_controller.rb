@@ -6,10 +6,10 @@ module Api::V1
     before_action :delegate, except: [:new, :create]
 
     def new
-      form = @category.get_root_form
+      entity_body = Group.get_init_entity_body(@category.name)
 
       render_ok({
-        form: form
+        entity: entity_body
       })
     end
 
