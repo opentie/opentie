@@ -5,7 +5,10 @@ module Api::V1::Divisions
 
     def category
       unless @category
-        @category = params[:category_name] || params[:name]
+        @category = Category.new(
+          namespace: Group.current_namespace,
+          name: params[:category_name] || params[:name]
+        )
       end
 
       ActiveRecord::RecordNotFound unless @category
