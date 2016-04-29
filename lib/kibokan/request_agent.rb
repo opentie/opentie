@@ -9,7 +9,14 @@ class Kibokan::RequestAgent
     end
   end
 
-  def get
+  def show
+    return sample_response if Rails.env.test?
+    response = @agent.get(@path)
+    check_status(response.status)
+    serialize(response.body)
+  end
+
+  def index
     return sample_responses if Rails.env.test?
     response = @agent.get(@path)
     check_status(response.status)
@@ -23,14 +30,14 @@ class Kibokan::RequestAgent
     serialize(response.body)
   end
 
-  def post(params)
+  def create(params)
     return sample_response if Rails.env.test?
     response = @agent.post(@path, params)
     check_status(response.status)
     serialize(response.body)
   end
 
-  def put(params)
+  def update(params)
     return sample_response if Rails.env.test?
     response = @agent.put(@path, params)
     check_status(response.status)
@@ -44,7 +51,7 @@ class Kibokan::RequestAgent
     serialize(response.body)
   end
 
-  def search(query)
+  def where(query)
     return sample_responses if Rails.env.test?
     response = @agent.get(@path, { q: query })
     check_status(response.status)

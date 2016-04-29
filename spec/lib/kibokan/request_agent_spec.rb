@@ -23,10 +23,17 @@ module Kibokan
       end
     end
 
-    describe "get" do
+    describe "index" do
       it "response is accept" do
-        res = RequestAgent.new('/sample/test').get
+        res = RequestAgent.new('/sample/test').index
         expect(res).to eq(@responses)
+      end
+    end
+
+    describe "show" do
+      it "response is accept" do
+        res = RequestAgent.new('/sample/test').show
+        expect(res).to eq(@response)
       end
     end
 
@@ -37,16 +44,16 @@ module Kibokan
       end
     end
 
-    describe "post" do
+    describe "create" do
       it "response is accept" do
-        res = RequestAgent.new('/sample/test').post({})
+        res = RequestAgent.new('/sample/test').create({})
         expect(res).to eq(@response)
       end
     end
 
-    describe "put" do
+    describe "update" do
       it "response is accept" do
-        res = RequestAgent.new('/sample/test').put({})
+        res = RequestAgent.new('/sample/test').update({})
         expect(res).to eq(@response)
       end
     end
@@ -58,9 +65,9 @@ module Kibokan
       end
     end
 
-    describe "search" do
+    describe "where" do
       it "response is accept" do
-        res = RequestAgent.new('/sample/test').search('query')
+        res = RequestAgent.new('/sample/test').where('query')
         expect(res).to eq(@responses)
       end
     end
