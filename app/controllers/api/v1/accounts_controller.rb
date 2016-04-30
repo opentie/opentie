@@ -18,7 +18,7 @@ module Api::V1
         categories: categories,
         groups: account_groups,
         divisions: divisions,
-        kibokan: account_entity,
+        kibokan: account_entity.payload,
         email: current_account.email
       })
     end
