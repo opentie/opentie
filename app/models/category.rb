@@ -21,7 +21,8 @@ class Category
     categories.map do |c|
       Category.new(
         namespace: namespace,
-        name: c[:_name]
+        name: c[:_name],
+        payload: c
       )
     end
   end
