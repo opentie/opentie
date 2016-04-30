@@ -6,46 +6,62 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-if Rails.env.production?
 
-  puts "### Starting db/seeds.rb env=production ###"
+puts "### Starting db/seeds.rb ###"
 
-  Category.create('accounts', {
+Category.create('accounts', {
+  _version: 0,
+  name: 'accounts',
+  metadata: {},
+  forms: []
+})
+
+unless Rails.env.production?
+
+  Category.create('groups', {
     _version: 0,
-    name: 'accounts',
+    name: 'normal',
     metadata: {},
     forms: []
   })
 
-  puts "### Conplete db/seeds.rb env=production ###"
+  kibokan_params = {
+    _version: 0,
+    metadata: {},
+    document: {
+      form1: {
+        field1: 'hey',
+        field2: 'option1',
+        field3: 'foobar'
+      }
+    }
+  }
 
-else
-
-  puts "### Starting db/seeds.rb ###"
   ActiveRecord::Base.transaction do
     puts "Create Accounts, Divisions, Groups..."
     20.times do |i|
-      Account.create(
+      Account.create_with_kibokan(
         email: "opentie#{i}@example.com",
-        kibokan_id: "0",
         password: "password",
-        password_confirmation: "password"
+        password_confirmation: "password",
+        kibokan: kibokan_params
       )
 
       Division.create(
         name: "division#{i}"
       )
 
-      Group.create(
+      Group.create_with_kibokan(
         kibokan_id: "#{i}",
-        category_name: "test"
+        category_name: "normal",
+        kibokan: kibokan_params
       )
     end
   end
 
   ActiveRecord::Base.transaction do
     puts "Create Relationship: Roles, Delegates..."
-    10.times do |i|
+    Group.take(10).each.with_index do |g, i|
       Role.create(
         account: Account.find_by(email: "opentie#{i}@example.com"),
         division: Division.find_by(name: "division#{i}"),
@@ -54,12 +70,12 @@ else
 
       Delegate.create(
         account: Account.find_by(email: "opentie#{i}@example.com"),
-        group: Group.find_by(kibokan_id: i),
+        group: g,
         permission: "super"
       )
     end
 
-    10.times do |i|
+    Group.take(10).each.with_index do |g, i|
       i = i + 10
       Role.create(
         account: Account.find_by(email: "opentie#{i}@example.com"),
@@ -68,7 +84,7 @@ else
 
       Delegate.create(
         account: Account.find_by(email: "opentie#{i}@example.com"),
-        group: Group.find_by(kibokan_id: "#{i}"),
+        group: g,
       )
     end
   end
