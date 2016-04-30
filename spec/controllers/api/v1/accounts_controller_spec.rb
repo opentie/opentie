@@ -2,8 +2,7 @@ require 'rails_helper'
 
 module Api::V1
   RSpec.describe AccountsController, type: :controller do
-    let(:account) { FactoryGirl.create(:account) }
-
+    let(:account) { Account.first }
 
     describe "GET /api/v1/account/" do
       before do
@@ -20,7 +19,10 @@ module Api::V1
         body = JSON.parse(response.body).deep_symbolize_keys
 
         expect(body.include?(:categories)).to eq(true)
+        expect(body[:categories].first.class).to eq(Hash)
         expect(body.include?(:groups)).to eq(true)
+        expect(body[:groups].first.include?(:kibokan)).to eq(true)
+        expect(body[:groups].first.include?(:id)).to eq(true)
         expect(body.include?(:divisions)).to eq(true)
         expect(body.include?(:kibokan)).to eq(true)
         expect(body.include?(:email)).to eq(true)

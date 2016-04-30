@@ -8,15 +8,17 @@ module Api::V1
       categories = Category.all(Group.current_namespace).map {|c| c.payload }
       account_entity = current_account.get_entity
 
-      kibokan_id_groups = current_account.groups.group_by {|g| g.kibokan_id }
-      category_groups = current_account.groups.group_by {|g| g.category_name }
+      kibokan_id_map =
+        current_account.groups.map {|g| [g.kibokan_id, g.id] }.to_h
+      categories_groups =
+        current_account.groups.group_by {|g| g.category_name }
 
-      account_groups = category_groups.map do |category_name, groups|
+      account_groups = categories_groups.map do |category_name, groups|
         kibokan_ids = groups.map {|g| g.kibokan_id }
         Group.get_entities(category_name, kibokan_ids).map do |g|
           {
             kibokan: g.payload,
-            id: kibokan_id_groups[g.id].first.id
+            id: kibokan_id_map[g.id]
           }
         end
       end.flatten
