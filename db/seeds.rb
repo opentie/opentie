@@ -57,6 +57,15 @@ unless Rails.env.production?
         kibokan: kibokan_params
       )
     end
+
+    if Rails.env.test?
+      Account.all.each.with_index do |a, i|
+        a.update(kibokan_id: "account#{i}")
+      end
+      Group.all.each.with_index do |g, i|
+        g.update(kibokan_id: "group#{i}")
+      end
+    end
   end
 
   ActiveRecord::Base.transaction do
