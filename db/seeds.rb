@@ -6,7 +6,20 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-unless Rails.env.production?
+if Rails.env.production?
+
+  puts "### Starting db/seeds.rb env=production ###"
+
+  Category.create('accounts', {
+    _version: 0,
+    name: 'accounts',
+    metadata: {},
+    forms: []
+  })
+
+  puts "### Conplete db/seeds.rb env=production ###"
+
+else
 
   puts "### Starting db/seeds.rb ###"
   ActiveRecord::Base.transaction do
