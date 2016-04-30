@@ -62,9 +62,10 @@ module Api::V1
 
     def group_params
       params.require(:group).permit(
-        :kibokan
+        :kibokan_id
       ).merge({
-        category_name: @category.name
+        category_name: @category.name,
+        kibokan: params[:kibokan].except(:metadata)
       })
     end
   end

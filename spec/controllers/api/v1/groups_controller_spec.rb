@@ -122,7 +122,7 @@ module Api::V1
 
     def store_params
       default_params.merge({
-        kibokan: {},
+        kibokan: { name: 'name', metadata: []},
         group: FactoryGirl.attributes_for(:group)
       })
     end
