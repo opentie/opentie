@@ -10,6 +10,7 @@ class CreatePosts < ActiveRecord::Migration
       t.timestamps                    null: false
     end
 
+    add_index :posts, :id
     add_index :posts, :is_draft
     add_index :posts, :group_topic_id
   end

@@ -4,5 +4,7 @@ class CreateDivision < ActiveRecord::Migration
       t.string :name,            null: false, default: ""
       t.timestamps               null: false
     end
+
+    add_index :divisions, :id
   end
 end
