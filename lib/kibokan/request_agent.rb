@@ -3,7 +3,7 @@ class Kibokan::RequestAgent
     @path = path
     host = Kibokan.kibokan_host
     @agent = Faraday.new(url: "http://#{host}") do |builder|
-      builder.request  :url_encoded
+      builder.request  :json
       builder.response :logger
       builder.adapter  :net_http
     end
