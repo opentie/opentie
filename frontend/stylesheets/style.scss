@@ -1,6 +1,7 @@
 @import "icons";
 @import "custom";
 @import "bootstrap";
+@import "bs-callout";
 
 html {
   position: relative;
@@ -99,4 +100,8 @@ body > footer {
 .breadcrumb-toplevel {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.6);
 }

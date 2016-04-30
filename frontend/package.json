@@ -26,6 +26,7 @@
     "parse-link-header": "^0.4.1",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
+    "react-loader": "^2.4.0",
     "react-router": "^2.0.1",
     "uglify-js": "^2.6.2",
     "watchify": "^3.7.0",

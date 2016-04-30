@@ -7,7 +7,10 @@ import Containers from './containers';
 export default (
   <Route path="/" component={Containers.App}>
     <Route components={{ navbar: ToplevelNavbar, main: Containers.ToplevelLayout }}>
-      <IndexRoute component={Containers.DashboardPage} />
+      <Route component={Containers.SigninRequired} >
+        <IndexRoute component={Containers.DashboardPage} />
+      </Route>
+      <Route path="dashboard" component={Containers.DashboardPage} />
       <Route path="account/new" component={Containers.AccountsNewPage} />
       <Route path="categories">
         <Route path="new" />

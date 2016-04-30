@@ -1,4 +1,5 @@
 import 'babel-polyfill';
+import 'isomorphic-fetch';
 import objectValues from 'object.values';
 import React from 'react';
 import { render } from 'react-dom';
