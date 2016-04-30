@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(version: 20160412085908) do
     t.datetime "updated_at",              null: false
   end
 
+  add_index "divisions", ["id"], name: "index_divisions_on_id", using: :btree
+
   create_table "email_recovery_tokens", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "token",                      null: false
     t.uuid     "account_id",                 null: false
@@ -67,8 +69,11 @@ ActiveRecord::Schema.define(version: 20160412085908) do
   add_index "group_topics", ["group_id", "topic_id"], name: "index_group_topics_on_group_id_and_topic_id", unique: true, using: :btree
 
   create_table "groups", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string "kibokan_id",    null: false
-    t.string "category_name", null: false
+    t.string   "kibokan_id",    null: false
+    t.string   "category_name", null: false
+    t.datetime "frozen_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "groups", ["kibokan_id"], name: "index_groups_on_kibokan_id", using: :btree
@@ -107,6 +112,7 @@ ActiveRecord::Schema.define(version: 20160412085908) do
   end
 
   add_index "posts", ["group_topic_id"], name: "index_posts_on_group_topic_id", using: :btree
+  add_index "posts", ["id"], name: "index_posts_on_id", using: :btree
   add_index "posts", ["is_draft"], name: "index_posts_on_is_draft", using: :btree
 
   create_table "roles", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
