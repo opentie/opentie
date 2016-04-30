@@ -5,20 +5,21 @@ module Api::V1
 
     def show
       divisions = current_account.divisions
-      local_groups = current_account.groups.group_by {|g| g.current_category }
+      categories = Category.all(Group.current_namespace)
+      account_entity = current_account.get_entity
 
-      kibokan_groups = local_groups.map do |category, groups|
-        kibokan_ids = cat_groups.map {|g| g.kibokan_id }
-        entities = Group.get_entities(category, kibokan_ids)
-        { category => entities }
-      end
+      local_groups = current_account.groups.group_by {|g| g.category_name }
+      account_groups = local_groups.map do |category_name, groups|
+        kibokan_ids = groups.map {|g| g.kibokan_id }
+        Group.get_entities(category_name, kibokan_ids)
+      end.flatten
 
       render_ok({
-        account: current_account.attributes.merge({
-          entity: current_account.get_entity,
-          groups: kibokan_groups,
-          divisions: divisions
-        })
+        categories: categories,
+        groups: account_groups,
+        divisions: divisions,
+        kibokan: account_entity,
+        email: current_account.email
       })
     end
 

@@ -19,11 +19,11 @@ module Api::V1
       it 'has attributes' do
         body = JSON.parse(response.body).deep_symbolize_keys
 
-        expect(body.include?(:account)).to eq(true)
-        expect(body[:account].include?(:email)).to eq(true)
-        expect(body[:account].include?(:entity)).to eq(true)
-        expect(body[:account].include?(:groups)).to eq(true)
-        expect(body[:account].include?(:divisions)).to eq(true)
+        expect(body.include?(:categories)).to eq(true)
+        expect(body.include?(:groups)).to eq(true)
+        expect(body.include?(:divisions)).to eq(true)
+        expect(body.include?(:kibokan)).to eq(true)
+        expect(body.include?(:email)).to eq(true)
       end
     end
 
