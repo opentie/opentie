@@ -5,13 +5,13 @@ module Api::V1
 
     def show
       divisions = current_account.divisions
-      categories = Category.all(Group.current_namespace)
+      categories = Category.all(Group.current_namespace).map {|c| c.payload }
       account_entity = current_account.get_entity
 
       local_groups = current_account.groups.group_by {|g| g.category_name }
       account_groups = local_groups.map do |category_name, groups|
         kibokan_ids = groups.map {|g| g.kibokan_id }
-        Group.get_entities(category_name, kibokan_ids)
+        Group.get_entities(category_name, kibokan_ids).map {|g| g.payload }
       end.flatten
 
       render_ok({
