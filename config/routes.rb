@@ -33,11 +33,6 @@ Rails.application.routes.draw do
 
         scope module: :groups do
 
-          resources :request_forms, only: [:index, :show] do
-
-            resource :request, except: [:destroy, :edit]
-          end
-
           resources :topics do
 
             scope module: :topics do
