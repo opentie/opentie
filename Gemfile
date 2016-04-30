@@ -27,6 +27,7 @@ gem 'virtus'
 
 # request for kibokan
 gem 'faraday'
+gem 'faraday_middleware'
 
 # message tags
 gem 'acts-as-taggable-on'
