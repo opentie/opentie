@@ -76,4 +76,10 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.log_path = 'log/production.log'
+
+  config.logger = ActiveSupport::Logger.new(config.log_path, 'daily')
+  stdout_logger = ActiveSupport::Logger.new(STDOUT)
+  config.logger.extend(ActiveSupport::Logger.broadcast(stdout_logger))
 end
