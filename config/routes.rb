@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   namespace :api, format: 'json' do
     namespace :v1 do
 
+      resource :information, only: [:show]
+
       resource :account, except: [:destroy] do
 
         collection do
