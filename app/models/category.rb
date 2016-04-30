@@ -10,7 +10,7 @@ class Category
 
   def initialize(*params)
     super
-    self.payload = get_payload
+    self.payload = get_payload if self.payload == {}
     self
   end
 
