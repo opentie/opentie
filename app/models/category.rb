@@ -28,6 +28,7 @@ class Category
 
   def self.create(namespace, params)
     path = request_path(namespace)
+    params[:namespace] = namespace
     body = Kibokan::RequestAgent.new(path).create(params)
 
     new(
