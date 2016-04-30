@@ -36,7 +36,14 @@ gem 'acts-as-taggable-on'
 gem 'kaminari'
 gem 'api-pagination'
 
+# launcher
 gem 'foreman'
+
+# debugger
+gem 'pry-rails'
+gem 'pry-byebug'
+gem 'pry-doc'
+gem 'better_errors'
 
 group :assets do
   # Use Uglifier as compressor for JavaScript assets
@@ -53,12 +60,6 @@ group :development, :test do
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
-
-  # debugger
-  gem 'pry-rails'
-  gem 'pry-byebug'
-  gem 'pry-doc'
-  gem 'better_errors'
 
   # test
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
