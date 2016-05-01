@@ -1,7 +1,6 @@
 module Api::V1
   class DivisionsController < Api::V1::Divisions::BaseController
 
-    before_action :authenticate_admin!, only: [:new, :create]
     before_action :division, only: [:show, :invite]
     before_action :role, only: [:show, :invite]
 
