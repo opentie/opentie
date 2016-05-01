@@ -17,11 +17,12 @@ json_files = {
   ]
 }
 
-json_files.each do |namespace, file_path|
-  json_raw = File.read("#{Rails.root}/config/initial_category.json")
-  category_hash = JSON.parse(json_raw)
-
-  Category.create(namespace.to_s, category_hash)
+json_files.each do |namespace, file_paths|
+  file_paths.each do |file_path|
+    json_raw = File.read("#{Rails.root}/config/initial_categories/#{namespace.to_s}/#{file_path}")
+    category_hash = JSON.parse(json_raw)
+    Category.create(namespace.to_s, category_hash)
+  end
 end
 
 unless Rails.env.production?
