@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Group, type: :models do
-
   let(:account) { FactoryGirl.create(:account) }
-  let(:group) { FactoryGirl.create(:group) }
+  let(:group) { Group.first }
 
   describe "Relationship" do
     it "has_many delegate" do
@@ -27,9 +26,10 @@ RSpec.describe Group, type: :models do
 
     it "has_many topics" do
       topic = create_topic(FactoryGirl.create(:division))
+
       expect do
         GroupTopic.create(group: group, topic: topic)
-      end.to change { group.topics.count }.to(1)
+      end.to change { group.topics.count }.by(1)
     end
 
     it "has_many uniq topics" do
@@ -37,7 +37,7 @@ RSpec.describe Group, type: :models do
       expect do
         GroupTopic.create(group: group, topic: topic)
         GroupTopic.create(group: group, topic: topic)
-      end.to change { group.topics.count }.to(1)
+      end.to change { group.topics.count }.by(1)
     end
 
     it "has_many proposal_topics" do
@@ -63,13 +63,26 @@ RSpec.describe Group, type: :models do
 
     it "update_with_kibokan" do
       params = {
-        kibokan: {hoge: 123}
+        kibokan: { hoge: 123 },
+        is_froze: false
       }
+
       id = group.kibokan_id
       group.update_with_kibokan(params)
       expect(Group.find(group.id).kibokan_id).not_to eq(id)
     end
-  end
+
+    it "update_with_kibokan, decrease active groups" do
+      params = {
+        kibokan: { hoge: 123 },
+        is_froze: true
+      }
+
+      expect do
+        group.update_with_kibokan(params)
+      end.to change { Group.active.count }.by(-1)
+    end
+end
 
   def create_delegate
     Delegate.create(account: account, group: group)

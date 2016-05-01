@@ -11,6 +11,8 @@ class Group < ActiveRecord::Base
   has_many :invitation_tokens, as: :organization
   has_many :proposal_topics, class_name: "Topic", as: :proposer
 
+  scope :active, -> { where(frozen_at: nil) }
+
   def self.create_with_kibokan(params)
     kibokan_params = params.delete(:kibokan)
     category_name = params[:category_name]
@@ -27,6 +29,9 @@ class Group < ActiveRecord::Base
     kibokan_params = params.delete(:kibokan)
     entity = update_entity(kibokan_params)
 
+    is_froze = params.delete(:is_froze)
+    froze if is_froze
+
     update(params)
     self.kibokan_id = entity.id
     save
@@ -36,6 +41,10 @@ class Group < ActiveRecord::Base
   def name
     entity = self.get_entity
     entity.name
+  end
+
+  def froze
+    update(frozen_at: Time.zone.now)
   end
 
   # override on Kibokan::RequestQuery
