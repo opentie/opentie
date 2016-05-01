@@ -8,7 +8,7 @@ class AccountMailer < ApplicationMailer
     @account_name = name
     @account_email = email
 
-    @confirm_url = "/account/password_reset_form?token=#{token}" # FIXME
+    @confirm_url = "#{service_host}passwords/password_reset_token?token=#{token}"
 
     mail to: email, subject: "#{@service_name}のパスワードリセット"
   end
@@ -17,7 +17,7 @@ class AccountMailer < ApplicationMailer
     @account_name = name
     @account_email = email
 
-    @confirm_url = "/account/email_confirm?token=#{token}" # FIXME
+    @confirm_url = "#{service_host}account/email_confirm?token=#{token}"
 
     mail to: email, subject: "#{@service_name}へこのメールアドレスでアカウント登録されました"
   end
@@ -26,7 +26,7 @@ class AccountMailer < ApplicationMailer
     @organization_name = organization_name
     @account_email = email
 
-    @account_form_url = "/account/new" # FIXME
+    @account_form_url = "#{service_host}account/new"
 
     mail to: email, subject: "#{@service_name}へこのメールアドレスに招待がありました"
   end
@@ -42,6 +42,10 @@ class AccountMailer < ApplicationMailer
 
   def service_name
     Rails.application.config.global_config.service_name
+  end
+
+  def service_host
+    ENV['SERVICE_HOSTURL']
   end
 
   def organization_name
