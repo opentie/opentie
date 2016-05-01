@@ -16,6 +16,11 @@ Category.create('accounts', {
   forms: []
 })
 
+json_raw = File.read("#{Rails.root}/config/initial_category.json")
+category_hash = JSON.parse(form_raw)
+
+Category.create('groups', category_hash)
+
 unless Rails.env.production?
 
   Category.create('groups', {

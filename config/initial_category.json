@@ -1,0 +1,374 @@
+{
+  "_version": 0,
+  "name": "企画",
+  "forms": [
+    {
+      "_version": 0,
+      "name": "企画基本情報",
+      "fields": [
+        {
+          "_class": "TextField",
+          "_properties": {
+            "_version": 0,
+            "name": "企画名",
+            "description": "企画名を入力してください\n",
+            "is_required": true,
+            "validators": [
+              {
+                "_class": "MaxlengthValidator",
+                "_properties": {
+                  "_version": 0,
+                  "threshold": 20
+                }
+              }
+            ]
+          }
+        },
+        {
+          "_class": "TextField",
+          "_properties": {
+            "_version": 0,
+            "name": "企画名ふりがな",
+            "description": "企画名のふりがなを入力してください\n",
+            "is_required": true,
+            "validators": []
+          }
+        },
+        {
+          "_class": "TextField",
+          "_properties": {
+            "_version": 0,
+            "name": "企画団体名",
+            "description": "企画を主催する団体名を入力してください\n",
+            "is_required": true,
+            "validators": []
+          }
+        },
+        {
+          "_class": "TextField",
+          "_properties": {
+            "_version": 0,
+            "name": "企画団体名ふりがな",
+            "description": "企画団体名のふりがなを入力してください\n",
+            "is_required": true,
+            "validators": []
+          }
+        },
+        {
+          "_class": "ParagraphField",
+          "_properties": {
+            "_version": 0,
+            "name": "企画概要",
+            "description": "企画の概要を入力してください\n",
+            "is_required": true,
+            "validators": []
+          }
+        },
+        {
+          "_class": "RadioField",
+          "_properties": {
+            "_version": 0,
+            "options": [
+              {
+                "_version": 0,
+                "label": "屋内(会館以外)",
+                "insertion_fields": [],
+                "deadline": null
+              },
+              {
+                "_version": 0,
+                "label": "会館屋内",
+                "insertion_fields": [],
+                "deadline": null
+              },
+              {
+                "_version": 0,
+                "label": "屋外",
+                "insertion_fields": [],
+                "deadline": null
+              },
+              {
+                "_version": 0,
+                "label": "ステージ",
+                "insertion_fields": [],
+                "deadline": null
+              }
+            ],
+            "name": "企画実施場所",
+            "description": "企画を実施する場所を選択してください。\n(希望数に応じて後ほど変更をお願いする場合があります)\n",
+            "is_required": true,
+            "validators": []
+          }
+        }
+      ],
+      "release": null,
+      "deadline": null,
+      "attachable": {
+        "_version": 0,
+        "operators": []
+      },
+      "is_required": true,
+      "metadata": null
+    },
+    {
+      "_version": 0,
+      "name": "屋内企画基本情報",
+      "fields": [
+        {
+          "_class": "RadioField",
+          "_properties": {
+            "_version": 0,
+            "options": [
+              {
+                "_version": 0,
+                "label": "エリア未確定",
+                "insertion_fields": [],
+                "deadline": null
+              },
+              {
+                "_version": 0,
+                "label": "第一エリア",
+                "insertion_fields": [],
+                "deadline": null
+              },
+              {
+                "_version": 0,
+                "label": "第二・第三エリア",
+                "insertion_fields": [],
+                "deadline": null
+              },
+              {
+                "_version": 0,
+                "label": "大芸エリア",
+                "insertion_fields": [],
+                "deadline": null
+              }
+            ],
+            "name": "希望実施エリア",
+            "description": "TODO",
+            "is_required": true,
+            "validators": []
+          }
+        },
+        {
+          "_class": "RadioField",
+          "_properties": {
+            "_version": 0,
+            "options": [
+              {
+                "_version": 0,
+                "label": "希望する",
+                "insertion_fields": [],
+                "deadline": null
+              },
+              {
+                "_version": 0,
+                "label": "希望しない",
+                "insertion_fields": [],
+                "deadline": null
+              }
+            ],
+            "name": "雙峰祭一日目への参加希望",
+            "description": "TODO",
+            "is_required": true,
+            "validators": []
+          }
+        },
+        {
+          "_class": "RadioField",
+          "_properties": {
+            "_version": 0,
+            "options": [
+              {
+                "_version": 0,
+                "label": "希望する",
+                "insertion_fields": [],
+                "deadline": null
+              },
+              {
+                "_version": 0,
+                "label": "希望しない",
+                "insertion_fields": [],
+                "deadline": null
+              }
+            ],
+            "name": "雙峰祭二日目への参加希望",
+            "description": "TODO",
+            "is_required": true,
+            "validators": []
+          }
+        },
+        {
+          "_class": "RadioField",
+          "_properties": {
+            "_version": 0,
+            "options": [
+              {
+                "_version": 0,
+                "label": "希望する",
+                "insertion_fields": [],
+                "deadline": null
+              },
+              {
+                "_version": 0,
+                "label": "希望しない",
+                "insertion_fields": [],
+                "deadline": null
+              }
+            ],
+            "name": "大音量の使用",
+            "description": "TODO",
+            "is_required": true,
+            "validators": []
+          }
+        }
+      ],
+      "release": null,
+      "deadline": null,
+      "attachable": {
+        "_version": 0,
+        "operators": [
+          {
+            "_version": 0,
+            "operators": [
+              {
+                "_version": 0
+              }
+            ]
+          }
+        ]
+      },
+      "is_required": true,
+      "metadata": null
+    },
+    {
+      "_version": 0,
+      "name": "屋外企画基本情報",
+      "fields": [
+        {
+          "_class": "RadioField",
+          "_properties": {
+            "_version": 0,
+            "options": [
+              {
+                "_version": 0,
+                "label": "エリア未確定",
+                "insertion_fields": [],
+                "deadline": null
+              },
+              {
+                "_version": 0,
+                "label": "第一エリア",
+                "insertion_fields": [],
+                "deadline": null
+              },
+              {
+                "_version": 0,
+                "label": "第二・第三エリア",
+                "insertion_fields": [],
+                "deadline": null
+              },
+              {
+                "_version": 0,
+                "label": "大芸エリア",
+                "insertion_fields": [],
+                "deadline": null
+              }
+            ],
+            "name": "希望実施エリア",
+            "description": "TODO",
+            "is_required": true,
+            "validators": []
+          }
+        },
+        {
+          "_class": "RadioField",
+          "_properties": {
+            "_version": 0,
+            "options": [
+              {
+                "_version": 0,
+                "label": "希望する",
+                "insertion_fields": [],
+                "deadline": null
+              },
+              {
+                "_version": 0,
+                "label": "希望しない",
+                "insertion_fields": [],
+                "deadline": null
+              }
+            ],
+            "name": "雙峰祭一日目への参加希望",
+            "description": "TODO",
+            "is_required": true,
+            "validators": []
+          }
+        },
+        {
+          "_class": "RadioField",
+          "_properties": {
+            "_version": 0,
+            "options": [
+              {
+                "_version": 0,
+                "label": "希望する",
+                "insertion_fields": [],
+                "deadline": null
+              },
+              {
+                "_version": 0,
+                "label": "希望しない",
+                "insertion_fields": [],
+                "deadline": null
+              }
+            ],
+            "name": "雙峰祭二日目への参加希望",
+            "description": "TODO",
+            "is_required": true,
+            "validators": []
+          }
+        },
+        {
+          "_class": "RadioField",
+          "_properties": {
+            "_version": 0,
+            "options": [
+              {
+                "_version": 0,
+                "label": "希望する",
+                "insertion_fields": [],
+                "deadline": null
+              },
+              {
+                "_version": 0,
+                "label": "希望しない",
+                "insertion_fields": [],
+                "deadline": null
+              }
+            ],
+            "name": "大音量の使用",
+            "description": "TODO",
+            "is_required": true,
+            "validators": []
+          }
+        }
+      ],
+      "release": null,
+      "deadline": null,
+      "attachable": {
+        "_version": 0,
+        "operators": []
+      },
+      "is_required": true,
+      "metadata": null
+    }
+  ],
+  "namespace": "groups",
+  "metadata": {
+    "screen_name": {
+      "field": "企画基本情報",
+      "form": "企画名"
+    }
+  }
+}
