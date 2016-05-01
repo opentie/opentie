@@ -34,7 +34,7 @@ unless Rails.env.production?
     forms: []
   })
 
-  kibokan_params = {
+  account_params = {
     _version: 0,
     metadata: {},
     document: {
@@ -46,6 +46,21 @@ unless Rails.env.production?
     }
   }
 
+  group_params = {
+    "_metadata" => {},
+    "_version" => 0,
+    "document" => {
+      "企画基本情報" => {
+        "企画名" => "tkbctf #5",
+        "企画名ふりがな" => "てぃーけーびーしーてぃーえふ",
+        "企画団体名" => "tkbctf運営チーム",
+        "企画団体名ふりがな" => "てぃーけーびーしーてぃーえふうんえいちーむ",
+        "企画概要" => "CTFやります",
+        "企画実施場所" => "屋内(会館以外)"
+      }
+    }
+  }
+
   ActiveRecord::Base.transaction do
     puts "Create Accounts, Divisions, Groups..."
     20.times do |i|
@@ -53,7 +68,7 @@ unless Rails.env.production?
         email: "opentie#{i}@example.com",
         password: "password",
         password_confirmation: "password",
-        kibokan: kibokan_params
+        kibokan: account_params
       )
 
       Division.create(
@@ -62,8 +77,8 @@ unless Rails.env.production?
 
       Group.create_with_kibokan(
         kibokan_id: "#{i}",
-        category_name: "normal",
-        kibokan: kibokan_params
+        category_name: "企画",
+        kibokan: group_params
       )
     end
 
