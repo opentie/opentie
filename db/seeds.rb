@@ -11,6 +11,7 @@ puts "### Starting db/seeds.rb ###"
 
 json_files = {
   accounts: [
+    'accounts.json'
   ],
   groups: [
     'kikaku.json'
