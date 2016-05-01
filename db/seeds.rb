@@ -17,7 +17,7 @@ Category.create('accounts', {
 })
 
 json_raw = File.read("#{Rails.root}/config/initial_category.json")
-category_hash = JSON.parse(form_raw)
+category_hash = JSON.parse(json_raw)
 
 Category.create('groups', category_hash)
 
