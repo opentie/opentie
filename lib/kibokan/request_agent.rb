@@ -11,54 +11,58 @@ class Kibokan::RequestAgent
 
   def show
     return sample_response if Rails.env.test?
-    response = @agent.get(@path)
+    response = @agent.get(escape_uri(@path))
     check_status(response.status)
     serialize(response.body)
   end
 
   def index
     return sample_responses if Rails.env.test?
-    response = @agent.get(@path)
+    response = @agent.get(escape_uri(@path))
     check_status(response.status)
     serialize(response.body)
   end
 
   def new
     return sample_response if Rails.env.test?
-    response = @agent.get(@path + '/new')
+    response = @agent.get(escape_uri(@path) + '/new')
     check_status(response.status)
     serialize(response.body)
   end
 
   def create(params)
     return sample_response if Rails.env.test?
-    response = @agent.post(@path, params)
+    response = @agent.post(escape_uri(@path), params)
     check_status(response.status)
     serialize(response.body)
   end
 
   def update(params)
     return sample_response if Rails.env.test?
-    response = @agent.put(@path, params)
+    response = @agent.put(escape_uri(@path), params)
     check_status(response.status)
     serialize(response.body)
   end
 
   def bulk(params)
     return sample_responses(params) if Rails.env.test?
-    response = @agent.post(@path + '/bulk', params)
+    response = @agent.post(escape_uri(@path) + '/bulk', params)
     check_status(response.status)
     serialize(response.body)
   end
 
   def where(query)
     return sample_responses if Rails.env.test?
-    response = @agent.get(@path, { q: query })
+    response = @agent.get(escape_uri(@path), { q: query })
     check_status(response.status)
     serialize(response.body)
   end
 
   private
+
+  def escape_uri(path)
+    URI.encode(path)
+  end
 
   def serialize(body)
     JSON.parse(body, symbolize_names: true)
