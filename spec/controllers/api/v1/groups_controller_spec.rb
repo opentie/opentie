@@ -5,6 +5,10 @@ module Api::V1
     let(:account) { FactoryGirl.create(:account) }
     let(:group) { FactoryGirl.create(:group) }
 
+    before do
+      sign_in!(account)
+    end
+
     describe "GET /api/v1/groups/new" do
       before do
         xhr :get, :new, default_params
@@ -35,8 +39,6 @@ module Api::V1
 
     describe "POST /api/v1/groups/invite" do
       before do
-        sign_in!(account)
-
         @params = group_params.merge({
           invite: {
             email: "invite@opentie.co",
@@ -69,7 +71,6 @@ module Api::V1
 
     describe "GET /api/v1/groups/edit" do
       before do
-        sign_in!(account)
         xhr :get, :edit, group_params
       end
 
@@ -86,8 +87,6 @@ module Api::V1
 
     describe "PUT /api/v1/groups/:id" do
       before do
-        sign_in!(account)
-
         xhr :put, :update, store_params.merge(group_params)
       end
 
@@ -99,7 +98,6 @@ module Api::V1
 
     describe "GET /api/v1/groups/:id" do
       before do
-        sign_in!(account)
         xhr :get, :show, group_params
       end
 

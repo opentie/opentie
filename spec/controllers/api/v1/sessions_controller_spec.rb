@@ -18,7 +18,7 @@ module Api::V1
       it "Wrong email" do
         @params[:email] = 'wrong@opentie.com'
         xhr :post, :sign_in, @params
-        expect(response.status).to eq(404)
+        expect(response.status).to eq(401)
       end
 
       it "Wrong password" do
