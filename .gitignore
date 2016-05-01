@@ -18,5 +18,6 @@
 
 /frontend/public/assets/javascripts/
 /frontend/public/assets/stylesheets/
+/frontend/node_modules/
 
 /.env
