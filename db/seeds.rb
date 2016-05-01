@@ -9,17 +9,20 @@
 
 puts "### Starting db/seeds.rb ###"
 
-Category.create('accounts', {
-  _version: 0,
-  name: 'accounts',
-  metadata: {},
-  forms: []
-})
+json_files = {
+  accounts: [
+  ],
+  groups: [
+    'kikaku.json'
+  ]
+}
 
-json_raw = File.read("#{Rails.root}/config/initial_category.json")
-category_hash = JSON.parse(json_raw)
+json_files.each do |namespace, file_path|
+  json_raw = File.read("#{Rails.root}/config/initial_category.json")
+  category_hash = JSON.parse(json_raw)
 
-Category.create('groups', category_hash)
+  Category.create(namespace.to_s, category_hash)
+end
 
 unless Rails.env.production?
 
