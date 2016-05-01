@@ -43,6 +43,10 @@ class Group < ActiveRecord::Base
     entity.name
   end
 
+  def active?
+    self.frozen_at.nil?
+  end
+
   def froze
     update(frozen_at: Time.zone.now)
   end
