@@ -39,10 +39,8 @@ unless Rails.env.production?
     _version: 0,
     metadata: {},
     document: {
-      form1: {
-        field1: 'hey',
-        field2: 'option1',
-        field3: 'foobar'
+      "アカウント情報" => {
+        "名前" => '権兵衛',
       }
     }
   }
