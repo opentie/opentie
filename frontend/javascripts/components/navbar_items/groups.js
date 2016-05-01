@@ -28,22 +28,27 @@ export default class GroupNavbarItem extends Component {
             <Glyphicon glyph="check" />
           </Link>
         </li>
-        <li>
-          <Link
-             to={`/groups/${groupId}/message/topics`}
-             activeClassName="active"
-             >
-            <Glyphicon glyph="envelope" />
-          </Link>
-        </li>
-        <li>
-          <Link
-             to={`/groups/${groupId}/files`}
-             activeClassName="active"
-             >
-            <Glyphicon glyph="paperclip" />
-          </Link>
-        </li>
+        {
+          // TODO:
+          /*
+          <li>
+            <Link
+              to={`/groups/${groupId}/message/topics`}
+              activeClassName="active"
+              >
+              <Glyphicon glyph="envelope" />
+            </Link>
+          </li>
+          <li>
+            <Link
+              to={`/groups/${groupId}/files`}
+              activeClassName="active"
+              >
+              <Glyphicon glyph="paperclip" />
+            </Link>
+          </li>
+          */
+        }
       </ul>
     );
   }

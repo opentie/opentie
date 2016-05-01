@@ -1,7 +1,4 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-import Loader from 'react-loader';
-import { EventEmitter } from 'events';
+import React from 'react';
 import { Category, Entity } from 'kibokan';
 import CategorizedGroupsPanel from '../components/categorized_groups_panel';
 import Glyphicon from '../components/glyphicon';

@@ -43,6 +43,13 @@ body > footer {
   }
 }
 
+.btn-lg {
+  .glyphicon {
+    position: relative;
+    top: 3px;
+  }
+}
+
 .navbar-right {
   margin-right: 0;
 }

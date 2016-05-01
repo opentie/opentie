@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-
-import NamedObjectMap from 'kibokan/named_object_map';
+import classnames from 'classnames';
+import { NamedObjectMap, FieldValue } from 'kibokan';
 import Fields from './fields';
 
 const Mapping = new NamedObjectMap();
@@ -15,19 +15,35 @@ const ValidatorPrinters = {
 export default class Field extends Component {
   static propTypes = {
     field: PropTypes.any.isRequired,
+    onChange: PropTypes.func.isRequired,
   };
+
+  constructor(props) {
+    super(props);
+
+    this.handleChange = this.handleChange.bind(this);
+
+    const { field } = this.props;
+    this.state = { fieldValue: new FieldValue(field, null) };
+  }
+
+  handleChange(fieldValue) {
+    this.setState({ fieldValue });
+    this.props.onChange(fieldValue);
+  }
 
   render() {
     const { field } = this.props;
+    const { fieldValue } = this.state;
     const FieldImpl = Mapping.get(field.constructor.name);
-    const validators = field.validators.map((validator, i) => (
-      <li key={i}>
-        {ValidatorPrinters[validator.constructor.name](validator.parameter)}
+    const validators = fieldValue.validities.map(({ validator, validity }, i) => (
+      <li key={i} className={classnames({ 'text-danger': !validity })}>
+        {ValidatorPrinters[validator.constructor.name](validator.threshold)}
       </li>
     ));
 
     return (
-      <div className="form-group">
+      <div className={classnames('form-group', { 'has-error': !fieldValue.isValid })}>
         <label>
           {field.name}
           {(() => {
@@ -50,7 +66,7 @@ export default class Field extends Component {
         <ul>
           {validators}
         </ul>
-        <FieldImpl field={field} />
+        <FieldImpl field={field} onChange={this.handleChange} />
       </div>
     );
   }

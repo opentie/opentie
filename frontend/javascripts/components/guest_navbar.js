@@ -7,8 +7,7 @@ export default class ToplevelNavbar extends Component {
   render() {
     return (
       <Navbar>
-        <Brand link="/dashboard" />
-        <Hamburger />
+        <Brand link="/" />
       </Navbar>
     );
   }
