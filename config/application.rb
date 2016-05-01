@@ -47,8 +47,9 @@ module Opentie
     config.page_param = :page
     config.per_page_param = :per_page
 
+    mail_config = JSON.parse(ENV['SMTP_SETTINGS'] || '{}').deep_symbolize_keys
     config.action_mailer.raise_delivery_errors = true
     config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = JSON.parse(ENV['SMTP_SETTINGS'] || '{}')
+    config.action_mailer.smtp_settings = mail_config
   end
 end
