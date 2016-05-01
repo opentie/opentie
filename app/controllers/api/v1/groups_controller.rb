@@ -1,7 +1,6 @@
 module Api::V1
   class GroupsController < Api::V1::Groups::BaseController
 
-    before_action :authenticate_account!, only: [:show]
     before_action :group, except: [:new, :create]
     before_action :delegate, except: [:new, :create]
 
