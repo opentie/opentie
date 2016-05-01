@@ -108,6 +108,7 @@
         "operators": []
       },
       "is_required": true,
+      "is_protected": true,
       "metadata": null
     },
     {
@@ -232,13 +233,23 @@
             "_version": 0,
             "operators": [
               {
-                "_version": 0
+                "_version": 0,
+                "form": "企画基本情報",
+                "field": "企画実施場所",
+                "value": {
+                  "_class": "LiteralValueOperator",
+                  "_properties": {
+                    "_version": 0,
+                    "value": "屋内(会館以外)"
+                  }
+                }
               }
             ]
           }
         ]
       },
       "is_required": true,
+      "is_protected": true,
       "metadata": null
     },
     {
@@ -265,7 +276,32 @@
               {
                 "_version": 0,
                 "label": "第二・第三エリア",
-                "insertion_fields": [],
+                "insertion_fields": [
+                  {
+                    "_class": "RadioField",
+                    "_properties": {
+                      "_version": 0,
+                      "options": [
+                        {
+                          "_version": 0,
+                          "label": "希望する",
+                          "insertion_fields": [],
+                          "deadline": null
+                        },
+                        {
+                          "_version": 0,
+                          "label": "希望しない",
+                          "insertion_fields": [],
+                          "deadline": null
+                        }
+                      ],
+                      "name": "雙峰祭前夜祭への参加希望",
+                      "description": "TODO",
+                      "is_required": true,
+                      "validators": []
+                    }
+                  }
+                ],
                 "deadline": null
               },
               {
@@ -361,6 +397,7 @@
         "operators": []
       },
       "is_required": true,
+      "is_protected": true,
       "metadata": null
     }
   ],
