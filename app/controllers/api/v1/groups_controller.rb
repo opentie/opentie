@@ -13,17 +13,24 @@ module Api::V1
     end
 
     def create
-      Group.create_with_kibokan(group_params)
+      group = Group.create_with_kibokan(group_params)
+      entity = group.get_entity
 
-      render_created
+      render_created(
+        group.attributes.merge({
+          kibokan: entity.payload
+        })
+      )
     end
 
     def edit
       entity = @group.get_entity
 
-      render_ok({
-        group: group.attributes.merge(entity.attributes)
-      })
+      render_ok(
+        group.attributes.merge({
+          kibokan: entity.payload
+        })
+      )
     end
 
     def invite
@@ -46,9 +53,11 @@ module Api::V1
     def show
       entity = @group.get_entity
 
-      render_ok({
-        group: @group.attributes.merge(entity.attributes)
-      })
+      render_ok(
+        @group.attributes.merge({
+          kibokan: entity.payload
+        })
+      )
     end
 
     private

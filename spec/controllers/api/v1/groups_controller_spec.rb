@@ -81,7 +81,7 @@ module Api::V1
 
       it 'has attributes' do
         body = JSON.parse(response.body).deep_symbolize_keys
-        expect(body.include?(:group)).to eq(true)
+        expect(body.include?(:kibokan)).to eq(true)
       end
     end
 
@@ -108,7 +108,7 @@ module Api::V1
 
       it 'has attributes' do
         body = JSON.parse(response.body).deep_symbolize_keys
-        expect(body.include?(:group)).to eq(true)
+        expect(body.include?(:kibokan)).to eq(true)
       end
     end
 
