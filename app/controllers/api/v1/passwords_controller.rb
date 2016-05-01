@@ -4,7 +4,8 @@ module Api::V1
     before_action :authenticate_account!, only: :update
 
     def create
-      account = Account.find_by!(email: params[:email])
+      account = Account.find_by(email: params[:email])
+      render_unauthorized and return unless account
 
       RestorePasswordService.new(account).execute
 
