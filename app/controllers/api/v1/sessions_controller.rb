@@ -7,8 +7,11 @@ module Api::V1
       email = sign_in_params[:email]
       password = sign_in_params[:password]
 
-      account = Account.find_by!(email: email).authenticate(password)
+      account = Account.find_by(email: email)
       render_unauthorized and return unless account
+
+      login_result = account.authenticate(password)
+      render_unauthorized and return unless login_result
 
       sign_in!(account)
       render_created
