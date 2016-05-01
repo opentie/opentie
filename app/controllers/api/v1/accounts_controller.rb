@@ -9,7 +9,7 @@ module Api::V1
       account_entity = current_account.get_entity
 
       kibokan_id_map =
-        current_account.groups.map {|g| [g.kibokan_id, g.id] }.to_h
+        current_account.groups.map {|g| [g.kibokan_id, g] }.to_h
       categories_groups =
         current_account.groups.group_by {|g| g.category_name }
 
@@ -18,7 +18,8 @@ module Api::V1
         Group.get_entities(category_name, kibokan_ids).map do |g|
           {
             kibokan: g.payload,
-            id: kibokan_id_map[g.id]
+            id: kibokan_id_map[g.id].id,
+            is_froze: kibokan_id_map[g.id].active?
           }
         end
       end.flatten

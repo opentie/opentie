@@ -23,6 +23,7 @@ module Api::V1
         expect(body.include?(:groups)).to eq(true)
         expect(body[:groups].first.include?(:kibokan)).to eq(true)
         expect(body[:groups].first.include?(:id)).to eq(true)
+        expect(body[:groups].first.include?(:is_froze)).to eq(true)
         expect(body.include?(:divisions)).to eq(true)
         expect(body.include?(:kibokan)).to eq(true)
         expect(body.include?(:email)).to eq(true)
