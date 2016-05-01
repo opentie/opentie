@@ -78,6 +78,7 @@ module Api::V1::Divisions
     def store_params
       default_params.merge({
         kibokan: {},
+        is_froze: false,
         group: FactoryGirl.attributes_for(:group)
       })
     end

@@ -48,7 +48,8 @@ module Api::V1::Divisions
     end
 
     def update
-      # TODO
+      @group.update_with_kibokan(group_params)
+
       render_ok
     end
 
@@ -56,7 +57,7 @@ module Api::V1::Divisions
 
     def group_params
       params.require(:group).permit(
-        :frozen_at
+        :is_froze
       ).merge({
         kibokan: params[:kibokan]
       })
