@@ -25,7 +25,7 @@ class Account < ActiveRecord::Base
 
     account = new(params)
     unless account.valid?
-      raise ActiveRecord::RecordInvalid('password does not match')
+      raise ActiveRecord::RecordInvalid
     end
 
     entity = insert_entity(account.current_category, kibokan_params)
