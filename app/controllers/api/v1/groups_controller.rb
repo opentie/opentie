@@ -13,7 +13,7 @@ module Api::V1
     end
 
     def create
-      group = Group.create_with_kibokan(group_params)
+      group = Group.create_with_kibokan(current_account, group_params)
       entity = group.get_entity
 
       render_created(

@@ -13,7 +13,7 @@ class Group < ActiveRecord::Base
 
   scope :active, -> { where(frozen_at: nil) }
 
-  def self.create_with_kibokan(params)
+  def self.create_with_kibokan(account, params)
     kibokan_params = params.delete(:kibokan)
     category_name = params[:category_name]
 
@@ -22,6 +22,8 @@ class Group < ActiveRecord::Base
 
     group.kibokan_id = entity.id
     group.save
+
+    group.delegates.create(account: account, permission: 'super')
     group
   end
 

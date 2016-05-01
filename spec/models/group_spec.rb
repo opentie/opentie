@@ -57,7 +57,7 @@ RSpec.describe Group, type: :models do
 
     it "create_with_kibokan" do
       expect do
-        Group.create_with_kibokan(@params)
+        Group.create_with_kibokan(account, @params)
       end.to change { Group.all.count }.by(1)
     end
 

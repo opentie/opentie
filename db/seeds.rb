@@ -40,7 +40,7 @@ unless Rails.env.production?
   ActiveRecord::Base.transaction do
     puts "Create Accounts, Divisions, Groups..."
     20.times do |i|
-      Account.create_with_kibokan(
+      account = Account.create_with_kibokan(
         email: "opentie#{i}@example.com",
         password: "password",
         password_confirmation: "password",
@@ -51,11 +51,11 @@ unless Rails.env.production?
         name: "division#{i}"
       )
 
-      Group.create_with_kibokan(
+      Group.create_with_kibokan(account, {
         kibokan_id: "#{i}",
         category_name: "normal",
         kibokan: kibokan_params
-      )
+      })
     end
 
     if Rails.env.test?
@@ -74,12 +74,6 @@ unless Rails.env.production?
       Role.create(
         account: Account.find_by(email: "opentie#{i}@example.com"),
         division: Division.find_by(name: "division#{i}"),
-        permission: "super"
-      )
-
-      Delegate.create(
-        account: Account.find_by(email: "opentie#{i}@example.com"),
-        group: g,
         permission: "super"
       )
     end

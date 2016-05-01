@@ -35,6 +35,12 @@ module Api::V1
         expect(response).to be_success
         expect(response.status).to eq(201)
       end
+
+      it 'account join group' do
+        expect do
+          xhr :post, :create, @params
+        end.to change { account.delegates.count }.by(1)
+      end
     end
 
     describe "POST /api/v1/groups/invite" do
