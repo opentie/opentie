@@ -6,7 +6,7 @@ namespace :kibokan do
     Dir.foreach(path) do |namespace|
       next if namespace == '.' || namespace == '..'
 
-      Dir.foreach(namespace_path) do |file_name|
+      Dir.foreach("#{path}/#{namespace}") do |file_name|
         next if file_name.match(/(\.json)\z/).nil?
 
         json_raw = File.read("#{path}/#{namespace}/#{file_name}")
