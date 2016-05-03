@@ -8,7 +8,7 @@ class AccountMailer < ApplicationMailer
     @account_name = name
     @account_email = email
 
-    @confirm_url = "#{service_host}passwords/password_reset_token?token=#{token}"
+    @confirm_url = "#{service_host}passwords?password_reset_token=#{token}"
 
     mail to: email, subject: "#{@service_name}のパスワードリセット"
   end
@@ -17,7 +17,7 @@ class AccountMailer < ApplicationMailer
     @account_name = name
     @account_email = email
 
-    @confirm_url = "#{service_host}account/email_confirm?token=#{token}"
+    @confirm_url = "#{service_host}account/email_confirm?email_set_token=#{token}"
 
     mail to: email, subject: "#{@service_name}へこのメールアドレスでアカウント登録されました"
   end
