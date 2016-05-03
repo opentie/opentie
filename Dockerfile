@@ -6,6 +6,6 @@ ENV PORT=3000
 EXPOSE 3000
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
-RUN bundle install -j4 --without development test
+RUN bundle install -j4
 ADD . /app
 RUN mkdir -p tmp/pids
