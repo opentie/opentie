@@ -1,6 +1,6 @@
 namespace :announce_accounts do
   desc "Email is here -> config/email/subject.text, config/email/message.text"
-  task :send_email do
+  task :send_email => :environment do
 
    subject = File.read("#{Rails.root}/config/email/subject.text")
    message = File.read("#{Rails.root}/config/email/message.text")
