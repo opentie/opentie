@@ -7,32 +7,19 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-puts "### Starting db/seeds.rb ###"
-
-Category.create('accounts', {
-  _version: 0,
-  name: 'accounts',
-  metadata: {},
-  forms: []
-})
-
-unless Rails.env.production?
-
-  Category.create('groups', {
-    _version: 0,
-    name: 'normal',
-    metadata: {},
-    forms: []
-  })
+if Rails.env.production?
+  puts "You must run 'rake kibokan:initialize'"
+  puts "'rake db:seed' is only build in 'development' or 'test'"
+else
+  puts "[CAUTION] You need run 'rake kibokan:initialize' before seed"
+  puts "### Starting db/seeds.rb ###"
 
   kibokan_params = {
     _version: 0,
     metadata: {},
     document: {
-      form1: {
-        field1: 'hey',
-        field2: 'option1',
-        field3: 'foobar'
+      "企画団体" => {
+        "名前" => 'xx大学ooサークル',
       }
     }
   }
