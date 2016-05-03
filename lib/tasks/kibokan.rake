@@ -1,6 +1,6 @@
 namespace :kibokan do
-  desc "initilize kibokan-db"
-  task :initialize do
+  desc "Set initial category for kibokan-db"
+  task :initialize_category do
     path = "#{Rails.root}/config/kibokan-db/initial"
 
     Dir.foreach(path) do |namespace|
@@ -17,9 +17,9 @@ namespace :kibokan do
     end
   end
 
-  desc "update kibokan-db"
-  task :update do
-    path = "#{Rails.root}/config/kibokan-db/update"
+  desc "Add category for kibokan-db"
+  task :add_category do
+    path = "#{Rails.root}/config/kibokan-db/addition"
 
     Dir.foreach(path) do |namespace|
       next if namespace == '.' || namespace == '..'
