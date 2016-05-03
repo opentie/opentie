@@ -31,6 +31,15 @@ class AccountMailer < ApplicationMailer
     mail to: email, subject: "#{@service_name}へこのメールアドレスに招待がありました"
   end
 
+  def announce_account(email, subject, message)
+    @organization_name = organization_name
+    @account_email = email
+
+    @message = message
+
+    mail to: email, subject: subject
+  end
+
   private
 
   def load_application_setting
