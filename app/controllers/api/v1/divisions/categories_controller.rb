@@ -4,7 +4,9 @@ module Api::V1::Divisions
     before_action :category, except: [:index, :new, :create]
 
     def index
-      categories = Category.all(Group.current_namespace)
+      categories = Category.all(Group.current_namespace).map do |category|
+        category.payload
+      end
 
       render_ok({
         categories: categories
@@ -13,7 +15,7 @@ module Api::V1::Divisions
 
     def show
       render_ok({
-        category: @category
+        category: @category.payload
       })
     end
 
@@ -28,7 +30,7 @@ module Api::V1::Divisions
 
     def edit
       render_ok({
-        category: @category
+        category: @category.payload
       })
     end
 
